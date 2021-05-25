@@ -1,0 +1,22 @@
+{
+    "name": "Service Quotes",
+    "short_name": "Customer services management app",
+    "start_url": "/dashboard",
+    "display": "minimal-ui",
+    "background_color": "#0b0e11",
+    "theme_color": "#fd4d4d",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/img/doge.png",
+        "type": "image/png",
+        "sizes": "200x200"
+      },
+      {
+        "src": "/img/doge512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "splash_pages": null
+  }
