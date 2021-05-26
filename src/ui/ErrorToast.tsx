@@ -34,17 +34,20 @@ export const ErrorToast: React.FC<ErrorMessageProps> = ({
 
   return (
     <div
-      className={`flex rounded-8 p-3 relative w-full items-center justify-center text-button transition-transform duration-300 bg-secondary`}
+      className={`flex rounded-8 py-3 px-4 relative w-auto items-center justify-center text-white transition-transform duration-300 bg-orange`}
       data-testid="error-message"
     >
+      <div className={`flex space-x-4 items-center`}>
+        <div className={`bold`}>{message}</div>
+        {button}
+      </div>
       {onClose ? (
         <div
-          className={`flex absolute cursor-pointer`}
+          className={`flex ml-3 cursor-pointer`}
           style={{
-            top: 5,
-            right: 7,
-            width: 13,
-            height: 13,
+            right: 15,
+            width: 15,
+            height: 15,
           }}
           onClick={onClose}
           data-testid="close-btn"
@@ -52,10 +55,6 @@ export const ErrorToast: React.FC<ErrorMessageProps> = ({
           <SolidPlus style={{ transform: "rotate(45deg)" }} />
         </div>
       ) : null}
-      <div className={`flex space-x-4 items-center`}>
-        <div className={`bold`}>{message}</div>
-        {button}
-      </div>
     </div>
   );
 };

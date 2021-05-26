@@ -1,14 +1,13 @@
 import { useRouter } from "next/router";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { apiBaseUrl, __prod__ } from "../../lib/constants";
 import { Button } from "../../ui/Button";
 import { useTokenStore } from "../auth/useTokenStore";
 import { HeaderController } from "../display/HeaderController";
 import { InputField } from "../../form-fields/InputField";
 import * as Yup from "yup";
 import { publicClient } from "../../lib/queryClient";
-import { showErrorToast } from "../../lib/showErrorToast";
+import { Account } from "./AuthProvider";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -54,12 +53,16 @@ export const LoginPage: React.FC = () => {
           validateOnBlur={false}
           validationSchema={loginSchema}
           onSubmit={async ({ email, password }) => {
-            // const r = await publicClient.post("/authenticate", {
-            //   json: {
-            //     email,
-            //     password,
-            //   },
-            // });
+            const data: Account = await publicClient
+              .post("accounts/authenticate", {
+                json: {
+                  email,
+                  password,
+                },
+              })
+              .json();
+
+            useTokenStore.getState().setTokens({ accessToken: data.jwtToken });
           }}
         >
           {({ isSubmitting }) => (

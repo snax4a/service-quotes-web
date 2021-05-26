@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTokenStore } from "./useTokenStore";
-import { apiBaseUrl } from "../../lib/constants";
 import { useRouter } from "next/router";
+import { privateClient } from "../../lib/queryClient";
+import { decodeToken } from "../../lib/helpers";
 
 interface AuthProviderProps {}
 
@@ -11,52 +12,60 @@ export interface Account {
   id: UUID;
   email: string;
   role: string;
+  image: string;
   created: Date;
   updated?: Date;
   jwtToken: string;
 }
 
 export const AuthContext = React.createContext<{
+  account: Account | null;
   setAccount: (a: Account) => void;
 }>({
+  account: null,
   setAccount: () => {},
 });
 
-// export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-//   const hasToken = useTokenStore((s) => s.accessToken);
-//   const { replace } = useRouter();
-//   const isConnecting = useRef(false);
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const hasToken = useTokenStore((s) => !!s.accessToken);
+  const [account, setAccount] = useState<Account | null>(null);
+  const isFetching = useRef(false);
+  const { replace } = useRouter();
 
-//   useEffect(() => {
-//     if (!conn && shouldConnect && hasToken && !isConnecting.current) {
-//       isConnecting.current = true;
+  useEffect(() => {
+    if (hasToken) {
+      isFetching.current = true;
+      const { accessToken } = useTokenStore.getState();
+      const { id } = decodeToken(accessToken);
 
-//         })
-//         .then((x) => {
-//           setAccount(x);
-//         })
-//         .catch((err) => {
-//           if (err.code === 4001) {
-//             replace(`/?next=${window.location.pathname}`);
-//           }
-//         })
-//         .finally(() => {
-//           isConnecting.current = false;
-//         });
-//     }
-//   }, [hasToken, replace]);
+      privateClient
+        .get(`accounts/${id}`)
+        .then(async (res) => {
+          const data = await res.json();
+          setAccount(data);
+        })
+        .catch((err) => {
+          console.error("getAccountData:", err);
+          useTokenStore.getState().setTokens({ accessToken: "" });
+          replace("/logout");
+        })
+        .finally(() => {
+          isFetching.current = false;
+        });
+    }
+  }, [hasToken, replace]);
 
-//   return (
-//     <WebSocketContext.Provider
-//       value={useMemo(
-//         () => ({
-//           setAccount: (u: User) => {
-//           },
-//         }),
-//         []
-//       )}
-//     >
-//       {children}
-//     </WebSocketContext.Provider>
-//   );
-// };
+  return (
+    <AuthContext.Provider
+      value={useMemo(
+        () => ({
+          account,
+          setAccount,
+        }),
+        [account]
+      )}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};

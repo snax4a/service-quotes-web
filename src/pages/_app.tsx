@@ -4,10 +4,11 @@ import Head from "next/head";
 import { ErrorToastController } from "../modules/errors/ErrorToastController";
 
 import "../styles/globals.css";
+import { AuthProvider } from "../modules/auth/AuthProvider";
 
 function ServiceQuotesApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <AuthProvider>
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="manifest" href="/manifest.json" />
@@ -18,7 +19,7 @@ function ServiceQuotesApp({ Component, pageProps }: AppProps) {
       </Head>
       <Component {...pageProps} />
       <ErrorToastController />
-    </>
+    </AuthProvider>
   );
 }
 

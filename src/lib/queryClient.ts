@@ -2,12 +2,29 @@ import { showErrorToast } from "./showErrorToast";
 import { useTokenStore } from "../modules/auth/useTokenStore";
 import { apiBaseUrl } from "./constants";
 import { decodeToken, isBefore } from "./helpers";
-import ky from 'ky';
-import { Account } from "../modules/auth/AuthProvider";
+import ky, { NormalizedOptions } from "ky";
 
 export const publicClient = ky.extend({
   prefixUrl: apiBaseUrl,
-})
+  throwHttpErrors: false,
+  hooks: {
+    afterResponse: [
+      async (
+        request: Request,
+        options: NormalizedOptions,
+        response: Response
+      ) => {
+        const data = await response.json();
+
+        if (response.status !== 200) {
+          if ("message" in (data as Error)) {
+            showErrorToast((data as Error).message);
+          }
+        }
+      },
+    ],
+  },
+});
 
 export const privateClient = publicClient.extend({
   hooks: {
@@ -16,33 +33,33 @@ export const privateClient = publicClient.extend({
         const { accessToken } = useTokenStore.getState();
 
         if (accessToken) {
-          const { exp } = decodeToken(accessToken)
+          const { exp } = decodeToken(accessToken);
           const isAccessTokenExpired = isBefore(
             // exp is formatted as seconds
             new Date(exp * 1000),
             new Date()
-          )
+          );
 
           if (isAccessTokenExpired) {
-            const r = await publicClient.post('/refresh-token', {});
+            const r = await publicClient.post("refresh-token", {});
             if (r.status !== 200) {
-              showErrorToast('Logged out...');
+              showErrorToast("Logged out...");
               useTokenStore.getState().setTokens({ accessToken: "" });
             }
             const d = await r.json();
             useTokenStore.getState().setTokens({
-              accessToken: d.jwtToken
+              accessToken: d.jwtToken,
             });
           }
         }
       },
-      (request) => {
+      (request: Request) => {
         const { accessToken } = useTokenStore.getState();
 
         if (accessToken) {
-          request.headers.set('Authorization', `Bearer ${accessToken}`)
+          request.headers.set("Authorization", `Bearer ${accessToken}`);
         }
       },
     ],
   },
-})
+});

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   mode: "jit",
   purge: {
@@ -33,10 +34,16 @@ module.exports = {
         800: "var(--color-primary-800)",
         900: "var(--color-primary-900)",
       },
-      secondary: {
-        DEFAULT: "var(--color-secondary-300)",
-        200: "var(--color-secondary-200)",
-        "washed-out": "var(--color-secondary-washed-out)",
+      orange: {
+        DEFAULT: "var(--color-orange-500)",
+        100: "var(--color-orange-100)",
+        500: "var(--color-orange-500)",
+      },
+      blue: {
+        DEFAULT: "var(--color-blue-300)",
+        100: "var(--color-blue-100)",
+        200: "var(--color-blue-200)",
+        300: "var(--color-blue-300)",
       },
       red: {
         DEFAULT: "var(--color-red)",
@@ -69,6 +76,7 @@ module.exports = {
       "n1/2": "-50%",
       24: "24rem",
       400: "400px",
+      600: "600px",
     },
 
     boxShadow: {
