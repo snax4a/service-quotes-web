@@ -41,15 +41,16 @@ export const privateClient = publicClient.extend({
           );
 
           if (isAccessTokenExpired) {
-            const r = await publicClient.post("refresh-token", {});
-            if (r.status !== 200) {
-              showErrorToast("Logged out...");
+            const r = await publicClient.post("accounts/refresh-token", {});
+            if (r.status === 200) {
+              const d = await r.json();
+              useTokenStore.getState().setTokens({
+                accessToken: d.jwtToken,
+              });
+            } else {
               useTokenStore.getState().setTokens({ accessToken: "" });
+              showErrorToast("Logged out...");
             }
-            const d = await r.json();
-            useTokenStore.getState().setTokens({
-              accessToken: d.jwtToken,
-            });
           }
         }
       },
