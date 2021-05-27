@@ -5,6 +5,7 @@ import { ErrorToastController } from "../modules/errors/ErrorToastController";
 import { AuthProvider } from "../modules/auth/AuthProvider";
 
 import "../styles/globals.css";
+import { ConfirmModal } from "../shared-components/ConfirmModal";
 
 function ServiceQuotesApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,6 +20,7 @@ function ServiceQuotesApp({ Component, pageProps }: AppProps) {
       </Head>
       <Component {...pageProps} />
       <ErrorToastController />
+      <ConfirmModal />
     </AuthProvider>
   );
 }

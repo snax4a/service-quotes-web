@@ -1,8 +1,13 @@
 import React, { FC } from "react";
+import { useRouter } from "next/router";
 import { useScreenType } from "../../shared-hooks/useScreenType";
+import { DropdownController } from "../../ui/DropdownController";
 import { FixedGridPanel, GridPanel } from "../../ui/GridPanel";
 import { Logo } from "../../ui/Logo";
 import { UserAccount } from "../../ui/UserAccount";
+import { SettingsDropdown } from "../../ui/SettingsDropdown";
+import { modalConfirm } from "../../shared-components/ConfirmModal";
+import { useTokenStore } from "../auth/useTokenStore";
 
 interface LeftPanelProps {}
 
@@ -11,11 +16,30 @@ const HeaderWrapper: FC = ({ children }) => (
 );
 
 export const LeftPanel: React.FC<LeftPanelProps> = ({ children }) => {
+  const { push } = useRouter();
+
   return (
     <FixedGridPanel className="border-r-1 border-primary-200">
       <Logo />
       {children}
-      <UserAccount />
+      <DropdownController
+        zIndex={20}
+        className="bottom-5l left-265 2xl:left-400 fixed"
+        innerClassName="fixed transform -translate-x-full"
+        overlay={(close) => (
+          <SettingsDropdown
+            onActionButtonClicked={() => {
+              modalConfirm("Are you sure you want to logout?", () => {
+                useTokenStore.getState().setTokens({ accessToken: "" });
+                push("/logout");
+              });
+            }}
+            onCloseDropdown={close}
+          />
+        )}
+      >
+        <UserAccount />
+      </DropdownController>
     </FixedGridPanel>
   );
 };

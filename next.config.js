@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["ky"]);
+const withTM = require("next-transpile-modules")(["ky", "react-modal"]);
 
 module.exports = withTM({
   future: {

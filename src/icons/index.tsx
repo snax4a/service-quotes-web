@@ -1,4 +1,5 @@
 export { default as SolidPlus } from "./SolidPlus";
+export { default as SolidUser } from "./SolidUser";
 export { default as OutlineActivity } from "./OutlineActivity";
 export { default as OutlineBriefcase } from "./OutlineBriefcase";
 export { default as OutlineCog } from "./OutlineCog";
