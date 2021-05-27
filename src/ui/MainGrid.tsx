@@ -11,26 +11,24 @@ export const MainInnerGrid: React.FC<DashboardGridProps> = ({
 }) => {
   const screenType = useScreenType();
 
-  let gridTemplateColumns = "235px 640px 325px";
-  let myClassName = ``;
+  let gridTemplateColumns = "235px 1fr 325px";
 
   if (screenType === "2-cols") {
-    gridTemplateColumns = "60px 640px 325px";
+    gridTemplateColumns = "80px 1fr 325px";
   } else if (screenType === "1-cols") {
-    gridTemplateColumns = "60px 640px";
+    gridTemplateColumns = "80px 1fr";
   } else if (screenType === "fullscreen") {
-    myClassName = "w-full px-3";
     gridTemplateColumns = "1fr";
   }
 
   return (
     <div
       id="main"
-      className={`relative ${myClassName} ${className}`}
+      className={`relative w-full ${className}`}
       style={{
         display: screenType === "fullscreen" ? "flex" : "grid",
         gridTemplateColumns,
-        columnGap: 60,
+        columnGap: 30,
       }}
     >
       {children}

@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { useVerifyLoggedIn } from "./useVerifyLoggedIn";
 import { AuthContext } from "./AuthProvider";
 
-interface WaitForAndAuthProps {}
+interface WaitForAuthProps {}
 
-export const WaitForAndAuth: React.FC<WaitForAndAuthProps> = ({ children }) => {
+export const WaitForAuth: React.FC<WaitForAuthProps> = ({ children }) => {
   const { account } = useContext(AuthContext);
 
   if (!useVerifyLoggedIn()) {

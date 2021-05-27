@@ -2,9 +2,9 @@ import React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { ErrorToastController } from "../modules/errors/ErrorToastController";
+import { AuthProvider } from "../modules/auth/AuthProvider";
 
 import "../styles/globals.css";
-import { AuthProvider } from "../modules/auth/AuthProvider";
 
 function ServiceQuotesApp({ Component, pageProps }: AppProps) {
   return (

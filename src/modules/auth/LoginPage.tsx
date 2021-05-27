@@ -35,7 +35,7 @@ export const LoginPage: React.FC = () => {
   return (
     <>
       <HeaderController embed={{}} title="Login" />
-      <div className="flex m-auto flex-col p-7 gap-5 bg-white shadow-outlineLg sm:rounded-30 z-10 sm:w-400 w-full">
+      <div className="flex m-auto flex-col p-7 gap-5 bg-white shadow-md sm:rounded-30 z-10 sm:w-400 w-full">
         <div className="flex gap-2 flex-col">
           <span className="text-2xl text-primary-900 font-bold tracking-wider">
             Login

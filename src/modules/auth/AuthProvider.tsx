@@ -7,12 +7,18 @@ import { decodeToken } from "../../lib/helpers";
 interface AuthProviderProps {}
 
 export declare type UUID = string;
+export declare type Role = "Customer" | "Employee" | "Manager";
 
 export interface Account {
   id: UUID;
+  employeeId?: UUID;
+  customerId?: UUID;
   email: string;
-  role: string;
+  role: Role;
   image: string;
+  firstName?: string;
+  lastName?: string;
+  companyName?: string;
   created: Date;
   updated?: Date;
   jwtToken: string;

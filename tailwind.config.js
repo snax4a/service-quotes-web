@@ -9,17 +9,23 @@ module.exports = {
   },
   darkMode: "class",
   theme: {
+    fontFamily: {
+      poppins: ["Poppins", "sans-serif"],
+      inter: ["Inter", "sans-serif"],
+      body: ["Open Sans"],
+    },
     fontSize: {
       tiny: "0.625rem",
       xs: ".75rem",
+      sm2: "0.813rem",
       sm: ".875rem",
       base: "1rem",
       lg: "1.125rem",
       xl: "1.25rem",
       "2xl": "1.6rem",
       "3xl": "1.875rem",
-      "4xl": "2.25rem",
-      "5xl": "3rem",
+      "4xl": "2rem",
+      "5xl": "2.5rem",
       "6xl": "4rem",
       "7xl": "5rem",
     },
@@ -29,6 +35,7 @@ module.exports = {
         100: "var(--color-primary-100)",
         200: "var(--color-primary-200)",
         300: "var(--color-primary-300)",
+        500: "var(--color-primary-500)",
         600: "var(--color-primary-600)",
         700: "var(--color-primary-700)",
         800: "var(--color-primary-800)",
@@ -65,6 +72,7 @@ module.exports = {
       5.5: "35px",
       6: "40px",
       6.5: "50px",
+      6.7: "56px",
       7: "60px",
       7.5: "65px",
       8: "75px",
@@ -78,19 +86,24 @@ module.exports = {
       400: "400px",
       600: "600px",
     },
-
-    boxShadow: {
-      outlineLg: "0px 0px 30px var(--color-shadow-100)",
-      outlineMd: "0 0 0 2pt var(--color-primary-800)",
-      outlineSm: "0 0 0 1pt var(--color-primary-800)",
+    stroke: {
+      current: "currentColor",
     },
     extend: {
+      borderWidth: {
+        1: "1px",
+      },
       borderRadius: {
         5: "5px",
         8: "8px",
         20: "20px",
         30: "30px",
         40: "40px",
+      },
+      boxShadow: {
+        outlineLg: "0px 0px 30px var(--color-shadow-100)",
+        outlineMd: "0 0 0 2pt var(--color-primary-800)",
+        outlineSm: "0 0 0 1pt var(--color-primary-800)",
       },
     },
   },
