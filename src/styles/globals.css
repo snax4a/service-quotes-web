@@ -52,3 +52,29 @@ a {
 * {
   box-sizing: border-box;
 }
+
+#__next {
+  overflow-y: auto;
+}
+
+button:focus {
+  outline: none;
+}
+
+#nprogress {
+  position: relative;
+  z-index: 9999999;
+}
+
+#nprogress .bar {
+  background: var(--color-orange-500) !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--color-orange-500), 0 0 5px var(--color-orange-500) !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--color-orange-500) !important;
+  border-left-color: var(--color-orange-500) !important;
+}

@@ -15,7 +15,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 }) => {
   return (
     <div>
-      <div className="flex items-center py-6 text-primary-800">
+      <div
+        className={`flex items-center text-primary-800 ${
+          title ? "py-6" : "py-6.5"
+        }`}
+      >
         {title && (
           <span className="text-2xl md:text-5xl font-semibold">{title}</span>
         )}
