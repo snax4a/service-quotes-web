@@ -81,7 +81,7 @@ export const LoginPage: React.FC = () => {
                   loading={isSubmitting}
                   color="primary"
                   type="submit"
-                  className={`flex w-full justify-center py-3.5 rounded-16`}
+                  className={`flex w-full justify-center py-3.5`}
                 >
                   Login
                 </Button>

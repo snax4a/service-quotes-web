@@ -19,7 +19,7 @@ export const UserAccount: React.FC = () => {
       <Avatar src={account.image} />
       {isDesktop ? (
         <>
-          <div className="flex flex-col pr-4 font-semibold">
+          <div className="flex flex-col items-start pr-4 font-semibold">
             <div className="text-sm text-primary-800 ">
               {account.role === "Customer"
                 ? account.companyName
