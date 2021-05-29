@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { useScreenType } from "../shared-hooks/useScreenType";
 import { OutlineCog } from "../icons";
@@ -7,6 +7,7 @@ import { Avatar } from "./Avatar";
 
 export const UserAccount: React.FC = () => {
   const { account } = useContext(AuthContext);
+  const [isError, setError] = useState(false);
   const screenType = useScreenType();
   const isDesktop = screenType === "3-cols";
   const router = useRouter();
@@ -14,9 +15,23 @@ export const UserAccount: React.FC = () => {
 
   if (!account) return null;
 
+  const username = account.companyName
+    ? account.companyName
+    : `${account.firstName}+${account.lastName}`;
+
   return (
     <div className="flex items-center space-x-3 p-3 h-10 group">
-      <Avatar src={account.image} />
+      <Avatar
+        onError={() => setError(true)}
+        isBase64={!isError}
+        src={
+          isError
+            ? `https://ui-avatars.com/api/${
+                username ? `?name=${username}` : "&name"
+              }&rounded=true&background=3f8cff&bold=true&color=FFFFFF`
+            : account.image
+        }
+      />
       {isDesktop ? (
         <>
           <div className="flex flex-col items-start pr-4 font-semibold">

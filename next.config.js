@@ -5,4 +5,7 @@ module.exports = withTM({
     webpack5: false,
   },
   reactStrictMode: true,
+  images: {
+    domains: ["ui-avatars.com"],
+  },
 });

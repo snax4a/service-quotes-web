@@ -17,7 +17,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     <div>
       <div
         className={`flex items-center text-primary-800 ${
-          title ? "py-6" : "py-6.5"
+          title ? "py-6" : "pt-6.5 pb-5.5"
         }`}
       >
         {title && (

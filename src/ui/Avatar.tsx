@@ -15,6 +15,7 @@ export interface AvatarProps {
   size?: keyof typeof avatarSizeMap;
   className?: string;
   isBase64?: boolean;
+  onError?: () => void;
 }
 
 export const Avatar: React.FC<AvatarProps> = ({
@@ -22,6 +23,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   className = "",
   size = "default",
   isBase64 = true,
+  onError,
 }) => {
   const imgSrc = isBase64 ? `data:image/png;base64,${src}` : src;
 
@@ -32,6 +34,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       width={avatarSizeMap[size]}
       height={avatarSizeMap[size]}
       className={`rounded-full ${className}`}
+      onError={onError}
     />
   );
 };

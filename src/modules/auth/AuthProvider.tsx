@@ -3,11 +3,9 @@ import { useTokenStore } from "./useTokenStore";
 import { useRouter } from "next/router";
 import { privateClient } from "../../lib/queryClient";
 import { decodeToken } from "../../lib/helpers";
+import { Role, UUID } from "../../types";
 
 interface AuthProviderProps {}
-
-export declare type UUID = string;
-export declare type Role = "Customer" | "Employee" | "Manager";
 
 export interface Account {
   id: UUID;

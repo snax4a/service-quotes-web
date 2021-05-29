@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useRouter } from "next/router";
-import { useScreenType } from "../../shared-hooks/useScreenType";
 import { DropdownController } from "../../ui/DropdownController";
 import { FixedGridPanel, GridPanel } from "../../ui/GridPanel";
 import { Logo } from "../../ui/Logo";
@@ -46,28 +45,8 @@ export const LeftPanel: React.FC<LeftPanelProps> = ({ children }) => {
 
 export const MiddlePanel: React.FC<
   LeftPanelProps & { stickyChildren?: React.ReactNode }
-> = ({ stickyChildren, children }) => {
-  const screenType = useScreenType();
-
-  return (
-    <GridPanel>
-      <div
-        className={
-          !(screenType === "fullscreen" && !stickyChildren)
-            ? `flex sticky w-full flex-col z-10 bg-primary-900 pt-5`
-            : ""
-        }
-      >
-        {screenType !== "fullscreen" ? (
-          <HeaderWrapper>{/* <MiddleHeader /> */}</HeaderWrapper>
-        ) : (
-          ""
-        )}
-        {stickyChildren}
-      </div>
-      {children}
-    </GridPanel>
-  );
+> = ({ children }) => {
+  return <GridPanel>{children}</GridPanel>;
 };
 
 export const RightPanel: React.FC<LeftPanelProps> = ({ children }) => {

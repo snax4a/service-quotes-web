@@ -4,6 +4,7 @@ import { HeaderController } from "../modules/display/HeaderController";
 import { DefaultDesktopLayout } from "../modules/layouts/DefaultDesktopLayout";
 import { PageHeader } from "../ui/PageHeader";
 import { AuthContext } from "../modules/auth/AuthProvider";
+import { StatsController } from "../modules/dashboard/StatsController";
 
 export interface DashboardTitleProps {}
 
@@ -12,7 +13,9 @@ export const DashboardTitle: React.FC<DashboardTitleProps> = ({ children }) => {
 
   if (!account || !account.role) return null;
 
-  const title = `Hi ${account.firstName},`;
+  const title = `Hi ${
+    account.role === "Customer" ? account.companyName : account.firstName
+  },`;
   let subtitle = "";
 
   switch (account?.role) {
@@ -28,7 +31,7 @@ export const DashboardTitle: React.FC<DashboardTitleProps> = ({ children }) => {
   }
 
   return (
-    <div className="flex flex-col px-3 md:px-0">
+    <div className="flex flex-col">
       <h2 className="text-2xls font-medium">{title}</h2>
       <h1 className="text-2xl md:text-5xl font-semibold">{subtitle}</h1>
       {children}
@@ -44,6 +47,7 @@ const DashboardPage: React.FC = () => {
         <PageHeader>
           <DashboardTitle />
         </PageHeader>
+        <StatsController />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

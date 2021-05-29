@@ -9,17 +9,10 @@ interface DefaultDesktopLayoutProps {
 
 export const DefaultDesktopLayout: React.FC<DefaultDesktopLayoutProps> = ({
   children,
-  mobileHeader = undefined,
 }) => {
   return (
     <WaitForAuth>
-      <MainLayout
-        leftPanel={<SideNav />}
-        rightPanel={<div />}
-        mobileHeader={mobileHeader}
-      >
-        {children}
-      </MainLayout>
+      <MainLayout leftPanel={<SideNav />}>{children}</MainLayout>
     </WaitForAuth>
   );
 };
