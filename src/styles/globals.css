@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,18 +7,24 @@
 :root {
   font-size: 16px;
 
-  --color-primary-100: #fdfdfd;
-  --color-primary-200: #b2bdcd;
+  --color-primary-100: #f7f7f7;
+  --color-primary-200: #e4e4e4;
   --color-primary-300: #eff0f6;
+  --color-primary-500: #808191;
   --color-primary-600: #6e7191;
   --color-primary-700: #242c37;
-  --color-primary-800: #151a21;
+  --color-primary-750: #1f262f;
+  --color-primary-800: #11142d;
   --color-primary-900: #14142b;
+  --color-blue-50: #afd5ff;
   --color-blue-100: #879eed;
   --color-blue-200: #569aff;
   --color-blue-300: #3f8cff;
+  --color-blue-400: #367de6;
+  --color-blue-500: #2d70d5;
   --color-orange-100: #ffe2ac;
   --color-orange-500: #ff7c5d;
+  --color-orange-600: #fe764a;
   --color-accent-glow: rgba(253, 77, 77, 0.3);
   --color-red: #fd4d4d;
   --color-red-hover: #fd6868;
@@ -46,4 +53,60 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+#__next {
+  overflow-y: auto;
+}
+
+button:focus {
+  outline: none;
+}
+
+#nprogress {
+  position: relative;
+  z-index: 9999999;
+}
+
+#nprogress .bar {
+  background: var(--color-orange-500) !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--color-orange-500), 0 0 5px var(--color-orange-500) !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--color-orange-500) !important;
+  border-left-color: var(--color-orange-500) !important;
+}
+
+.shadow-effect {
+  z-index: 4;
+  position: relative;
+}
+
+.shadow-effect > .se-1 {
+  z-index: 5;
+}
+
+.shadow-effect .se-2,
+.shadow-effect .se-3 {
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.shadow-effect .se-2 {
+  z-index: 4;
+  width: calc(100% - 20px);
+  bottom: -10px;
+}
+
+.shadow-effect .se-3 {
+  z-index: 3;
+  width: calc(100% - 46px);
+  opacity: 0.4;
+  bottom: -20px;
 }

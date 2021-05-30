@@ -3,16 +3,20 @@ import { useTokenStore } from "./useTokenStore";
 import { useRouter } from "next/router";
 import { privateClient } from "../../lib/queryClient";
 import { decodeToken } from "../../lib/helpers";
+import { Role, UUID } from "../../types";
 
 interface AuthProviderProps {}
 
-export declare type UUID = string;
-
 export interface Account {
   id: UUID;
+  employeeId?: UUID;
+  customerId?: UUID;
   email: string;
-  role: string;
+  role: Role;
   image: string;
+  firstName?: string;
+  lastName?: string;
+  companyName?: string;
   created: Date;
   updated?: Date;
   jwtToken: string;

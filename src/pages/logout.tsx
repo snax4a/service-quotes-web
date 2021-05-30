@@ -24,7 +24,7 @@ const Logout: React.FC<logoutProps> = ({}) => {
   return (
     <>
       <HeaderController embed={{}} title="Logout" />
-      <div className="flex m-auto flex-col p-7 bg-white shadow-outlineLg sm:rounded-30 z-10 sm:w-600 w-full">
+      <div className="flex m-auto flex-col p-7 bg-white shadow-md sm:rounded-30 z-10 sm:w-600 w-full">
         <div className="flex gap-2 flex-col"></div>
         <ButtonLink onClick={() => setTokens({ accessToken: "" })}>
           click here if you are not automatically redirected

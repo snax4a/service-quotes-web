@@ -35,7 +35,7 @@ export const LoginPage: React.FC = () => {
   return (
     <>
       <HeaderController embed={{}} title="Login" />
-      <div className="flex m-auto flex-col p-7 gap-5 bg-white shadow-outlineLg sm:rounded-30 z-10 sm:w-400 w-full">
+      <div className="flex m-auto flex-col p-7 gap-5 bg-white shadow-md sm:rounded-30 z-10 sm:w-400 w-full">
         <div className="flex gap-2 flex-col">
           <span className="text-2xl text-primary-900 font-bold tracking-wider">
             Login
@@ -67,12 +67,7 @@ export const LoginPage: React.FC = () => {
         >
           {({ isSubmitting }) => (
             <Form className={`flex flex-col gap-4 w-full`}>
-              <InputField
-                className={`rounded-30`}
-                placeholder="Email"
-                name="email"
-                autoFocus
-              />
+              <InputField placeholder="Email" name="email" autoFocus />
               <InputField
                 className={`w-full`}
                 placeholder="Password"
@@ -86,7 +81,8 @@ export const LoginPage: React.FC = () => {
                   loading={isSubmitting}
                   color="primary"
                   type="submit"
-                  className={`flex w-full justify-center py-3`}
+                  size="bigRounded"
+                  className={`flex w-full justify-center`}
                 >
                   Login
                 </Button>

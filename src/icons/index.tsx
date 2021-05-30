@@ -1,1 +1,11 @@
 export { default as SolidPlus } from "./SolidPlus";
+export { default as SolidUser } from "./SolidUser";
+export { default as ArrowLeft } from "./ArrowLeft";
+export { default as OutlineActivity } from "./OutlineActivity";
+export { default as OutlineBriefcase } from "./OutlineBriefcase";
+export { default as OutlineCog } from "./OutlineCog";
+export { default as OutlineDollar } from "./OutlineDollar";
+export { default as OutlineNotepad } from "./OutlineNotepad";
+export { default as OutlinePeople } from "./OutlinePeople";
+export { default as OutlineStar } from "./OutlineStar";
+export { default as OutlineThunderbolt } from "./OutlineThunderbolt";

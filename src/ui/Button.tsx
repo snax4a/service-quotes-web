@@ -7,6 +7,7 @@ import { Spinner } from "./Spinner";
 
 const sizeClassnames = {
   big: "py-2 px-6 text-sm rounded-lg",
+  bigRounded: "py-3 px-6 text-sm rounded-xl",
   small: "px-2 py-1 text-sm rounded-md",
   tiny: "px-1 text-sm rounded-5",
 };
@@ -17,8 +18,7 @@ const colorClassnames = {
     "text-white bg-accent transition duration-200 ease-in-out hover:bg-accent-hover disabled:text-accent-disabled disabled:bg-accent-hover",
   "secondary-800":
     "text-white bg-primary-800 hover:bg-primary-600 disabled:text-primary-300",
-  "primary-300":
-    "text-white bg-primary-700 hover:bg-primary-600 disabled:text-primary-300",
+  white: "text-primary-800 bg-white hover:bg-orange-600 hover:text-white",
   transparent: "text-white bg-transparent",
   "accent-secondary":
     "text-white bg-secondary hover:bg-secondary-washed-out disabled:text-secondary-washed-out",
