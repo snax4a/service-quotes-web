@@ -37,7 +37,9 @@ module.exports = {
       primary: {
         100: "var(--color-primary-100)",
         200: "var(--color-primary-200)",
+        250: "var(--color-primary-250)",
         300: "var(--color-primary-300)",
+        400: "var(--color-primary-400)",
         500: "var(--color-primary-500)",
         600: "var(--color-primary-600)",
         700: "var(--color-primary-700)",
@@ -59,11 +61,15 @@ module.exports = {
         300: "var(--color-blue-300)",
         400: "var(--color-blue-400)",
         500: "var(--color-blue-500)",
+        600: "var(--color-blue-600)",
       },
       red: {
         DEFAULT: "var(--color-red)",
         hover: "var(--color-red-hover)",
         disabled: "var(--color-red-disabled)",
+      },
+      green: {
+        DEFAULT: "var(--color-green-400)",
       },
       black: "#000",
       white: "#fff",

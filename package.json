@@ -12,6 +12,7 @@
     "convert-icons": "svgr design-assets/icons --ignore-existing --replace-attr-values '#A3A3A5'='currentColor' --typescript --out-dir src/icons"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
     "@popperjs/core": "^2.9.2",
     "formik": "^2.2.7",
     "ky": "^0.27.0",

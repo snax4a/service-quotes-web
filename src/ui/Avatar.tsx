@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 export const avatarSizeMap = {
@@ -15,26 +15,35 @@ export interface AvatarProps {
   size?: keyof typeof avatarSizeMap;
   className?: string;
   isBase64?: boolean;
+  username?: string;
   onError?: () => void;
 }
 
 export const Avatar: React.FC<AvatarProps> = ({
-  src,
+  src = "",
   className = "",
   size = "default",
   isBase64 = true,
+  username = "",
   onError,
 }) => {
+  const [isError, setError] = useState(false);
   const imgSrc = isBase64 ? `data:image/png;base64,${src}` : src;
 
   return (
     <Image
-      src={imgSrc}
+      src={
+        isError
+          ? `https://ui-avatars.com/api/${
+              username ? `?name=${username}` : "&name"
+            }&background=3f8cff&bold=true&color=FFFFFF`
+          : imgSrc
+      }
       layout="fixed"
       width={avatarSizeMap[size]}
       height={avatarSizeMap[size]}
       className={`rounded-full ${className}`}
-      onError={onError}
+      onError={onError ? onError : () => setError(true)}
     />
   );
 };

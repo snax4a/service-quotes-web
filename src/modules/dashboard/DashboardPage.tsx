@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { WaitForAuth } from "../modules/auth/WaitForAuth";
-import { HeaderController } from "../modules/display/HeaderController";
-import { DefaultDesktopLayout } from "../modules/layouts/DefaultDesktopLayout";
-import { PageHeader } from "../ui/PageHeader";
-import { AuthContext } from "../modules/auth/AuthProvider";
-import { StatsController } from "../modules/dashboard/StatsController";
+import { NextPage } from "next";
+import { WaitForAuth } from "../auth/WaitForAuth";
+import { HeaderController } from "../display/HeaderController";
+import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
+import { PageHeader } from "../../ui/PageHeader";
+import { AuthContext } from "../auth/AuthProvider";
+import { StatsController } from "./StatsController";
 
 export interface DashboardTitleProps {}
 
@@ -39,7 +40,9 @@ export const DashboardTitle: React.FC<DashboardTitleProps> = ({ children }) => {
   );
 };
 
-export const DashboardPage: React.FC = () => {
+interface DashboardPageProps {}
+
+export const DashboardPage: NextPage<DashboardPageProps> = () => {
   return (
     <WaitForAuth>
       <HeaderController embed={{}} title="Dashboard" />
