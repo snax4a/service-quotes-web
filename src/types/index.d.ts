@@ -1,11 +1,24 @@
 export declare type UUID = string;
 export declare type Role = "Customer" | "Employee" | "Manager";
+export declare type Status =
+  | "New"
+  | "Assigned"
+  | "InProgress"
+  | "Completed"
+  | "Cancelled"
+  | "Confirmed"
+  | "Rejected"
+  | "Pending"
+  | "Errored"
+  | "Paid"
+  | "Unpaid";
 
 export declare interface Customer {
   id: UUID;
   accountId: UUID;
   companyName: string;
   vatNumber: string;
+  image: string;
 }
 
 export declare interface Address {
@@ -24,7 +37,7 @@ export declare interface ServiceRequest {
   address: Address | null;
   title: string;
   description: string;
-  status: string;
+  status: Status;
   plannedExecutionDate: string | null;
   completionDate: string | null;
   created: string;
@@ -35,6 +48,6 @@ export declare interface Quote {
   referenceNumber: number;
   serviceRequest: ServiceRequest;
   total: number;
-  status: string;
+  status: Status;
   created: string;
 }

@@ -1,21 +1,28 @@
 import React from "react";
 
+const paddingSizes = {
+  default: "p-4",
+  medium: "p-5",
+};
+
 export type WhiteCardProps = {
+  padding?: keyof typeof paddingSizes;
   className?: string;
   onClick?: () => void;
 };
 
 export const WhiteCard: React.FC<WhiteCardProps> = ({
   children,
+  padding = "default",
   className = "",
   onClick,
 }) => {
   return (
-    <button
+    <div
       onClick={onClick}
-      className={`flex flex-col p-4 rounded-3xl transition duration-200 ease-in-out bg-white hover:shadow-lg shadow-md ${className}`}
+      className={`flex flex-col rounded-3xl transition duration-200 ease-in-out bg-white hover:shadow-lg shadow-md ${className} ${paddingSizes[padding]}`}
     >
       {children}
-    </button>
+    </div>
   );
 };

@@ -5,6 +5,7 @@ import { InfoText } from "./InfoText";
 import { Quote, Role } from "../types";
 
 export type QuoteCardProps = {
+  className?: string;
   quote: Quote;
   type: Role;
   onClick?: () => void;
@@ -23,7 +24,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
   } = quote;
 
   return (
-    <WhiteCard onClick={onClick} className="w-full">
+    <WhiteCard onClick={onClick} className="w-full cursor-pointer">
       <div className="flex flex-col justify-between text-left w-full space-y-3 font-semibold">
         {type === "Manager" && <TitleText>{customer?.companyName}</TitleText>}
         {type === "Customer" && <TitleText>#{referenceNumber}</TitleText>}
