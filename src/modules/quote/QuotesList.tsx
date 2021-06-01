@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { Quote } from "../../types";
 import { Avatar } from "../../ui/Avatar";
@@ -10,6 +10,8 @@ import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { SearchBar } from "../../ui/SearchBar";
 import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
+import { formatDateString } from "../../lib/helpers";
+import { AuthContext } from "../auth/AuthProvider";
 
 const dateRangeOptions = [
   {
@@ -41,9 +43,84 @@ const statusOptions = [
   },
 ];
 
+interface CustomerDataRowProps {
+  quote: Quote;
+}
+
+export const CustomerDataRow: React.FC<CustomerDataRowProps> = ({ quote }) => {
+  const { address, title } = quote.serviceRequest;
+
+  return (
+    <>
+      <TableCell className="py-5 text-md font-normal">
+        #{quote.referenceNumber}
+      </TableCell>
+      <TableCell className="py-5 text-sm text-primary-500 font-normal">
+        <div className="space-y-1">
+          <div className="font-semibold">{title}</div>
+          <div className="text-sm2">
+            {address?.street}, {address?.zipCode} {address?.city}
+          </div>
+        </div>
+      </TableCell>
+      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+        {quote.total} PLN
+      </TableCell>
+      <TableCell className="py-5 text-sm font-normal">
+        {formatDateString(quote.created, "intlDate")}
+      </TableCell>
+      <TableCell className="py-5">
+        <StatusBadge status={quote.status} />
+      </TableCell>
+    </>
+  );
+};
+
+interface ManagerDataRowProps {
+  quote: Quote;
+}
+
+export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ quote }) => {
+  const { address, customer, title } = quote.serviceRequest;
+
+  return (
+    <>
+      <TableCell className="py-5 flex space-x-3">
+        <div className="hidden md:block">
+          <Avatar
+            src={customer?.image || ""}
+            username={customer?.companyName}
+            className="rounded-2xl"
+            size="md"
+          />
+        </div>
+        <div className="space-y-1">
+          <div>{customer?.companyName}</div>
+          <div className="text-sm2 text-primary-500">
+            {address?.street}, {address?.zipCode} {address?.city}
+          </div>
+        </div>
+      </TableCell>
+      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+        {quote.total} PLN
+      </TableCell>
+      <TableCell className="py-5">
+        <StatusBadge status={quote.status} />
+      </TableCell>
+      <TableCell className="py-5 text-sm font-normal">
+        {formatDateString(quote.created, "intlDate")}
+      </TableCell>
+      <TableCell className="py-5 text-sm text-primary-500 font-normal">
+        {title}
+      </TableCell>
+    </>
+  );
+};
+
 interface QuotesListProps {}
 
 export const QuotesList: React.FC<QuotesListProps> = ({}) => {
+  const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
   const [term, setTerm] = useState("");
@@ -58,13 +135,26 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
     `quotes?dateRange=${dateRange.value}&status=${status.value}&searchString=${searchString}`
   );
 
-  const columnNames = [
+  if (!account) return null;
+
+  const managerColumnNames = [
     "Customer Name and Address",
     "Total Amount",
     "Status",
     "Quoted At",
     "Service Title",
   ];
+
+  const customerColumnNames = [
+    "Reference Number",
+    "Service Title and Address",
+    "Total Amount",
+    "Quoted At",
+    "Status",
+  ];
+
+  const columnNames =
+    account.role === "Customer" ? customerColumnNames : managerColumnNames;
 
   if (!data) return null;
 
@@ -101,42 +191,16 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
           dataCount={data.length}
         >
           {data?.map((quote: Quote) => {
-            const { address, customer } = quote.serviceRequest;
-
             return (
               <TableRow
                 key={quote.id}
                 onClick={() => push(`quotes/${quote.id}`)}
               >
-                <TableCell className="py-5 flex space-x-3">
-                  <div className="hidden md:block">
-                    <Avatar
-                      src={customer?.image || ""}
-                      username={customer?.companyName}
-                      className="rounded-2xl"
-                      size="md"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <div>{customer?.companyName}</div>
-                    <div className="text-sm2 text-primary-500">
-                      {address?.street}, {address?.zipCode} {address?.city}
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell className="py-5 text-sm text-blue-600 font-normal">
-                  {quote.total} PLN
-                </TableCell>
-                <TableCell className="py-5">
-                  <StatusBadge status={quote.status} />
-                </TableCell>
-                <TableCell className="py-5 text-sm font-normal">
-                  {new Date(quote.created).toLocaleDateString()}{" "}
-                  {new Date(quote.created).toLocaleTimeString()}
-                </TableCell>
-                <TableCell className="py-5 text-sm text-primary-500 font-normal">
-                  {quote.serviceRequest.title}
-                </TableCell>
+                {account.role === "Customer" ? (
+                  <CustomerDataRow quote={quote} />
+                ) : (
+                  <ManagerDataRow quote={quote} />
+                )}
               </TableRow>
             );
           })}

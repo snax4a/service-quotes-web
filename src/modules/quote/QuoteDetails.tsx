@@ -11,6 +11,7 @@ import { StatusBadge } from "../../ui/StatusBadge";
 import { AuthContext } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import SvgOutlineCreditCard from "../../icons/OutlineCreditCard";
+import { formatDateString } from "../../lib/helpers";
 
 interface ServiceMaterialsProps {
   serviceId: UUID;
@@ -128,10 +129,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
               Quote #{data.referenceNumber}
             </h2>
             <h3 className="text-primary-500">
-              {new Date(data.created).toLocaleString([], {
-                dateStyle: "long",
-                timeStyle: "short",
-              })}
+              {formatDateString(data.created, "intlDate")}
             </h3>
           </div>
 
@@ -201,17 +199,13 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
           </p>
           <h3 className="text-lg font-medium mt-6">Created At:</h3>
           <p className="text-primary-500 text-sm">
-            {new Date(data.serviceRequest.created).toLocaleString([], {
-              dateStyle: "long",
-              timeStyle: "short",
-            })}
+            {formatDateString(data.serviceRequest.created, "intlDate")}
           </p>
           <h3 className="text-lg font-medium mt-6">Completed At:</h3>
           <p className="text-primary-500 text-sm">
-            {new Date(data.serviceRequest.completed).toLocaleString([], {
-              dateStyle: "long",
-              timeStyle: "short",
-            })}
+            {data.serviceRequest.completed
+              ? formatDateString(data.serviceRequest.completed, "intlDate")
+              : null}
           </p>
         </WhiteCard>
       </div>
