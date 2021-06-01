@@ -3,6 +3,7 @@ import React from "react";
 const paddingSizes = {
   default: "p-4",
   medium: "p-5",
+  big: "p-7",
 };
 
 export type WhiteCardProps = {

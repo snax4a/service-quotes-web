@@ -13,6 +13,14 @@ export declare type Status =
   | "Paid"
   | "Unpaid";
 
+export declare interface Employee {
+  id: UUID;
+  accountId: UUID;
+  firrstName: string;
+  lastName: string;
+  image: string;
+}
+
 export declare interface Customer {
   id: UUID;
   accountId: UUID;
@@ -50,4 +58,26 @@ export declare interface Quote {
   total: number;
   status: Status;
   created: string;
+}
+
+export declare interface Material {
+  id: UUID;
+  serviceRequestId: UUID;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+export declare interface JobValuation {
+  id: UUID;
+  workType: string;
+  laborHours: string;
+  hourlyRate: number;
+}
+
+export declare interface ServiceRequestJobValuation {
+  serviceRequestId: UUID;
+  date: Date;
+  employee: Employee;
+  jobValuation: JobValuation;
 }
