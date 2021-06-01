@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { ServiceRequest } from "../../types";
 import { Avatar } from "../../ui/Avatar";
@@ -11,6 +11,7 @@ import { SearchBar } from "../../ui/SearchBar";
 import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { formatDateString } from "../../lib/helpers";
+import { AuthContext } from "../auth/AuthProvider";
 
 const dateRangeOptions = [
   {
@@ -57,6 +58,7 @@ const statusOptions = [
 interface ServiceRequestsListProps {}
 
 export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
+  const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
   const [term, setTerm] = useState("");
@@ -71,8 +73,10 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
     `servicerequests?dateRange=${dateRange.value}&status=${status.value}&searchString=${searchString}`
   );
 
+  if (!account) return null;
+
   const columnNames = [
-    "Customer",
+    account.role === "Customer" ? "Address" : "Customer",
     "Title",
     "Created At",
     "Planned Execution Date",
@@ -122,14 +126,16 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                 onClick={() => push(`serviceRequests/${serviceRequest.id}`)}
               >
                 <TableCell className="py-5 flex space-x-3">
-                  <div className="hidden md:block">
-                    <Avatar
-                      src={customer?.image || ""}
-                      username={customer?.companyName}
-                      className="rounded-2xl"
-                      size="md"
-                    />
-                  </div>
+                  {account.role !== "Customer" && (
+                    <div className="hidden md:block">
+                      <Avatar
+                        src={customer?.image || ""}
+                        username={customer?.companyName}
+                        className="rounded-2xl"
+                        size="md"
+                      />
+                    </div>
+                  )}
                   <div className="space-y-1">
                     <div>{customer?.companyName}</div>
                     <div className="text-sm2 text-primary-500">
