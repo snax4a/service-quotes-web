@@ -14,8 +14,7 @@ const sizeClassnames = {
 
 const colorClassnames = {
   primary: "text-white bg-blue hover:bg-blue-200 disabled:text-primary-300",
-  secondary:
-    "text-white bg-accent transition duration-200 ease-in-out hover:bg-accent-hover disabled:text-accent-disabled disabled:bg-accent-hover",
+  secondary: "text-white bg-primary-800 hover:bg-primary-700",
   "secondary-800":
     "text-white bg-primary-800 hover:bg-primary-600 disabled:text-primary-300",
   white: "text-primary-800 bg-white hover:bg-orange-600 hover:text-white",

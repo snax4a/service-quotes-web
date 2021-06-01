@@ -99,7 +99,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
               type={account.role}
               quote={quote}
               onClick={() => {
-                push(`/quote/[id]`, `/quote/${quote.id}`);
+                push(`/quotes/[id]`, `/quotes/${quote.id}`);
               }}
             />
           ))}

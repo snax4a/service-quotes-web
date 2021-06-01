@@ -39,6 +39,7 @@ module.exports = {
         200: "var(--color-primary-200)",
         250: "var(--color-primary-250)",
         300: "var(--color-primary-300)",
+        350: "var(--color-primary-350)",
         400: "var(--color-primary-400)",
         500: "var(--color-primary-500)",
         600: "var(--color-primary-600)",
