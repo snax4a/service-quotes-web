@@ -13,12 +13,18 @@ export declare type Status =
   | "Paid"
   | "Unpaid";
 
+export declare interface Specialization {
+  id: UUID;
+  name: string;
+}
+
 export declare interface Employee {
   id: UUID;
   accountId: UUID;
-  firrstName: string;
+  firstName: string;
   lastName: string;
   image: string;
+  specializations?: Specialization[];
 }
 
 export declare interface Customer {

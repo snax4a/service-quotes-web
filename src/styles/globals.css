@@ -114,3 +114,7 @@ button:focus {
   opacity: 0.4;
   bottom: -20px;
 }
+
+.ReactModal__Content {
+  overflow: visible !important;
+}

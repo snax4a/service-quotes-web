@@ -7,7 +7,6 @@ import { Avatar } from "./Avatar";
 
 export const UserAccount: React.FC = () => {
   const { account } = useContext(AuthContext);
-  const [isError, setError] = useState(false);
   const screenType = useScreenType();
   const isDesktop = screenType === "3-cols";
   const router = useRouter();
@@ -17,28 +16,20 @@ export const UserAccount: React.FC = () => {
 
   const username = account.companyName
     ? account.companyName
-    : `${account.firstName}+${account.lastName}`;
+    : `${account.firstName} ${account.lastName}`;
 
   return (
-    <div className="flex items-center space-x-3 p-3 h-10 group">
-      <Avatar
-        onError={() => setError(true)}
-        isBase64={!isError}
-        src={
-          isError
-            ? `https://ui-avatars.com/api/${
-                username ? `?name=${username}` : "&name"
-              }&rounded=true&background=3f8cff&bold=true&color=FFFFFF`
-            : account.image
-        }
-      />
+    <div className="flex items-center p-3 h-10 w-full group">
+      <div className="flex items-center pr-3">
+        <Avatar src={account.image || ""} username={username} />
+      </div>
       {isDesktop ? (
-        <>
-          <div className="flex flex-col items-start pr-4 font-semibold">
-            <div className="text-sm text-primary-800 ">
-              {account.role === "Customer"
-                ? account.companyName
-                : `${account.firstName} ${account.lastName}`}
+        <div className="flex justify-between items-center w-full">
+          <div className="flex flex-col items-start font-semibold">
+            <div className="text-sm text-primary-800 whitespace-nowrap">
+              {username.length < 15
+                ? username
+                : username.substring(0, 13) + "..."}
             </div>
             <div className="text-sm2 text-primary-500 font-inter">
               {account.role}
@@ -49,7 +40,7 @@ export const UserAccount: React.FC = () => {
               isActive ? "text-blue" : "text-primary-500 group-hover:text-blue"
             }
           />
-        </>
+        </div>
       ) : null}
     </div>
   );

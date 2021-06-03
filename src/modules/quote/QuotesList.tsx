@@ -160,7 +160,7 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <WhiteCard padding="medium">
+      <WhiteCard padding="medium" className="flex-col">
         <div
           className="grid gap-3 w-full mb-4"
           style={{

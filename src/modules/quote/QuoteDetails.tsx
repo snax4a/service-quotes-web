@@ -123,7 +123,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
             : "1fr",
         }}
       >
-        <WhiteCard padding="big">
+        <WhiteCard padding="big" className="flex-col">
           <div className="flex justify-between pb-3 border-b-1 border-primary-350">
             <h2 className="text-2xls font-medium">
               Quote #{data.referenceNumber}
@@ -179,7 +179,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
           )}
         </WhiteCard>
 
-        <WhiteCard padding="big">
+        <WhiteCard padding="big" className="flex-col">
           <h2 className="text-2xls font-medium">Service Request</h2>
           <h3 className="text-lg font-medium mt-6">Title:</h3>
           <p className="text-primary-500 text-sm">

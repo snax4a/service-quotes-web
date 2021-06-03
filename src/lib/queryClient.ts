@@ -1,5 +1,5 @@
 import { QueryClient } from "react-query";
-import { showErrorToast } from "./showErrorToast";
+import { showErrorToast } from "./toasts";
 import { useTokenStore } from "../modules/auth/useTokenStore";
 import { apiBaseUrl } from "./constants";
 import { decodeToken, isBefore } from "./helpers";
@@ -7,8 +7,9 @@ import ky, { NormalizedOptions } from "ky";
 
 export const publicClient = ky.extend({
   prefixUrl: apiBaseUrl,
-  throwHttpErrors: false,
+  throwHttpErrors: true,
   credentials: "include",
+  retry: 0,
   hooks: {
     afterResponse: [
       async (
@@ -16,9 +17,9 @@ export const publicClient = ky.extend({
         options: NormalizedOptions,
         response: Response
       ) => {
-        const data = await response.json();
+        if ([400, 404, 500].includes(response.status)) {
+          const data = await response.json();
 
-        if (response.status !== 200) {
           if ("message" in (data as Error)) {
             showErrorToast((data as Error).message);
           }
@@ -43,6 +44,7 @@ export const privateClient = publicClient.extend({
           );
 
           if (isAccessTokenExpired) {
+            console.log("Refresing auth token...");
             const r = await publicClient.post("accounts/refresh-token", {});
             if (r.status === 200) {
               const d = await r.json();

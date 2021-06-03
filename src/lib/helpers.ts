@@ -51,6 +51,6 @@ export function createDateFormatOptions(
 
 export const formatDateString = (dateString: string, format = "default") => {
   return new Intl.DateTimeFormat("pl", createDateFormatOptions(format))
-    .format(new Date(dateString))
+    .format(new Date(dateString + "Z"))
     .toString();
 };

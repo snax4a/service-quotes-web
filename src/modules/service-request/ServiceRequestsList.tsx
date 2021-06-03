@@ -87,7 +87,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <WhiteCard padding="medium">
+      <WhiteCard padding="medium" className="flex-col">
         <div
           className="grid gap-3 w-full mb-4"
           style={{
@@ -118,13 +118,11 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
           dataCount={data.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
-            const { address, customer, plannedExecutionDate } = serviceRequest;
+            const { id, address, customer, plannedExecutionDate } =
+              serviceRequest;
 
             return (
-              <TableRow
-                key={serviceRequest.id}
-                onClick={() => push(`serviceRequests/${serviceRequest.id}`)}
-              >
+              <TableRow key={id} onClick={() => push(`service-requests/${id}`)}>
                 <TableCell className="py-5 flex space-x-3">
                   {account.role !== "Customer" && (
                     <div className="hidden md:block">

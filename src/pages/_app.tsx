@@ -3,7 +3,7 @@ import { QueryClientProvider } from "react-query";
 import { queryClient } from "../lib/queryClient";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { ErrorToastController } from "../modules/errors/ErrorToastController";
+import { ToastController } from "../modules/toasts/ToastController";
 import { AuthProvider } from "../modules/auth/AuthProvider";
 import { ConfirmModal } from "../shared-components/ConfirmModal";
 import Router from "next/router";
@@ -29,7 +29,7 @@ function ServiceQuotesApp({ Component, pageProps }: AppProps) {
           />
         </Head>
         <Component {...pageProps} />
-        <ErrorToastController />
+        <ToastController />
         <ConfirmModal />
       </QueryClientProvider>
     </AuthProvider>

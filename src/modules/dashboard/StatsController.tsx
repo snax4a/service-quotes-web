@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Quote } from "../../types";
+import { Quote, Role } from "../../types";
 import { CenterLoader } from "../../ui/CenterLoader";
 import { QuoteCard } from "../../ui/QuoteCard";
 import { AuthContext } from "../auth/AuthProvider";
@@ -11,16 +11,45 @@ import useQueryData from "../../shared-hooks/useQueryData";
 import { BlueCard } from "../../ui/card/BlueCard";
 import { Button } from "../../ui/Button";
 
+interface UnpaidQuotesProps {
+  role: Role;
+}
+
+export const UnpaidQuotes: React.FC<UnpaidQuotesProps> = ({ role }) => {
+  const { push } = useRouter();
+  const { data, isLoading } = useQueryData("quotes/unpaid");
+
+  if (isLoading) return <CenterLoader />;
+  if (!data) return null;
+
+  return (
+    <>
+      <TitleText size="md" className="mt-7.5 mb-4.5">
+        Unpaid quotes
+      </TitleText>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-2xl">
+        {data?.map((quote: Quote) => (
+          <QuoteCard
+            key={quote.id}
+            type={role}
+            quote={quote}
+            onClick={() => {
+              push(`/quotes/[id]`, `/quotes/${quote.id}`);
+            }}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
 interface StatsControllerProps {}
 
 export const StatsController: React.FC<StatsControllerProps> = ({}) => {
   const { push } = useRouter();
   const { account } = useContext(AuthContext);
-  const { data, isLoading } = useQueryData("quotes/unpaid");
 
   if (!account) return null;
-  if (isLoading) return <CenterLoader />;
-  if (!data) return null;
 
   return (
     <MiddlePanel>
@@ -89,21 +118,10 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
             )}
           </BlueCard>
         </div>
-        <TitleText size="md" className="mt-7.5 mb-4.5">
-          Unpaid quotes
-        </TitleText>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-2xl">
-          {data?.map((quote: Quote) => (
-            <QuoteCard
-              key={quote.id}
-              type={account.role}
-              quote={quote}
-              onClick={() => {
-                push(`/quotes/[id]`, `/quotes/${quote.id}`);
-              }}
-            />
-          ))}
-        </div>
+
+        {["Manager", "Customer"].includes(account.role) && (
+          <UnpaidQuotes role={account.role} />
+        )}
       </div>
     </MiddlePanel>
   );
