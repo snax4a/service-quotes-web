@@ -1,16 +1,19 @@
 import * as React from "react";
 import { SolidPlus } from "../icons";
+import { ToastType } from "../modules/toasts/useToastStore";
 
 export type ToastDurations = "default" | "sticky";
 
-export interface ErrorMessageProps {
+export interface ToastProps {
+  type: ToastType;
   message: string;
   button?: React.ReactNode;
   duration?: ToastDurations;
   onClose?: () => void;
 }
 
-export const ErrorToast: React.FC<ErrorMessageProps> = ({
+export const Toast: React.FC<ToastProps> = ({
+  type,
   message,
   button,
   duration = "default",
@@ -32,9 +35,14 @@ export const ErrorToast: React.FC<ErrorMessageProps> = ({
     };
   }, [duration]);
 
+  const variants = {
+    error: `bg-orange text-white`,
+    success: `bg-green text-white`,
+  };
+
   return (
     <div
-      className={`flex rounded-8 py-3 px-4 relative w-auto items-center justify-center text-white transition-transform duration-300 bg-orange`}
+      className={`flex rounded-8 py-3 px-4 relative w-auto items-center justify-center transition-transform duration-300 ${variants[type]}`}
       data-testid="error-message"
     >
       <div className={`flex space-x-4 items-center`}>

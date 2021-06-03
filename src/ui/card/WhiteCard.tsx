@@ -21,7 +21,7 @@ export const WhiteCard: React.FC<WhiteCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`flex flex-col rounded-3xl transition duration-200 ease-in-out bg-white hover:shadow-lg shadow-md ${className} ${paddingSizes[padding]}`}
+      className={`flex rounded-3xl transition duration-200 ease-in-out bg-white hover:shadow-lg shadow-md ${className} ${paddingSizes[padding]}`}
     >
       {children}
     </div>

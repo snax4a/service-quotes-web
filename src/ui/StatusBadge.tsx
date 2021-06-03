@@ -1,4 +1,5 @@
 import React from "react";
+import { camelCaseToWords } from "../lib/helpers";
 
 interface StatusBadgeProps {
   className?: string;
@@ -10,7 +11,7 @@ const statuses = {
   Paid: "bg-blue text-white",
   New: "bg-blue text-white",
   Assigned: "bg-primary-400 text-white",
-  InProgress: "bg-primary-400 text-white",
+  InProgress: "bg-orange-100 text-primary-800",
   Completed: "bg-green text-white",
   Cancelled: "bg-orange text-white",
   Confirmed: "bg-green text-white",
@@ -27,7 +28,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
     <span
       className={`py-1 px-3 text-sm2 rounded font-semibold ${statuses[status]} ${className}`}
     >
-      {status.toUpperCase()}
+      {camelCaseToWords(status).toUpperCase()}
     </span>
   );
 };

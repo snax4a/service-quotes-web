@@ -11,6 +11,7 @@ import { StatusBadge } from "../../ui/StatusBadge";
 import { AuthContext } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import SvgOutlineCreditCard from "../../icons/OutlineCreditCard";
+import { formatDateString } from "../../lib/helpers";
 
 interface ServiceMaterialsProps {
   serviceId: UUID;
@@ -122,16 +123,13 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
             : "1fr",
         }}
       >
-        <WhiteCard padding="big">
+        <WhiteCard padding="big" className="flex-col">
           <div className="flex justify-between pb-3 border-b-1 border-primary-350">
             <h2 className="text-2xls font-medium">
               Quote #{data.referenceNumber}
             </h2>
             <h3 className="text-primary-500">
-              {new Date(data.created).toLocaleString([], {
-                dateStyle: "long",
-                timeStyle: "short",
-              })}
+              {formatDateString(data.created, "intlDate")}
             </h3>
           </div>
 
@@ -181,7 +179,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
           )}
         </WhiteCard>
 
-        <WhiteCard padding="big">
+        <WhiteCard padding="big" className="flex-col">
           <h2 className="text-2xls font-medium">Service Request</h2>
           <h3 className="text-lg font-medium mt-6">Title:</h3>
           <p className="text-primary-500 text-sm">
@@ -201,17 +199,13 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
           </p>
           <h3 className="text-lg font-medium mt-6">Created At:</h3>
           <p className="text-primary-500 text-sm">
-            {new Date(data.serviceRequest.created).toLocaleString([], {
-              dateStyle: "long",
-              timeStyle: "short",
-            })}
+            {formatDateString(data.serviceRequest.created, "intlDate")}
           </p>
           <h3 className="text-lg font-medium mt-6">Completed At:</h3>
           <p className="text-primary-500 text-sm">
-            {new Date(data.serviceRequest.completed).toLocaleString([], {
-              dateStyle: "long",
-              timeStyle: "short",
-            })}
+            {data.serviceRequest.completed
+              ? formatDateString(data.serviceRequest.completed, "intlDate")
+              : null}
           </p>
         </WhiteCard>
       </div>
