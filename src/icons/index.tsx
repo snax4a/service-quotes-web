@@ -14,6 +14,7 @@ export { default as OutlinePeople } from "./OutlinePeople";
 export { default as OutlinePhone } from "./OutlinePhone";
 export { default as OutlineStar } from "./OutlineStar";
 export { default as OutlineThunderbolt } from "./OutlineThunderbolt";
+export { default as OutlineTrash } from "./OutlineTrash";
 export { default as OutlineUserAdd } from "./OutlineUserAdd";
 export { default as OutlineXCircle } from "./OutlineXCircle";
 export { default as SolidCheck } from "./SolidCheck";

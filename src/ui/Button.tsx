@@ -18,7 +18,7 @@ const colorClassnames = {
   "secondary-800":
     "text-white bg-primary-800 hover:bg-primary-600 disabled:text-primary-300",
   white: "text-primary-800 bg-white hover:bg-orange-600 hover:text-white",
-  transparent: "text-white bg-transparent",
+  transparent: "text-primary-600 bg-transparent",
   "accent-secondary":
     "text-white bg-secondary hover:bg-secondary-washed-out disabled:text-secondary-washed-out",
 };

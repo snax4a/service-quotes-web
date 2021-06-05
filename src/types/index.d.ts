@@ -55,6 +55,7 @@ export declare interface ServiceRequest {
   plannedExecutionDate: string | null;
   completionDate: string | null;
   created: string;
+  assignedEmployees?: Employee[];
 }
 
 export declare interface Quote {

@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { ServiceRequest } from "../../types";
-import { OptionsButton } from "../../ui/OptionsButton";
+import { RoundedButton } from "../../ui/RoundedButton";
 import { OptionsPopover } from "../../ui/OptionsPopover";
 import { SettingsIcon } from "../../ui/SettingsIcon";
 import { AuthContext } from "../auth/AuthProvider";
 import { modalConfirm } from "../../shared-components/ConfirmModal";
 import { privateClient } from "../../lib/queryClient";
 import {
+  DotsHorizontal,
   OutlineCheckCircle,
   OutlineClock,
   OutlinePencilAlt,
@@ -37,7 +38,11 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
   return (
     <>
       <OptionsPopover
-        button={<OptionsButton />}
+        button={
+          <RoundedButton>
+            <DotsHorizontal height={17} width={17} />
+          </RoundedButton>
+        }
         className="text-primary-500 w-190"
         position="left"
         padding="p-0"
