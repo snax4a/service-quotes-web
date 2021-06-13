@@ -1,3 +1,3 @@
-import { QuotesListPage } from "../../modules/quote/QuotesListPage";
+import { EmployeeListPage } from "../../modules/employee/EmployeeListPage";
 
-export default QuotesListPage; // test for commit212
+export default EmployeeListPage;
