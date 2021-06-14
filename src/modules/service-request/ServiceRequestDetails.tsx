@@ -63,7 +63,7 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
 
   const {
     customer,
-    address,
+    customerAddress,
     assignedEmployees,
     plannedExecutionDate,
     created,
@@ -81,23 +81,31 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
           gridGap: 20,
         }}
       >
-        <Avatar
-          src={customer?.image || ""}
-          username={customer?.companyName}
-          size="md"
-        />
+        {role !== "Customer" && (
+          <Avatar
+            src={customer?.image || ""}
+            username={customer?.companyName}
+            size="md"
+          />
+        )}
         <div className="flex flex-col">
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className="flex flex-col">
-              <p className="text-blue font-semibold">{customer?.companyName}</p>
+              {role !== "Customer" && (
+                <p className="text-blue font-semibold">
+                  {customer?.companyName}
+                </p>
+              )}
               <div className="flex space-x-4 font-semibold text-sm2 text-primary-500">
                 <p className="">
-                  {address?.street}, {address?.zipCode} {address?.city}
+                  {customerAddress?.address.street},{" "}
+                  {customerAddress?.address.zipCode}{" "}
+                  {customerAddress?.address.city}
                 </p>
                 {role !== "Customer" && (
                   <span className="flex text-orange">
                     <OutlinePhone height={20} width={20} />
-                    {address?.phoneNumber}
+                    {customerAddress?.address.phoneNumber}
                   </span>
                 )}
               </div>
@@ -120,7 +128,7 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
             <StatusBadge status={status} />
           </div>
 
-          <p className="text-sm text-primary-500 mt-3 md:mt-1 max-w-3xl">
+          <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
             {description}
           </p>
 

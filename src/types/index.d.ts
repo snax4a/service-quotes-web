@@ -33,6 +33,12 @@ export declare interface Customer {
   companyName: string;
   vatNumber: string;
   image: string;
+  customerAddresses?: CustomerAddress[];
+}
+
+export declare interface CustomerAddress {
+  name: string;
+  address: Address;
 }
 
 export declare interface Address {
@@ -48,7 +54,7 @@ export declare interface ServiceRequest {
   customerId: UUID;
   addressId: UUID;
   customer: Customer | null;
-  address: Address | null;
+  customerAddress: CustomerAddress | null;
   title: string;
   description: string;
   status: Status;

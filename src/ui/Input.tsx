@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 
 const paddings = {
   default: "py-3 px-4",
-  md: "py-1.8 px-2",
+  md: "py-1.8 px-3",
 };
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {

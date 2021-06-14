@@ -51,6 +51,7 @@ module.exports = {
       orange: {
         DEFAULT: "var(--color-orange-500)",
         100: "var(--color-orange-100)",
+        400: "var(--color-orange-400)",
         500: "var(--color-orange-500)",
         600: "var(--color-orange-600)",
       },

@@ -44,10 +44,6 @@ export const SetExecutionDateModal: React.FC<SetExecutionDateModalProps> = ({
           return errors;
         }}
         onSubmit={({ plannedExecutionDate }, actions) => {
-          console.log(
-            "plannedExecutionDate.toISOString()",
-            plannedExecutionDate.toISOString()
-          );
           privateClient
             .put(`servicerequests/${serviceId}`, {
               json: {

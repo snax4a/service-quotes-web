@@ -8,12 +8,13 @@ import { Spinner } from "./Spinner";
 const sizeClassnames = {
   big: "py-2 px-6 text-sm rounded-lg",
   bigRounded: "py-3 px-6 text-sm rounded-xl",
-  small: "px-2 py-1 text-sm rounded-md",
+  small: "px-4 py-1.5 text-sm rounded-2xl",
   tiny: "px-1 text-sm rounded-5",
 };
 
 const colorClassnames = {
   primary: "text-white bg-blue hover:bg-blue-200 disabled:text-primary-300",
+  orange: "text-white bg-orange hover:bg-orange-400",
   secondary: "text-white bg-primary-800 hover:bg-primary-700",
   "secondary-800":
     "text-white bg-primary-800 hover:bg-primary-600 disabled:text-primary-300",
@@ -56,7 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
       data-testid="button"
       {...props}
     >
-      <span className={loading ? "opacity-0" : `flex items-center`}>
+      <span className={loading ? "hidden" : `flex items-center`}>
         {icon ? <span className={`mr-2 items-center`}>{icon}</span> : null}
         {children}
       </span>

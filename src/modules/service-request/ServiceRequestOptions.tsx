@@ -96,33 +96,6 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
             />
           </>
         )}
-        {account.role === "Manager" &&
-          ["New", "Assigned"].includes(service.status) && (
-            <SettingsIcon
-              onClick={() => {
-                modalConfirm(
-                  "Are you sure you want to cancel this service?",
-                  () => {
-                    privateClient
-                      .put(`servicerequests/${service.id}/status`, {
-                        json: {
-                          status: "Cancelled",
-                        },
-                      })
-                      .then((res) => {
-                        showSuccessToast("Service request has been cancelled.");
-                        onReFetch();
-                      })
-                      .catch(() => {});
-                  }
-                );
-              }}
-              icon={<OutlineXCircle height={17} width={17} />}
-              label="Cancel service"
-              transition
-              transparent
-            />
-          )}
         {["Manager", "Employee"].includes(account.role) &&
           service.status === "InProgress" && (
             <SettingsIcon
@@ -151,7 +124,7 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
               last
             />
           )}
-        {account.role === "Customer" &&
+        {["Customer", "Manager"].includes(account.role) &&
           ["New", "Assigned"].includes(service.status) && (
             <>
               <SettingsIcon
@@ -159,7 +132,7 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
                   push(`${service.id}/edit`);
                 }}
                 icon={<OutlinePencilAlt height={17} width={17} />}
-                label="Edit service request"
+                label="Edit service"
                 transition
                 transparent
                 last
