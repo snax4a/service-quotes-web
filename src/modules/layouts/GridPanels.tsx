@@ -18,10 +18,11 @@ export const LeftPanel: React.FC<LeftPanelProps> = ({ children }) => {
   const { push } = useRouter();
 
   return (
-    <FixedGridPanel className="border-r-1 border-primary-200">
+    <FixedGridPanel className="border-r-1 border-primary-200 left-sidebar z-10">
       <Logo />
       {children}
       <DropdownController
+        portal={false}
         zIndex={20}
         className="bottom-5l left-265 2xl:left-400 fixed"
         innerClassName="fixed transform -translate-x-full"
