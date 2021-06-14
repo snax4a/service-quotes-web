@@ -1,3 +1,3 @@
-import { EmployeeListPage } from "../../modules/employee/EmployeeListPage";
+import { EmployeesListPage } from "../../modules/employee/EmployeesListPage";
 
-export default EmployeeListPage;
+export default EmployeesListPage;
