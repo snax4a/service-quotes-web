@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { ServiceRequest } from "../../types";
-import { OptionsButton } from "../../ui/OptionsButton";
+import { RoundedButton } from "../../ui/RoundedButton";
 import { OptionsPopover } from "../../ui/OptionsPopover";
 import { SettingsIcon } from "../../ui/SettingsIcon";
 import { AuthContext } from "../auth/AuthProvider";
 import { modalConfirm } from "../../shared-components/ConfirmModal";
 import { privateClient } from "../../lib/queryClient";
 import {
+  DotsHorizontal,
   OutlineCheckCircle,
   OutlineClock,
   OutlinePencilAlt,
@@ -37,7 +38,11 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
   return (
     <>
       <OptionsPopover
-        button={<OptionsButton />}
+        button={
+          <RoundedButton>
+            <DotsHorizontal height={17} width={17} />
+          </RoundedButton>
+        }
         className="text-primary-500 w-190"
         position="left"
         padding="p-0"
@@ -91,33 +96,6 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
             />
           </>
         )}
-        {account.role === "Manager" &&
-          ["New", "Assigned"].includes(service.status) && (
-            <SettingsIcon
-              onClick={() => {
-                modalConfirm(
-                  "Are you sure you want to cancel this service?",
-                  () => {
-                    privateClient
-                      .put(`servicerequests/${service.id}/status`, {
-                        json: {
-                          status: "Cancelled",
-                        },
-                      })
-                      .then((res) => {
-                        showSuccessToast("Service request has been cancelled.");
-                        onReFetch();
-                      })
-                      .catch(() => {});
-                  }
-                );
-              }}
-              icon={<OutlineXCircle height={17} width={17} />}
-              label="Cancel service"
-              transition
-              transparent
-            />
-          )}
         {["Manager", "Employee"].includes(account.role) &&
           service.status === "InProgress" && (
             <SettingsIcon
@@ -146,7 +124,7 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
               last
             />
           )}
-        {account.role === "Customer" &&
+        {["Customer", "Manager"].includes(account.role) &&
           ["New", "Assigned"].includes(service.status) && (
             <>
               <SettingsIcon
@@ -154,7 +132,7 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
                   push(`${service.id}/edit`);
                 }}
                 icon={<OutlinePencilAlt height={17} width={17} />}
-                label="Edit service request"
+                label="Edit service"
                 transition
                 transparent
                 last

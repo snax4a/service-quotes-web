@@ -12,6 +12,9 @@ import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { formatDateString } from "../../lib/helpers";
 import { AuthContext } from "../auth/AuthProvider";
+import { BlueCard } from "../../ui/card/BlueCard";
+import { Button } from "../../ui/Button";
+import Image from "next/image";
 
 const dateRangeOptions = [
   {
@@ -87,6 +90,31 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 
   return (
     <MiddlePanel>
+      {account.role === "Customer" && (
+        <BlueCard className="mb-6 py-5 px-6 flex-col items-start shadow-md relative overflow-hidden">
+          <h1
+            className="text-3xl md:text-5xl font-semibold"
+            style={{ lineHeight: "50px" }}
+          >
+            Your business needs help?
+          </h1>
+          <p className="text-sm font-inter font-normal mt-1 mb-3">
+            Just fill in the form and our employees will take car of it.
+          </p>
+          <Button
+            color="white"
+            size="small"
+            onClick={() => push("service-requests/create")}
+          >
+            Request a service
+          </Button>
+
+          <div className="hidden lg:block absolute right-0 -bottom-2 z-0">
+            <Image src="/img/purple-ball.png" width={747} height={141} />
+          </div>
+        </BlueCard>
+      )}
+
       <WhiteCard padding="medium" className="flex-col">
         <div
           className="grid gap-3 w-full mb-4"
@@ -118,7 +146,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
           dataCount={data.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
-            const { id, address, customer, plannedExecutionDate } =
+            const { id, customerAddress, customer, plannedExecutionDate } =
               serviceRequest;
 
             return (
@@ -137,7 +165,9 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                   <div className="space-y-1">
                     <div>{customer?.companyName}</div>
                     <div className="text-sm2 text-primary-500">
-                      {address?.street}, {address?.zipCode} {address?.city}
+                      {customerAddress?.address.street},{" "}
+                      {customerAddress?.address.zipCode}{" "}
+                      {customerAddress?.address.city}
                     </div>
                   </div>
                 </TableCell>

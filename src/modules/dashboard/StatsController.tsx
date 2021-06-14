@@ -89,7 +89,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
                   <Button
                     color="white"
                     size="bigRounded"
-                    onClick={() => push("/service-requests/new")}
+                    onClick={() => push("/service-requests/create")}
                   >
                     Request a Service
                   </Button>
@@ -109,7 +109,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
                   <Button
                     color="white"
                     size="bigRounded"
-                    onClick={() => push("/service-requests/new")}
+                    onClick={() => push("/service-requests/create")}
                   >
                     Request a Service
                   </Button>

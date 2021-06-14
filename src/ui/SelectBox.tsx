@@ -7,8 +7,15 @@ interface Value {
   value: string;
 }
 
+const paddings = {
+  default: "py-3 pl-4.5 pr-10",
+  md: "py-2 pl-4.5 pr-10",
+};
+
 export interface SelectBoxProps {
   value: Value;
+  padding?: keyof typeof paddings;
+  disabled?: boolean;
   options: Value[];
   error?: boolean;
   onChange: (value: Value) => void;
@@ -17,6 +24,8 @@ export interface SelectBoxProps {
 export const SelectBox: React.FC<SelectBoxProps> = ({
   value,
   error,
+  padding = "default",
+  disabled = false,
   options,
   onChange,
 }) => {
@@ -24,9 +33,11 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
 
   return (
     <div className="relative">
-      <Listbox value={value} onChange={onChange}>
+      <Listbox value={value} onChange={onChange} disabled={disabled}>
         <Listbox.Button
-          className={`relative w-full py-3 pl-4.5 pr-10 text-left text-primary-600 bg-primary-250 border-1 text-sm border-black border-opacity-20 rounded-2xl cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm ${ring}`}
+          className={`relative w-full ${paddings[padding]} text-left ${
+            disabled ? "text-primary-400" : "text-primary-600"
+          } bg-primary-250 border-1 text-sm border-black border-opacity-20 rounded-2xl cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm ${ring}`}
         >
           <span className="block truncate">{value.label}</span>
           <span className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
