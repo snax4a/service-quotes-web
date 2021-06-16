@@ -3,6 +3,7 @@ import useQueryData from "../../shared-hooks/useQueryData";
 import { Employee } from "../../types";
 import { Avatar } from "../../ui/Avatar";
 import { WhiteCard } from "../../ui/card/WhiteCard";
+import { BlueCard } from "../../ui/card/BlueCard";
 import { MiddlePanel } from "../layouts/GridPanels";
 import { useRouter } from "next/router";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
@@ -10,10 +11,13 @@ import { SearchBar } from "../../ui/SearchBar";
 import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
+import { RoundedButton } from "../../ui/RoundedButton";
+import { InfoText } from "../../ui/InfoText";
+
 
 const specializationsOptions = [
   {
-    label: "TBD",
+    label: "All Specializations",
     value: "",
   },
 ];
@@ -79,12 +83,24 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
   return (
     <MiddlePanel>
+      <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
+        <p
+          className="text-4xl font-semibold mr-4">
+          Manage employee specializations
+        </p>
+
+        <RoundedButton
+          className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md">
+            Here
+        </RoundedButton>
+      </BlueCard>
+
       <WhiteCard padding="medium" className="flex-col">
         <div
           className="grid gap-3 w-full mb-4"
           style={{
             gridTemplateColumns:
-              screenType === "fullscreen" ? "1fr" : "1fr 1fr 2fr",
+              screenType === "fullscreen" ? "1fr" : "1fr 4fr",
           }}
         >
           <SelectBox
@@ -110,12 +126,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
                 key={employee.id}
                 onClick={() => push(`employees/${employee.id}`)}
               >
-                // TODO: CHANGE THIS
-                {account.role === "Customer" ? (
-                  <ManagerDataRow employee={employee} />
-                ) : (
-                  <ManagerDataRow employee={employee} />
-                )}
+              <ManagerDataRow employee={employee} />
               </TableRow>
             );
           })}

@@ -5,17 +5,17 @@ import { WaitForAuth } from "../auth/WaitForAuth";
 import { HeaderController } from "../display/HeaderController";
 import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
-import { QuoteDetails } from "./QuoteDetails";
+import { EmployeeDetails } from "./EmployeeDetails";
 
-interface QuoteDetailsPageProps {}
+interface EmployeeDetailsPageProps {}
 
-export const QuoteDetailsPage: NextPage<QuoteDetailsPageProps> = () => {
+export const EmployeeDetailsPage: NextPage<EmployeeDetailsPageProps> = () => {
   return (
     <WaitForAuth>
-      <HeaderController embed={{}} title="Quote details" />
+      <HeaderController embed={{}} title="Employee details" />
       <DefaultDesktopLayout>
-        <PageHeader title="Quote details" onBackClick={() => router.back()} />
-        <QuoteDetails />
+        <PageHeader title="Employee details" onBackClick={() => router.back()} />
+        <EmployeeDetails />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

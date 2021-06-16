@@ -92,9 +92,9 @@ export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
   );
 };
 
-interface QuoteDetailsProps {}
+interface EmployeeDetailsProps {}
 
-export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
+export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
