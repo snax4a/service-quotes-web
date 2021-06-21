@@ -49,14 +49,15 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
       >
         <Avatar
           src={employee?.image || ""}
-          username={employee?.firstName + " " + employee?.lastName}
+          username={employee?.firstName}
           size="md"
         />
         <div className="flex flex-col">
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className="flex flex-col">
-              <p className="text-blue font-semibold">
-                {employee?.firstName + " " + employee?.lastName}
+              <p className="text-black font-semibold">
+                {employee?.firstName}
+                {employee?.lastName}
               </p>
               <div className="flex space-x-4 font-semibold text-sm2 text-primary-500">
                 <p className="">
