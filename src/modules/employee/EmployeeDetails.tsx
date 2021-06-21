@@ -12,203 +12,65 @@ import { AuthContext } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import SvgOutlineCreditCard from "../../icons/OutlineCreditCard";
 import { formatDateString } from "../../lib/helpers";
+import { Avatar } from "../../ui/Avatar";
 
-interface ServiceMaterialsProps {
-  serviceId: UUID;
+interface EmployeeDetailsProps {
+  fetch: () => void;
+  employee: Employee;
+  specialization: Specialization;
 }
 
-export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
-  serviceId,
+export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
+  fetch,
+  employee,
+  specialization,
 }) => {
-  const { data, isLoading } = useQueryData(
-    `servicerequests/${serviceId}/materials`
-  );
-
-  if (isLoading) {
-    return <CenterLoader />;
-  }
-
-  return (
-    <table className="w-full mt-3 text-sm2">
-      <thead>
-        <tr className="text-primary-400 font-medium font-inter border-b-1 border-primary-350">
-          <td className="py-2">Description</td>
-          <td className="py-2">Quantity</td>
-          <td className="py-2">Unit Price</td>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((material: Material) => (
-          <tr key={material.id} className="border-b-1 border-primary-350">
-            <td className="py-2 pl-1">{material.description}</td>
-            <td className="py-2 pl-1">{material.quantity}</td>
-            <td className="py-2 pl-1 text-orange">{material.unitPrice} PLN</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-interface ServiceJobValuationsProps {
-  serviceId: UUID;
-}
-
-export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
-  serviceId,
-}) => {
-  const { data, isLoading } = useQueryData(
-    `servicerequests/${serviceId}/job-valuations`
-  );
-
-  if (isLoading) {
-    return <CenterLoader />;
-  }
-
-  return (
-    <table className="w-full mt-3 text-sm2">
-      <thead>
-        <tr className="text-primary-400 font-medium font-inter border-b-1 border-primary-350">
-          <td className="py-2">Work Type</td>
-          <td className="py-2">Labor Hours</td>
-          <td className="py-2">Hourly Rate</td>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((srjv: ServiceRequestJobValuation) => (
-          <tr
-            key={srjv.jobValuation.id}
-            className="border-b-1 border-primary-350"
-          >
-            <td className="py-2 pl-1">{srjv.jobValuation.workType}</td>
-            <td className="py-2 pl-1">{srjv.jobValuation.laborHours}</td>
-            <td className="py-2 pl-1 text-orange">
-              {srjv.jobValuation.hourlyRate} PLN
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-interface EmployeeDetailsProps {}
-
-export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
   const screenType = useScreenType();
-  const { account } = useContext(AuthContext);
-  const { query, push } = useRouter();
-  const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`quotes/${id}`);
 
-  if (!account) return null;
-
-  if (isLoading) {
-    return <CenterLoader />;
-  }
-
-  if (data.status === 404) {
-    return <InfoText>Could not find quote</InfoText>;
-  }
-
-  const { address } = data.serviceRequest;
+  // const {
+  //   employee,
+  //   customerAddress,
+  //   assignedEmployees,
+  //   plannedExecutionDate,
+  //   created,
+  //   title,
+  //   status,
+  //   description,
+  // };
 
   return (
-    <MiddlePanel>
+    <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
       <div
-        className="grid gap-5 pb-6"
+        className="grid w-full font-inter"
         style={{
-          gridTemplateColumns: ["3-cols", "2-cols"].includes(screenType)
-            ? "2fr 1fr"
-            : "1fr",
+          gridTemplateColumns: `50px 1fr`,
+          gridGap: 20,
         }}
       >
-        <WhiteCard padding="big" className="flex-col">
-          <div className="flex justify-between pb-3 border-b-1 border-primary-350">
-            <h2 className="text-2xls font-medium">
-              Quote #{data.referenceNumber}
-            </h2>
-            <h3 className="text-primary-500">
-              {formatDateString(data.created, "intlDate")}
-            </h3>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-lg font-medium">Materials used:</h3>
-            <ServiceMaterials serviceId={data.serviceRequest.id} />
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-lg font-medium">Job valuations:</h3>
-            <ServiceJobValuations serviceId={data.serviceRequest.id} />
-          </div>
-
-          <div className="flex justify-between mt-7 text-5xl font-semibold">
-            <h1>Total:</h1>
-            <h1 className="text-orange">{data.total.toFixed(2)} PLN</h1>
-          </div>
-
-          {account.role === "Customer" && data.status === "Unpaid" ? (
-            <Button
-              color="secondary"
-              size="bigRounded"
-              className="mt-5"
-              icon={
-                <SvgOutlineCreditCard
-                  className="text-white"
-                  height={22}
-                  width={22}
-                />
-              }
-              onClick={() => {
-                push({
-                  pathname: "/quotes/[quoteId]/pay",
-                  query: { quoteId: id },
-                });
-              }}
-            >
-              PAY NOW
-            </Button>
-          ) : (
-            <div className="flex justify-between mt-4 text-2xl font-semibold">
-              <h1>Status:</h1>
-              <h1 className="text-orange">
-                <StatusBadge status={data.status} />
-              </h1>
+        <Avatar
+          src={employee?.image || ""}
+          username={employee?.firstName + " " + employee?.lastName}
+          size="md"
+        />
+        <div className="flex flex-col">
+          <div className="flex flex-col lg:flex-row lg:justify-between">
+            <div className="flex flex-col">
+              <p className="text-blue font-semibold">
+                {employee?.firstName + " " + employee?.lastName}
+              </p>
+              <div className="flex space-x-4 font-semibold text-sm2 text-primary-500">
+                <p className="">
+                  {employee?.accountId}
+                </p>
+              </div>
             </div>
-          )}
-        </WhiteCard>
+          </div>
 
-        <WhiteCard padding="big" className="flex-col">
-          <h2 className="text-2xls font-medium">Service Request</h2>
-          <h3 className="text-lg font-medium mt-6">Title:</h3>
-          <p className="text-primary-500 text-sm">
-            {data.serviceRequest.title}
+          <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
+            Specializations: {employee?.specializations}
           </p>
-          <h3 className="text-lg font-medium mt-6">Description:</h3>
-          <p className="text-primary-500 text-sm">
-            {data.serviceRequest.description}
-          </p>
-          <h3 className="text-lg font-medium mt-6">Address:</h3>
-          <p className="text-primary-500 text-sm">
-            {address.street}, {address.zipCode} {address.city}
-          </p>
-          <h3 className="text-lg font-medium mt-6">Status:</h3>
-          <p className="text-primary-500 text-sm">
-            {data.serviceRequest.status}
-          </p>
-          <h3 className="text-lg font-medium mt-6">Created At:</h3>
-          <p className="text-primary-500 text-sm">
-            {formatDateString(data.serviceRequest.created, "intlDate")}
-          </p>
-          <h3 className="text-lg font-medium mt-6">Completed At:</h3>
-          <p className="text-primary-500 text-sm">
-            {data.serviceRequest.completed
-              ? formatDateString(data.serviceRequest.completed, "intlDate")
-              : null}
-          </p>
-        </WhiteCard>
+        </div>
       </div>
-    </MiddlePanel>
+    </WhiteCard>
   );
 };
