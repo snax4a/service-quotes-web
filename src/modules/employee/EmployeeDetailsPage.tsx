@@ -5,7 +5,7 @@ import { WaitForAuth } from "../auth/WaitForAuth";
 import { HeaderController } from "../display/HeaderController";
 import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
-import { EmployeeDetails } from "./EmployeeDetails";
+import { EmployeeDetails, ServiceRequestsList } from "./EmployeeDetails";
 
 interface EmployeeDetailsPageProps {}
 
@@ -16,6 +16,7 @@ export const EmployeeDetailsPage: NextPage<EmployeeDetailsPageProps> = () => {
       <DefaultDesktopLayout>
         <PageHeader title="Employee details" onBackClick={() => router.back()} />
         <EmployeeDetails />
+        <ServiceRequestsList />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

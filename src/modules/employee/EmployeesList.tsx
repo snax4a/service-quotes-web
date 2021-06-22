@@ -12,8 +12,6 @@ import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { RoundedButton } from "../../ui/RoundedButton";
-import { InfoText } from "../../ui/InfoText";
-
 
 const specializationsOptions = [
   {
