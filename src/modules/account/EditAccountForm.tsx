@@ -19,7 +19,7 @@ const serviceRequestSchema = Yup.object().shape({
     .min(6, "Min 6 characters")
     .max(30, "Max 30 characters")
     .required("Password is required"),
-  passwordRepeat: Yup.string()
+  repeatPassword: Yup.string()
     .required("Repeat Password is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
@@ -41,25 +41,25 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
         email: string;
         image: string;
         password: string;
-        passwordRepeat: string;
+        repeatPassword: string;
       }>
         initialValues={{
           email: account.email,
           image: account.image,
           password: "",
-          passwordRepeat: "",
+          repeatPassword: "",
         }}
         validateOnChange={false}
         validateOnBlur={false}
         validationSchema={serviceRequestSchema}
-        onSubmit={({ email, image, password, passwordRepeat }, actions) => {
+        onSubmit={({ email, image, password, repeatPassword }, actions) => {
           privateClient
             .put(`accounts/${account.id}`, {
               json: {
                 email,
                 image,
                 password,
-                passwordRepeat,
+                repeatPassword,
               },
             })
             .then((res) => {
@@ -121,7 +121,7 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
                   <div className="text-primary-400 mb-1">Repeat password</div>
                   <InputField
                     padding="lg"
-                    name="passwordRepeat"
+                    name="repeatPassword"
                     type="password"
                   />
                 </div>
