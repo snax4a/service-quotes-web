@@ -28,7 +28,7 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
   }
 
   if (data.status === 404) {
-    return <InfoText>Could not find quote</InfoText>;
+    return <InfoText>Could not find employee</InfoText>;
   }
 
   return (
@@ -86,13 +86,6 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
-  // const [term, setTerm] = useState("");
-  // const [searchString, setSearchString] = useState("");
-  // const [dateRange, setDateRange] = useState(dateRangeOptions[0]);
-  // const [status, setStatus] = useState(statusOptions[0]);
-  // const setSearchTerm = ({
-  //   currentTarget: { value },
-  // }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
   const { data, isLoading } = useQueryData(
     `servicerequests`
