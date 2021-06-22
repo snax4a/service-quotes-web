@@ -10,7 +10,7 @@ export const UserAccount: React.FC = () => {
   const screenType = useScreenType();
   const isDesktop = screenType === "3-cols";
   const router = useRouter();
-  const isActive = router ? router.asPath.includes("account/details") : false;
+  const isActive = router ? router.asPath.includes("account/") : false;
 
   if (!account) return null;
 

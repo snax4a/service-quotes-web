@@ -8,7 +8,9 @@ import { Spinner } from "./Spinner";
 const sizeClassnames = {
   big: "py-2 px-6 text-sm rounded-lg",
   bigRounded: "py-3 px-6 text-sm rounded-xl",
+  medium: "px-4 py-2 text-sm rounded-full",
   small: "px-4 py-1.5 text-sm rounded-2xl",
+  small2: "px-4 py-1.5 text-xs rounded-2xl",
   tiny: "px-1 text-sm rounded-5",
 };
 

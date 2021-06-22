@@ -14,7 +14,7 @@ export const InputField: React.FC<
     textarea?: boolean;
     altErrorMsg?: string;
     rows?: number;
-    padding?: "md" | "default";
+    padding?: "md" | "lg" | "default";
   }
 > = ({ label, textarea, errorMsg, ref: _, className, ...props }) => {
   const [field, meta] = useField(props);
