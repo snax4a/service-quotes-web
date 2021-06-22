@@ -17,6 +17,7 @@ export interface Account {
   firstName?: string;
   lastName?: string;
   companyName?: string;
+  vatNumber?: string;
   created: Date;
   updated?: Date;
   jwtToken: string;

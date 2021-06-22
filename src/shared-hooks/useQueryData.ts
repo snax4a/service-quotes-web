@@ -1,7 +1,7 @@
 import React from "react";
 import { privateClient } from "../lib/queryClient";
 
-export default function useQueryData(url: string) {
+export default function useQueryData(url: string, { enabled = true } = {}) {
   const [state, setState] = React.useReducer((_: any, action: any) => action, {
     isLoading: true,
   });
@@ -17,8 +17,8 @@ export default function useQueryData(url: string) {
   }, [url]);
 
   React.useEffect(() => {
-    fetch();
-  }, [fetch]);
+    if (enabled) fetch();
+  }, [enabled, fetch]);
 
   return {
     ...state,

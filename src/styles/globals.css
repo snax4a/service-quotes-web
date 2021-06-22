@@ -11,6 +11,7 @@
   --color-primary-200: #e4e4e4;
   --color-primary-250: #f8f8f8;
   --color-primary-300: #eff0f6;
+  --color-primary-325: rgba(228, 228, 228, 0.3);
   --color-primary-350: #bbbbbb;
   --color-primary-400: #b2b3bd;
   --color-primary-500: #808191;
@@ -37,6 +38,7 @@
   --screen-height-reduction: 0px;
   --color-primary-100-translucent: rgba(222, 227, 234, 0.15);
   --color-shadow-100: rgba(0, 0, 0, 0.1);
+  --color-shadow-200: rgba(0, 0, 0, 0.2);
 }
 
 html,
