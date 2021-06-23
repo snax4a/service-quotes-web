@@ -89,8 +89,10 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 
   const { data, isLoading } = useQueryData(
     `servicerequests`
+  ).then(
   );
 
+  
   if (!account) return null;
 
   const columnNames = [
@@ -105,7 +107,9 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
-        TEST
+        <p className="text-black font-semibold text-lg2">
+          Assigned to services:
+        </p>
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
@@ -116,8 +120,8 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
               serviceRequest;
 
             return (
-              <TableRow key={id} onClick={() => push(`service-requests/${id}`)}>
-                <TableCell className="py-5 flex space-x-3">
+              <TableRow key={id} onClick={() => push(`/service-requests/${id}`)}>
+                <TableCell className="py-0 flex space-x-3">
                   {account.role !== "Customer" && (
                     <div className="md:block">
                       <Avatar
@@ -128,21 +132,21 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                       />
                     </div>
                   )}
-                  <div className="space-y-1 text-center">
-                    <div>{customer?.companyName}</div>
+                  <div className="space-y-1 self-center">
+                    {customer?.companyName}
                   </div>
                 </TableCell>
-                <TableCell className="py-5 text-sm text-primary-500 font-normal">
+                <TableCell className="py-0 text-sm text-primary-500 font-normal">
                   <div className="text-sm2 text-primary-500">
                     {customerAddress?.address.street},{" "}
                     {customerAddress?.address.zipCode}{" "}
                     {customerAddress?.address.city}
                   </div>
                 </TableCell>
-                <TableCell className="py-5 text-sm font-normal">
+                <TableCell className="py-0 text-sm font-normal">
                   {serviceRequest.title}
                 </TableCell>
-                <TableCell className="py-5">
+                <TableCell className="py-0">
                   <StatusBadge status={serviceRequest.status} />
                 </TableCell>
               </TableRow>
