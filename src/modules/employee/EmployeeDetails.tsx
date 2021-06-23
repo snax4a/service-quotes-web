@@ -8,13 +8,14 @@ import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
-import { ServiceRequest } from "../../types";
+import { ServiceRequest, Employee } from "../../types";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
+import { EmployeeOptions } from "./EmployeeOptions";
 
-interface EmployeeDetailsProps {}
+interface EmployeeDetailsProps { }
 
-export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
+export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
@@ -54,7 +55,6 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
               username={data.firstName + " " + data.lastName}
               size="md"
             />
-
             <div className="flex flex-col">
               <div className="flex flex-col lg:flex-row lg:justify-between">
                 <div className="flex flex-col">
@@ -67,12 +67,14 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
                     </p>
                   </div>
                 </div>
+                <div className="flex self-center mt-4">
+                  <EmployeeOptions employee={data} />
+                </div>
               </div>
-
-              <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
-                Specializations: {data.specializations}
-              </p>
             </div>
+            <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
+              Specializations: {data.specializations}
+            </p>
           </div>
         </WhiteCard>
       </div>
@@ -80,19 +82,17 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
   );
 };
 
-interface ServiceRequestsListProps {}
+interface ServiceRequestsListProps { }
 
-export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
+export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
 
   const { data, isLoading } = useQueryData(
     `servicerequests`
-  ).then(
   );
 
-  
   if (!account) return null;
 
   const columnNames = [
