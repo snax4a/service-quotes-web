@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import useQueryData from "../../shared-hooks/useQueryData";
-import { Employee } from "../../types";
+import { Specialization } from "../../types";
 import { Avatar } from "../../ui/Avatar";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { BlueCard } from "../../ui/card/BlueCard";
@@ -13,66 +13,48 @@ import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { RoundedButton } from "../../ui/RoundedButton";
 
-const specializationsOptions = [
-  {
-    label: "All Specializations",
-    value: "",
-  },
-];
-
 interface ManagerDataRowProps {
-  employee: Employee;
+  specialization: Specialization;
 }
 
-export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
+export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ specialization }) => {
   return (
     <>
-      <TableCell className="py-5 flex space-x-3">
-        <div className="hidden md:block">
-          <Avatar
-            src={employee?.image || ""}
-            className="rounded-2xl"
-            size="md"
-          />
-        </div>
+      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+        {specialization.name}
       </TableCell>
       <TableCell className="py-5 text-sm text-blue-600 font-normal">
-        {employee.firstName}
-      </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
-        {employee.lastName}
+        Edit
       </TableCell>
       <TableCell className="py-5 text-sm text-primary-500 font-normal">
-        {employee.specializations}
+        Delete
       </TableCell>
     </>
   );
 };
 
-interface EmployeesListProps {}
+interface SpecializationListProps {}
 
-export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
+export const SpecializationList: React.FC<SpecializationListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
   const [term, setTerm] = useState("");
   const [searchString, setSearchString] = useState("");
-  const [specialization, setSpecialization] = useState(specializationsOptions[0]);
   const setSearchTerm = ({
     currentTarget: { value },
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
   const { data, isLoading } = useQueryData(
-    `employees?specialization=${specialization.value}&searchString=${searchString}`
+    `specializations`
   );
 
   if (!account) return null;
 
   const managerColumnNames = [
-    "Profile Image",
-    "First Name",
-    "Last Name",
-    "Specializations",
+    "Specialization Name",
+    "Edit",
+    "Delete",
   ];
 
   const columnNames = managerColumnNames;
@@ -81,7 +63,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
+      {/* <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
         <p
           className="text-4xl font-semibold mr-4">
           Manage employee specializations
@@ -92,26 +74,24 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
           className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md">
             Here
         </RoundedButton>
-      </BlueCard>
+      </BlueCard> */}
 
       <WhiteCard padding="medium" className="flex-col">
         <div
           className="grid gap-3 w-full mb-4"
           style={{
             gridTemplateColumns:
-              screenType === "fullscreen" ? "1fr" : "1fr 4fr",
+              screenType === "fullscreen" ? "1fr" : "4fr 1fr",
           }}
         >
-          <SelectBox
-            value={specialization}
-            options={specializationsOptions}
-            onChange={setSpecialization}
-          />
           <SearchBar
             value={term}
             onChange={setSearchTerm}
             onSearch={() => setSearchString(term)}
           />
+          <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
+            PLACEHOLDER
+          </BlueCard>
         </div>
 
         <DataTable
@@ -119,13 +99,13 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
           isLoading={isLoading}
           dataCount={data.length}
         >
-          {data?.map((employee: Employee) => {
+          {data?.map((specialization: Specialization) => {
             return (
               <TableRow
-                key={employee.id}
-                onClick={() => push(`employees/${employee.id}`)}
+                key={specialization.id}
+                onClick={() => push(`specializations/${specialization.id}`)}
               >
-              <ManagerDataRow employee={employee} />
+              <ManagerDataRow specialization={specialization} />
               </TableRow>
             );
           })}

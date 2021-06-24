@@ -5,18 +5,17 @@ import { WaitForAuth } from "../auth/WaitForAuth";
 import { HeaderController } from "../display/HeaderController";
 import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
-import { EmployeeDetails, ServiceRequestsList } from "./EmployeeDetails";
+import { SpecializationList } from "./SpecializationList";
 
-interface EmployeeDetailsPageProps {}
+interface SpecializationListPageProps {}
 
-export const EmployeeDetailsPage: NextPage<EmployeeDetailsPageProps> = () => {
+export const SpecializationListPage: NextPage<SpecializationListPageProps> = () => {
   return (
     <WaitForAuth>
-      <HeaderController embed={{}} title="Employee Details" />
+      <HeaderController embed={{}} title="Specialization List" />
       <DefaultDesktopLayout>
-        <PageHeader title="Employee details" onBackClick={() => router.back()} />
-        <EmployeeDetails />
-        <ServiceRequestsList />
+        <PageHeader title="Specialization list" onBackClick={() => router.back()} />
+        <SpecializationList />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );
