@@ -88,17 +88,29 @@ export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
           }}
         >
           {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className={`flex flex-col focus:outline-none w-full`}>
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Firstname</div>
-                <InputField padding="md" name="firstname" />
+            <Form className='flex flex-col focus:outline-none w-full'>
+
+              <div className='flex flex-row gap-5 focus:outline-none w-full'>
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">Firstname</div>
+                  <InputField
+                    value={data?.firstName}
+                    padding="lg"
+                    name="firstname" />
+                </div>
+
+
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">Lastname</div>
+                  <InputField
+                    value={data?.lastName}
+                    padding="lg"
+                    name="lastname" />
+                </div>
               </div>
 
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Lastname</div>
-                <InputField padding="md" name="lastname" />
-              </div>
-
+              SPECIALIZATION PLACEHOLDER
+              
               <div className={`flex mt-5 space-x-4 max-w-xs text-white`}>
                 <Button
                   loading={isSubmitting}

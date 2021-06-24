@@ -16,7 +16,7 @@ export const EditEmployeePage: NextPage<EditEmployeePageProps> =
   () => {
     const { account } = useContext(AuthContext);
     const { query } = useRouter();
-    const { data, isLoading } = useQueryData(`employee/${query.id}`);
+    const { data, isLoading } = useQueryData(`employees/${query.id}`);
 
     if (!account) return null;
 
