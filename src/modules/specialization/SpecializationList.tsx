@@ -13,6 +13,13 @@ import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { RoundedButton } from "../../ui/RoundedButton";
 
+import { OptionsPopover } from "../../ui/OptionsPopover";
+import { SettingsIcon } from "../../ui/SettingsIcon";
+import { OutlinePencilAlt, OutlineTrash } from "../../icons";
+
+import { privateClient } from "../../lib/queryClient";
+import { showSuccessToast } from "../../lib/toasts";
+
 interface ManagerDataRowProps {
   specialization: Specialization;
 }
@@ -33,9 +40,9 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ specialization }
   );
 };
 
-interface SpecializationListProps {}
+interface SpecializationListProps { }
 
-export const SpecializationList: React.FC<SpecializationListProps> = ({}) => {
+export const SpecializationList: React.FC<SpecializationListProps> = ({ }) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
@@ -45,7 +52,7 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({}) => {
     currentTarget: { value },
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
-  const { data, isLoading } = useQueryData(
+  const { data, isLoading, fetch } = useQueryData(
     `specializations`
   );
 
@@ -63,19 +70,6 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      {/* <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
-        <p
-          className="text-4xl font-semibold mr-4">
-          Manage employee specializations
-        </p>
-
-        <RoundedButton
-          onClick={() => push(`/specializations`)}
-          className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md">
-            Here
-        </RoundedButton>
-      </BlueCard> */}
-
       <WhiteCard padding="medium" className="flex-col">
         <div
           className="grid gap-3 w-full mb-4"
@@ -90,7 +84,7 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({}) => {
             onSearch={() => setSearchString(term)}
           />
           <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
-            PLACEHOLDER
+            + Add New
           </BlueCard>
         </div>
 
@@ -101,11 +95,32 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({}) => {
         >
           {data?.map((specialization: Specialization) => {
             return (
-              <TableRow
-                key={specialization.id}
-                onClick={() => push(`specializations/${specialization.id}`)}
-              >
-              <ManagerDataRow specialization={specialization} />
+              <TableRow>
+                <TableCell>
+                  {specialization.name}
+                </TableCell>
+                <TableCell>
+                  <RoundedButton
+                    className="w-min"
+                    onClick={() => push(`specializations/${specialization.id}`)}>
+                    <OutlinePencilAlt height={17} width={17} />
+                  </RoundedButton>
+                </TableCell>
+                <TableCell>
+                  <RoundedButton
+                    className="w-min"
+                    onClick={() => {
+                      privateClient
+                        .delete(`specializations/${specialization.id}`)
+                        .then(() => {
+                          showSuccessToast("Specialization has been removed.");
+                          fetch();
+                        })
+                        .catch(() => { });
+                    }}>
+                    <OutlineTrash height={17} width={17} />
+                  </RoundedButton>
+                </TableCell>
               </TableRow>
             );
           })}
