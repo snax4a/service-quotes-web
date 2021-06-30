@@ -1,22 +1,17 @@
 import React, { useContext, useState } from "react";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { Specialization } from "../../types";
-import { Avatar } from "../../ui/Avatar";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { BlueCard } from "../../ui/card/BlueCard";
+import { Button } from "../../ui/Button";
 import { MiddlePanel } from "../layouts/GridPanels";
 import { useRouter } from "next/router";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { SearchBar } from "../../ui/SearchBar";
-import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { RoundedButton } from "../../ui/RoundedButton";
-
-import { OptionsPopover } from "../../ui/OptionsPopover";
-import { SettingsIcon } from "../../ui/SettingsIcon";
 import { OutlinePencilAlt, OutlineTrash } from "../../icons";
-
 import { privateClient } from "../../lib/queryClient";
 import { showSuccessToast } from "../../lib/toasts";
 
@@ -83,9 +78,14 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({ }) => {
             onChange={setSearchTerm}
             onSearch={() => setSearchString(term)}
           />
-          <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
-            + Add New
-          </BlueCard>
+          <Button onClick={() => {
+            push(`specializations/create`);
+          }}>
+            <BlueCard
+              className="flex items-center justify-center rounded-md">
+              + Add New
+            </BlueCard>
+          </Button>
         </div>
 
         <DataTable

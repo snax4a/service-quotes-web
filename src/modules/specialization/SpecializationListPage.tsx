@@ -7,7 +7,7 @@ import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
 import { SpecializationList } from "./SpecializationList";
 
-interface SpecializationListPageProps {}
+interface SpecializationListPageProps { }
 
 export const SpecializationListPage: NextPage<SpecializationListPageProps> = () => {
   return (
