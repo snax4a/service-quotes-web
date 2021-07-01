@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useQueryData from "../../shared-hooks/useQueryData";
-import { Employee } from "../../types";
+import { Employee, Specialization } from "../../types";
 import { Avatar } from "../../ui/Avatar";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { BlueCard } from "../../ui/card/BlueCard";
@@ -12,14 +12,7 @@ import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { RoundedButton } from "../../ui/RoundedButton";
-
-const specializationsOptions = [
-  {
-    label: "All Specializations",
-    value: "",
-  },
-];
-
+import { privateClient } from "../../lib/queryClient";
 interface ManagerDataRowProps {
   employee: Employee;
 }
@@ -43,7 +36,7 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
         {employee.lastName}
       </TableCell>
       <TableCell className="py-5 text-sm text-primary-500 font-normal">
-        {employee.specializations}
+        {employee.specializations?.map((spec: Specialization) => spec.name).join(", ")}
       </TableCell>
     </>
   );
@@ -57,14 +50,36 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
   const screenType = useScreenType();
   const [term, setTerm] = useState("");
   const [searchString, setSearchString] = useState("");
+  const [specializationsOptions, setSpecializationsOptions] = useState([
+    {
+      label: "All Specializations",
+      value: "",
+    },
+  ]);
   const [specialization, setSpecialization] = useState(specializationsOptions[0]);
   const setSearchTerm = ({
     currentTarget: { value },
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
   const { data, isLoading } = useQueryData(
-    `employees?specialization=${specialization.value}&searchString=${searchString}`
+    `employees?specializationId=${specialization.value}&searchString=${searchString}`
   );
+
+  useEffect(() => {
+    privateClient
+      .get(`specializations`)
+      .json()
+      .then((res) => {
+        setSpecializationsOptions([...specializationsOptions, ...res.map((spec: Specialization) => {
+          return { label: spec.name, value: spec.id }
+        })])
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  console.log(specializationsOptions);
 
   if (!account) return null;
 

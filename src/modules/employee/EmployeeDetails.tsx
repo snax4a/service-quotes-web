@@ -32,6 +32,8 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
     return <InfoText>Could not find employee</InfoText>;
   }
 
+  console.log(data);
+
   return (
     <MiddlePanel>
       <div
@@ -73,7 +75,7 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
               </div>
             </div>
             <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
-              Specializations: {data.specializations}
+              {/* Specializations: {data} */}
             </p>
           </div>
         </WhiteCard>

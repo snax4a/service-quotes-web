@@ -46,7 +46,7 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
           validateOnBlur={false}
           validationSchema={specializationSchema}
           onSubmit={({ name }, actions) => {
-            const url = data ? `servicerequests/${data.id}` : `servicerequests`;
+            const url = data ? `specializations/${data.id}` : `specializations`;
             privateClient(url, {
               method: edit ? "put" : "post",
               json: {
@@ -60,10 +60,10 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
                     } successfully.`
                   );
                   if (edit) {
-                    router.push(`/specializations/${data?.id}`);
+                    router.push(`/specializations`);
                   } else {
-                    const serviceRequest = await res.json();
-                    router.push(`/specializations/${serviceRequest.id}`);
+                    const specialization = await res.json();
+                    router.push(`/specializations/${specialization.id}`);
                   }
                 }
               })
@@ -82,7 +82,8 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
                   <InputField
                     value={data?.name}
                     padding="lg"
-                    name="name" />
+                    name="name"
+                  />
                 </div>
 
                 <>
