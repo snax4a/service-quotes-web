@@ -8,10 +8,11 @@ import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
-import { ServiceRequest, Employee } from "../../types";
+import { ServiceRequest, Specialization } from "../../types";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { EmployeeOptions } from "./EmployeeOptions";
+import { BlueCard } from "../../ui/card/BlueCard";
 
 interface EmployeeDetailsProps { }
 
@@ -31,8 +32,6 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
   if (data.status === 404) {
     return <InfoText>Could not find employee</InfoText>;
   }
-
-  console.log(data);
 
   return (
     <MiddlePanel>
@@ -74,9 +73,23 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
                 </div>
               </div>
             </div>
-            <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
-              {/* Specializations: {data} */}
-            </p>
+
+            <div className="flex text-primary-500 mt-3 w-full md:mt-1">
+              <p className="self-center text-md font-bold">
+                Specializations:
+              </p>
+              {(data.specializations[0]) ?
+                data.specializations.map((spec: Specialization) => (
+                  <BlueCard className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm" key={spec.id}>
+                    {spec.name}
+                  </BlueCard>
+                ))
+                :
+                <p className="ml-2">
+                  None
+                </p>
+              }
+            </div>
           </div>
         </WhiteCard>
       </div>
@@ -88,11 +101,11 @@ interface ServiceRequestsListProps { }
 
 export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => {
   const { account } = useContext(AuthContext);
-  const { push } = useRouter();
+  const { query, push } = useRouter();
   const screenType = useScreenType();
-
+  const id = typeof query.id === "string" ? query.id : "";
   const { data, isLoading } = useQueryData(
-    `servicerequests`
+    `servicerequests/assigned/${id}`
   );
 
   if (!account) return null;

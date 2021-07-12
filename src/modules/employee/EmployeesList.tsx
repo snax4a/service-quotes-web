@@ -42,9 +42,9 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
   );
 };
 
-interface EmployeesListProps {}
+interface EmployeesListProps { }
 
-export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
+export const EmployeesList: React.FC<EmployeesListProps> = ({ }) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
@@ -79,8 +79,6 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
       });
   }, []);
 
-  console.log(specializationsOptions);
-
   if (!account) return null;
 
   const managerColumnNames = [
@@ -105,7 +103,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
         <RoundedButton
           onClick={() => push(`/specializations`)}
           className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md">
-            Here
+          Here
         </RoundedButton>
       </BlueCard>
 
@@ -140,7 +138,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
                 key={employee.id}
                 onClick={() => push(`employees/${employee.id}`)}
               >
-              <ManagerDataRow employee={employee} />
+                <ManagerDataRow employee={employee} />
               </TableRow>
             );
           })}

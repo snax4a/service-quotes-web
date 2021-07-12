@@ -48,7 +48,7 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({ }) => {
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
   const { data, isLoading, fetch } = useQueryData(
-    `specializations`
+    `specializations?searchString=${searchString}`
   );
 
   if (!account) return null;

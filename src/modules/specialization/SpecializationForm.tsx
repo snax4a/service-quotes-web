@@ -1,9 +1,8 @@
 import { Form, Formik } from "formik";
 import React from "react";
-import { UUID, Specialization } from "../../types";
+import { Specialization } from "../../types";
 import { Account } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
-import { validate } from "uuid";
 import { privateClient } from "../../lib/queryClient";
 import { showSuccessToast } from "../../lib/toasts";
 import { WhiteCard } from "../../ui/card/WhiteCard";

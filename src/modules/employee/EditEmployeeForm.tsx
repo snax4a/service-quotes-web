@@ -1,10 +1,8 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { UUID, Employee, Customer, CustomerAddress } from "../../types";
+import { Employee} from "../../types";
 import { Account } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
-import { SelectBox } from "../../ui/SelectBox";
-import { validate } from "uuid";
 import { privateClient } from "../../lib/queryClient";
 import { showSuccessToast } from "../../lib/toasts";
 import { WhiteCard } from "../../ui/card/WhiteCard";
@@ -110,7 +108,7 @@ export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
               </div>
 
               SPECIALIZATION PLACEHOLDER
-              
+
               <div className={`flex mt-5 space-x-4 max-w-xs text-white`}>
                 <Button
                   loading={isSubmitting}

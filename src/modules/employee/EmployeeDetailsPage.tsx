@@ -7,7 +7,7 @@ import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
 import { EmployeeDetails, ServiceRequestsList } from "./EmployeeDetails";
 
-interface EmployeeDetailsPageProps {}
+interface EmployeeDetailsPageProps { }
 
 export const EmployeeDetailsPage: NextPage<EmployeeDetailsPageProps> = () => {
   return (
