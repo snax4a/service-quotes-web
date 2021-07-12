@@ -59,12 +59,7 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
                     `Specialization ${edit ? "updated" : "created"
                     } successfully.`
                   );
-                  if (edit) {
-                    router.push(`/specializations`);
-                  } else {
-                    const specialization = await res.json();
-                    router.push(`/specializations/${specialization.id}`);
-                  }
+                  router.push(`/specializations`);
                 }
               })
               .catch((err) => {
@@ -80,7 +75,6 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
                 <div className="mt-4 text-sm flex-grow">
                   <div className="text-primary-400 mb-1">Name</div>
                   <InputField
-                    value={data?.name}
                     padding="lg"
                     name="name"
                   />
