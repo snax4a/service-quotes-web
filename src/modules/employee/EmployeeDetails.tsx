@@ -21,7 +21,9 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`employees/${id}`);
+  const { data, isLoading } = useQueryData(
+    `employees/${id}`
+  );
 
   if (!account) return null;
 
@@ -80,7 +82,10 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
               </p>
               {(data.specializations[0]) ?
                 data.specializations.map((spec: Specialization) => (
-                  <BlueCard className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm" key={spec.id}>
+                  <BlueCard
+                    className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
+                    key={spec.id}
+                  >
                     {spec.name}
                   </BlueCard>
                 ))
@@ -142,7 +147,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => 
                       <Avatar
                         src={customer?.image || ""}
                         username={customer?.companyName}
-                        className="rounded-2xl"
+                        className="rounded-full"
                         size="md"
                       />
                     </div>

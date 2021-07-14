@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Employee} from "../../types";
+import { Employee, Specialization } from "../../types";
 import { Account } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import { privateClient } from "../../lib/queryClient";
@@ -8,32 +8,52 @@ import { showSuccessToast } from "../../lib/toasts";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { InputField } from "../../form-fields/InputField";
 import { SolidCheck, SolidPlus } from "../../icons";
+import { EmployeeSpecializationOptions } from "./EmployeeSpecializationOptions";
 import Image from "next/image";
 import router from "next/router";
 import * as Yup from "yup";
+import useQueryData from "../../shared-hooks/useQueryData";
+import { SelectBox } from "../../ui/SelectBox";
 
-const serviceRequestSchema = Yup.object().shape({
+const employeeSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
   lastName: Yup.string().required("Last name is required"),
 });
 
-interface SelectOption {
-  label: string;
-  value: string;
-}
-
-interface EditEmployeeFormProps {
+interface EmployeeFormProps {
   account: Account;
   data?: Employee;
   edit?: boolean;
+  fetch?: any;
 }
 
-export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
+export const EmployeeForm: React.FC<EmployeeFormProps> = ({
   account,
   data,
   edit,
+  fetch,
 }) => {
-  const [specializationOptions, setSpecializationOptions] = useState<SelectOption[]>([]);
+  const [specializationsOptions, setSpecializationsOptions] = useState([
+    {
+      label: "Select specialization",
+      value: "",
+    },
+  ]);
+  const [specialization, setSpecialization] = useState(specializationsOptions[0]);
+
+  useEffect(() => {
+    privateClient
+      .get(`specializations`)
+      .json()
+      .then((res) => {
+        setSpecializationsOptions([...specializationsOptions, ...res.map((spec: Specialization) => {
+          return { label: spec.name, value: spec.id }
+        })])
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <WhiteCard padding="medium">
@@ -55,14 +75,14 @@ export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
           }
           validateOnChange={false}
           validateOnBlur={false}
-          validationSchema={serviceRequestSchema}
+          validationSchema={employeeSchema}
           onSubmit={({ firstName, lastName }, actions) => {
             const url = data ? `employees/${data.id}` : `employees`;
             privateClient(url, {
               method: edit ? "put" : "post",
               json: {
                 firstName,
-                lastName,
+                lastName
               },
             })
               .then(async (res) => {
@@ -77,6 +97,7 @@ export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
                     const employee = await res.json();
                     router.push(`/employees/${employee.id}`);
                   }
+
                 }
               })
               .catch((err) => {
@@ -92,24 +113,19 @@ export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
                 <div className="mt-4 text-sm">
                   <div className="text-primary-400 mb-1">Firstname</div>
                   <InputField
-                    value={data?.firstName}
                     padding="lg"
-                    name="firstname" />
+                    name="firstName" />
                 </div>
-
 
                 <div className="mt-4 text-sm">
                   <div className="text-primary-400 mb-1">Lastname</div>
                   <InputField
-                    value={data?.lastName}
                     padding="lg"
-                    name="lastname" />
+                    name="lastName" />
                 </div>
               </div>
 
-              SPECIALIZATION PLACEHOLDER
-
-              <div className={`flex mt-5 space-x-4 max-w-xs text-white`}>
+              <div className={`flex mt-2 space-x-4 max-w-xs text-white h-6`}>
                 <Button
                   loading={isSubmitting}
                   color="secondary"
@@ -141,6 +157,70 @@ export const EditEmployeeForm: React.FC<EditEmployeeFormProps> = ({
             </Form>
           )}
         </Formik>
+
+        <hr className="my-6"></hr>
+
+        <div className="text-primary-500 w-full md:mt-1">
+          <p className="self-center text-md font-bold mb-2">
+            Specializations
+          </p>
+
+          <div className="flex">
+            {data?.specializations ? // TODO: How to check if there are specilizations present?
+              data?.specializations.map((specialization: Specialization) => (
+                <EmployeeSpecializationOptions
+                  employeeId={data.id}
+                  specialization={specialization}
+                  fetch={fetch}
+                  key={specialization.id}
+                />
+              ))
+              :
+              <p className="ml-2">
+                None
+              </p>
+            }
+          </div>
+
+          <div
+            className="grid gap-2 w-full mt-6"
+            style={{
+              gridTemplateColumns:
+                "7fr 1fr"
+            }}
+          >
+            <div className="flex-grow">
+              <SelectBox
+                value={specialization}
+                options={specializationsOptions}
+                onChange={setSpecialization}
+              />
+            </div>
+
+            <Button
+              color="secondary"
+              type="submit"
+              size="small"
+              className={`flex w-full justify-center`}
+              icon={<SolidCheck width={18} height={18} />}
+              onClick={() => {
+                privateClient
+                  .post(`employees/${data?.id}/specializations`, {
+                    json: {
+                      specializationId: specialization.value,
+                    },
+                  })
+                  .then(() => {
+                    showSuccessToast("Specialization has been added.");
+                    fetch();
+                  })
+                  .catch(() => { });
+              }}
+            >
+              {"Add"}
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="hidden md:flex md:items-center px-4">

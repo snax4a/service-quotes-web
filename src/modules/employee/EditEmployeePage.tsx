@@ -5,7 +5,7 @@ import { WaitForAuth } from "../auth/WaitForAuth";
 import { HeaderController } from "../display/HeaderController";
 import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
-import { EditEmployeeForm } from "./EditEmployeeForm";
+import { EmployeeForm } from "./EmployeeForm";
 import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { CenterLoader } from "../../ui/CenterLoader";
@@ -16,7 +16,9 @@ export const EditEmployeePage: NextPage<EditEmployeePageProps> =
   () => {
     const { account } = useContext(AuthContext);
     const { query } = useRouter();
-    const { data, isLoading } = useQueryData(`employees/${query.id}`);
+    const { data, isLoading, fetch } = useQueryData(
+      `employees/${query.id}`
+    );
 
     if (!account) return null;
 
@@ -30,7 +32,12 @@ export const EditEmployeePage: NextPage<EditEmployeePageProps> =
           />
           {isLoading && <CenterLoader />}
           {!isLoading && data && (
-            <EditEmployeeForm account={account} edit data={data} />
+            <EmployeeForm
+              account={account}
+              edit
+              data={data}
+              fetch={fetch}
+            />
           )}
         </DefaultDesktopLayout>
       </WaitForAuth>
