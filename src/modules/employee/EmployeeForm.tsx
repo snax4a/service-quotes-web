@@ -12,7 +12,6 @@ import { EmployeeSpecializationOptions } from "./EmployeeSpecializationOptions";
 import Image from "next/image";
 import router from "next/router";
 import * as Yup from "yup";
-import useQueryData from "../../shared-hooks/useQueryData";
 import { SelectBox } from "../../ui/SelectBox";
 
 const employeeSchema = Yup.object().shape({
@@ -28,7 +27,6 @@ interface EmployeeFormProps {
 }
 
 export const EmployeeForm: React.FC<EmployeeFormProps> = ({
-  account,
   data,
   edit,
   fetch,
@@ -39,20 +37,26 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
       value: "",
     },
   ]);
-  const [specialization, setSpecialization] = useState(specializationsOptions[0]);
+  const [specialization, setSpecialization] = useState(
+    specializationsOptions[0]
+  );
 
   useEffect(() => {
     privateClient
       .get(`specializations`)
       .json()
-      .then((res) => {
-        setSpecializationsOptions([...specializationsOptions, ...res.map((spec: Specialization) => {
-          return { label: spec.name, value: spec.id }
-        })])
+      .then((res: any) => {
+        setSpecializationsOptions([
+          ...specializationsOptions,
+          ...res.map((spec: Specialization) => {
+            return { label: spec.name, value: spec.id };
+          }),
+        ]);
       })
       .catch((err) => {
         console.error(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -65,13 +69,13 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
           initialValues={
             data
               ? {
-                firstName: data.firstName,
-                lastName: data.lastName,
-              }
+                  firstName: data.firstName,
+                  lastName: data.lastName,
+                }
               : {
-                firstName: "",
-                lastName: "",
-              }
+                  firstName: "",
+                  lastName: "",
+                }
           }
           validateOnChange={false}
           validateOnBlur={false}
@@ -82,14 +86,13 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
               method: edit ? "put" : "post",
               json: {
                 firstName,
-                lastName
+                lastName,
               },
             })
               .then(async (res) => {
                 if (res.ok) {
                   showSuccessToast(
-                    `Employee ${edit ? "updated" : "created"
-                    } successfully.`
+                    `Employee ${edit ? "updated" : "created"} successfully.`
                   );
                   if (edit) {
                     router.push(`/employees/${data?.id}`);
@@ -97,7 +100,6 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
                     const employee = await res.json();
                     router.push(`/employees/${employee.id}`);
                   }
-
                 }
               })
               .catch((err) => {
@@ -107,21 +109,16 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
           }}
         >
           {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className='flex flex-col focus:outline-none w-full'>
-
-              <div className='flex flex-row gap-5 focus:outline-none w-full'>
+            <Form className="flex flex-col focus:outline-none w-full">
+              <div className="flex flex-row gap-5 focus:outline-none w-full">
                 <div className="mt-4 text-sm">
                   <div className="text-primary-400 mb-1">Firstname</div>
-                  <InputField
-                    padding="lg"
-                    name="firstName" />
+                  <InputField padding="lg" name="firstName" />
                 </div>
 
                 <div className="mt-4 text-sm">
                   <div className="text-primary-400 mb-1">Lastname</div>
-                  <InputField
-                    padding="lg"
-                    name="lastName" />
+                  <InputField padding="lg" name="lastName" />
                 </div>
               </div>
 
@@ -161,32 +158,27 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
         <hr className="my-6"></hr>
 
         <div className="text-primary-500 w-full md:mt-1">
-          <p className="self-center text-md font-bold mb-2">
-            Specializations
-          </p>
+          <p className="self-center text-md font-bold mb-2">Specializations</p>
 
           <div className="flex">
-            {data?.specializations ? // TODO: How to check if there are specilizations present?
-              data?.specializations.map((specialization: Specialization) => (
+            {data?.specializations ? (
+              data?.specializations.map((spec: Specialization) => (
                 <EmployeeSpecializationOptions
                   employeeId={data.id}
-                  specialization={specialization}
+                  specialization={spec}
                   fetch={fetch}
-                  key={specialization.id}
+                  key={spec.id}
                 />
               ))
-              :
-              <p className="ml-2">
-                None
-              </p>
-            }
+            ) : (
+              <p className="ml-2">None</p>
+            )}
           </div>
 
           <div
             className="grid gap-2 w-full mt-6"
             style={{
-              gridTemplateColumns:
-                "7fr 1fr"
+              gridTemplateColumns: "7fr 1fr",
             }}
           >
             <div className="flex-grow">
@@ -214,7 +206,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
                     showSuccessToast("Specialization has been added.");
                     fetch();
                   })
-                  .catch(() => { });
+                  .catch(() => {});
               }}
             >
               {"Add"}

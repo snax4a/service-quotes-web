@@ -10,36 +10,25 @@ import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { CenterLoader } from "../../ui/CenterLoader";
 
-interface EditEmployeePageProps { }
+interface EditEmployeePageProps {}
 
-export const EditEmployeePage: NextPage<EditEmployeePageProps> =
-  () => {
-    const { account } = useContext(AuthContext);
-    const { query } = useRouter();
-    const { data, isLoading, fetch } = useQueryData(
-      `employees/${query.id}`
-    );
+export const EditEmployeePage: NextPage<EditEmployeePageProps> = () => {
+  const { account } = useContext(AuthContext);
+  const { query } = useRouter();
+  const { data, isLoading, fetch } = useQueryData(`employees/${query.id}`);
 
-    if (!account) return null;
+  if (!account) return null;
 
-    return (
-      <WaitForAuth>
-        <HeaderController embed={{}} title="Edit Employee" />
-        <DefaultDesktopLayout>
-          <PageHeader
-            title="Edit employee"
-            onBackClick={() => router.back()}
-          />
-          {isLoading && <CenterLoader />}
-          {!isLoading && data && (
-            <EmployeeForm
-              account={account}
-              edit
-              data={data}
-              fetch={fetch}
-            />
-          )}
-        </DefaultDesktopLayout>
-      </WaitForAuth>
-    );
-  };
+  return (
+    <WaitForAuth>
+      <HeaderController embed={{}} title="Edit Employee" />
+      <DefaultDesktopLayout>
+        <PageHeader title="Edit employee" onBackClick={() => router.back()} />
+        {isLoading && <CenterLoader />}
+        {!isLoading && data && (
+          <EmployeeForm account={account} edit data={data} fetch={fetch} />
+        )}
+      </DefaultDesktopLayout>
+    </WaitForAuth>
+  );
+};

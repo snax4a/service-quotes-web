@@ -24,6 +24,7 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
         <div className="hidden md:block">
           <Avatar
             src={employee?.image || ""}
+            username={`${employee.firstName} ${employee.lastName}`}
             className="rounded-2xl"
             size="md"
           />
@@ -36,15 +37,17 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
         {employee.lastName}
       </TableCell>
       <TableCell className="py-5 text-sm text-primary-500 font-normal">
-        {employee.specializations?.map((spec: Specialization) => spec.name).join(", ")}
+        {employee.specializations
+          ?.map((spec: Specialization) => spec.name)
+          .join(", ")}
       </TableCell>
     </>
   );
 };
 
-interface EmployeesListProps { }
+interface EmployeesListProps {}
 
-export const EmployeesList: React.FC<EmployeesListProps> = ({ }) => {
+export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
@@ -56,7 +59,9 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({ }) => {
       value: "",
     },
   ]);
-  const [specialization, setSpecialization] = useState(specializationsOptions[0]);
+  const [specialization, setSpecialization] = useState(
+    specializationsOptions[0]
+  );
   const setSearchTerm = ({
     currentTarget: { value },
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
@@ -69,14 +74,18 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({ }) => {
     privateClient
       .get(`specializations`)
       .json()
-      .then((res) => {
-        setSpecializationsOptions([...specializationsOptions, ...res.map((spec: Specialization) => {
-          return { label: spec.name, value: spec.id }
-        })])
+      .then((res: any) => {
+        setSpecializationsOptions([
+          ...specializationsOptions,
+          ...res.map((spec: Specialization) => {
+            return { label: spec.name, value: spec.id };
+          }),
+        ]);
       })
       .catch((err) => {
         console.error(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!account) return null;
@@ -95,14 +104,14 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({ }) => {
   return (
     <MiddlePanel>
       <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
-        <p
-          className="text-4xl font-semibold mr-4">
+        <p className="text-4xl font-semibold mr-4">
           Manage employee specializations
         </p>
 
         <RoundedButton
           onClick={() => push(`/specializations`)}
-          className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md">
+          className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md"
+        >
           Here
         </RoundedButton>
       </BlueCard>

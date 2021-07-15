@@ -14,16 +14,14 @@ import { StatusBadge } from "../../ui/StatusBadge";
 import { EmployeeOptions } from "./EmployeeOptions";
 import { BlueCard } from "../../ui/card/BlueCard";
 
-interface EmployeeDetailsProps { }
+interface EmployeeDetailsProps {}
 
-export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
+export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(
-    `employees/${id}`
-  );
+  const { data, isLoading } = useQueryData(`employees/${id}`);
 
   if (!account) return null;
 
@@ -66,7 +64,8 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
                   </p>
                   <div className="flex space-x-4 font-bold text-sm text-primary-500">
                     <p className="">
-                      Account ID: <span className="text-blue">{data.accountId}</span>
+                      Account ID:{" "}
+                      <span className="text-blue">{data.accountId}</span>
                     </p>
                   </div>
                 </div>
@@ -77,10 +76,8 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
             </div>
 
             <div className="flex text-primary-500 mt-3 w-full md:mt-1">
-              <p className="self-center text-md font-bold">
-                Specializations:
-              </p>
-              {(data.specializations[0]) ?
+              <p className="self-center text-md font-bold">Specializations:</p>
+              {data.specializations[0] ? (
                 data.specializations.map((spec: Specialization) => (
                   <BlueCard
                     className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
@@ -89,11 +86,9 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
                     {spec.name}
                   </BlueCard>
                 ))
-                :
-                <p className="ml-2">
-                  None
-                </p>
-              }
+              ) : (
+                <p className="ml-2">None</p>
+              )}
             </div>
           </div>
         </WhiteCard>
@@ -102,25 +97,17 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ }) => {
   );
 };
 
-interface ServiceRequestsListProps { }
+interface ServiceRequestsListProps {}
 
-export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => {
+export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
-  const screenType = useScreenType();
-  const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(
-    `servicerequests/assigned/${id}`
-  );
+  const empId = typeof query.id === "string" ? query.id : "";
+  const { data, isLoading } = useQueryData(`servicerequests/assigned/${empId}`);
 
   if (!account) return null;
 
-  const columnNames = [
-    "Customer",
-    "Address",
-    "Title",
-    "Status",
-  ];
+  const columnNames = ["Customer", "Address", "Title", "Status"];
 
   if (!data) return null;
 
@@ -136,11 +123,13 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => 
           dataCount={data.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
-            const { id, customerAddress, customer } =
-              serviceRequest;
+            const { id, customerAddress, customer } = serviceRequest;
 
             return (
-              <TableRow key={id} onClick={() => push(`/service-requests/${id}`)}>
+              <TableRow
+                key={id}
+                onClick={() => push(`/service-requests/${id}`)}
+              >
                 <TableCell className="py-0 flex space-x-3">
                   {account.role !== "Customer" && (
                     <div className="md:block">
