@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import router from "next/router";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { MiddlePanel } from "../layouts/GridPanels";
-import { AuthContext } from "../auth/AuthProvider";
+import { Account, AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
 import { RoundedButton } from "../../ui/RoundedButton";
 import { DotsHorizontal, OutlinePencilAlt } from "../../icons";
@@ -11,13 +11,12 @@ import { OptionsPopover } from "../../ui/OptionsPopover";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { formatDateString } from "../../lib/helpers";
 
-interface AccountDetailsProps {}
+interface AccountDetailsProps {
+  account: Account;
+}
 
-export const AccountDetails: React.FC<AccountDetailsProps> = ({}) => {
+export const AccountDetails: React.FC<AccountDetailsProps> = ({ account }) => {
   const screenType = useScreenType();
-  const { account } = useContext(AuthContext);
-
-  if (!account) return null;
 
   const {
     id,
