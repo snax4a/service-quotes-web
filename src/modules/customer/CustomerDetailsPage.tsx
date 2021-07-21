@@ -5,17 +5,18 @@ import { WaitForAuth } from "../auth/WaitForAuth";
 import { HeaderController } from "../display/HeaderController";
 import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
-import { CustomersList } from "./CustomersList";
+import { CustomerDetails, ServiceRequestsList } from "./CustomerDetails";
 
-interface CustomersListPageProps {}
+interface CustomerDetailsPageProps {}
 
-export const CustomersListPage: NextPage<CustomersListPageProps> = () => {
+export const CustomerDetailsPage: NextPage<CustomerDetailsPageProps> = () => {
   return (
     <WaitForAuth>
-      <HeaderController embed={{}} title="Customer List" />
+      <HeaderController embed={{}} title="Customer Details" />
       <DefaultDesktopLayout>
-        <PageHeader title="Customer list" onBackClick={() => router.back()} />
-        <CustomersList />
+        <PageHeader title="Customer details" onBackClick={() => router.back()} />
+        <CustomerDetails />
+        <ServiceRequestsList />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

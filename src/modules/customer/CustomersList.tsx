@@ -68,7 +68,7 @@ export const CustomersList: React.FC<CustomersListProps> = ({}) => {
   const columnNames = managerColumnNames;
 
   if (!data) return null;
-
+  
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
@@ -89,7 +89,7 @@ export const CustomersList: React.FC<CustomersListProps> = ({}) => {
             return (
               <TableRow
                 key={customer.id}
-                onClick={() => push(`customer/${customer.id}`)}
+                onClick={() => push(`customers/${customer.id}`)}
               >
                 <ManagerDataRow customer={customer} />
               </TableRow>
