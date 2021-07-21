@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import router from "next/router";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { MiddlePanel } from "../layouts/GridPanels";
-import { Account, AuthContext } from "../auth/AuthProvider";
+import { Account } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
 import { RoundedButton } from "../../ui/RoundedButton";
 import { DotsHorizontal, OutlinePencilAlt } from "../../icons";
@@ -10,12 +10,18 @@ import { SettingsIcon } from "../../ui/SettingsIcon";
 import { OptionsPopover } from "../../ui/OptionsPopover";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { formatDateString } from "../../lib/helpers";
+import Link from "next/link";
+import { Role } from "../../types";
 
 interface AccountDetailsProps {
   account: Account;
+  variant: Role;
 }
 
-export const AccountDetails: React.FC<AccountDetailsProps> = ({ account }) => {
+export const AccountDetails: React.FC<AccountDetailsProps> = ({
+  account,
+  variant,
+}) => {
   const screenType = useScreenType();
 
   const {
@@ -83,13 +89,21 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({ account }) => {
               </p>
               <p>
                 Employee ID:{" "}
-                <span className="pl-1 text-blue">{employeeId}</span>
+                {variant === "Manager" ? (
+                  <Link href={`/employees/${employeeId}`}>
+                    <span className="pl-1 text-blue cursor-pointer">
+                      {employeeId}
+                    </span>
+                  </Link>
+                ) : (
+                  <span className="pl-1 text-primary-800">{employeeId}</span>
+                )}
               </p>
             </>
           )}
 
           <p>
-            Account ID: <span className="pl-1 text-blue">{id}</span>
+            Account ID: <span className="pl-1 text-primary-800">{id}</span>
           </p>
           <p>
             Created At:{" "}
@@ -111,7 +125,9 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({ account }) => {
         >
           <SettingsIcon
             onClick={() => {
-              router.push("/account/edit");
+              router.push(
+                variant === "Manager" ? `/accounts/${id}/edit` : "/account/edit"
+              );
             }}
             icon={<OutlinePencilAlt height={17} width={17} />}
             label="Edit account"

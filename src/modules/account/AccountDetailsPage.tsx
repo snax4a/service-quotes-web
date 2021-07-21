@@ -37,8 +37,6 @@ export const AccountDetailsPage: NextPage<AccountDetailsPageProps> = () => {
     }
   }, [account, id]);
 
-  console.log("loading", loading);
-
   if (!account || !accountDetails || loading) return <CenterLoader />;
 
   return (
@@ -46,7 +44,7 @@ export const AccountDetailsPage: NextPage<AccountDetailsPageProps> = () => {
       <HeaderController embed={{}} title="Account details" />
       <DefaultDesktopLayout>
         <PageHeader title="Account details" onBackClick={() => router.back()} />
-        <AccountDetails account={accountDetails} />
+        <AccountDetails account={accountDetails} variant={account.role} />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

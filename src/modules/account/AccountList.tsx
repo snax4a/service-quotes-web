@@ -57,7 +57,7 @@ export const AccountList: React.FC<AccountListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <WhiteCard padding="medium" className="flex-col">
+      <WhiteCard padding="medium" className="flex-col mb-6.5">
         <div
           className="grid gap-3 w-full mb-4"
           style={{
