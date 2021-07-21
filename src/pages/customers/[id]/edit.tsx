@@ -1,3 +1,3 @@
-import { EditEmployeePage } from "../../../modules/employee/EditEmployeePage";
+import { EditCustomerPage } from "../../../modules/customer/EditCustomerPage";
 
-export default EditEmployeePage;
+export default EditCustomerPage;
