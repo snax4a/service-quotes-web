@@ -12,70 +12,79 @@ import * as Yup from "yup";
 import { UploadField } from "../../form-fields/UploadField";
 import { Avatar } from "../../ui/Avatar";
 import { useScreenType } from "../../shared-hooks/useScreenType";
-import { Role } from "../../types";
+import { SelectBox } from "../../ui/SelectBox";
+import { SelectOption } from "../../types";
+import { InputErrorMsg } from "../../ui/InputErrorMsg";
 
-const editAccountSchema = Yup.object().shape({
-  role: Yup.string().required(),
+const roleOptions = [
+  {
+    label: "CUSTOMER",
+    value: "Customer",
+  },
+  {
+    label: "EMPLOYEE",
+    value: "Employee",
+  },
+  {
+    label: "MANAGER",
+    value: "Manager",
+  },
+];
+
+const createAccountSchema = Yup.object().shape({
   email: Yup.string().email().required("Email is required"),
   password: Yup.string()
     .min(6, "Min 6 characters")
-    .max(30, "Max 30 characters"),
+    .max(30, "Max 30 characters")
+    .required("Password is required"),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .when("password", {
-      is: (val: string) => val && val.length > 0,
-      then: Yup.string()
-        .required("Passwords must match")
-        .min(6, "Min 6 characters")
-        .max(30, "Max 30 characters"),
-    }),
+    .required("Repeat Password is required")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
+  role: Yup.object()
+    .shape({
+      label: Yup.string().required(),
+      value: Yup.string().required("Role is required"),
+    })
+    .required("Role is required"),
   companyName: Yup.string()
     .min(3, "Min 3 characters")
     .max(30, "Max 30 characters")
-    .when("role", {
+    .when("role.value", {
       is: "Customer",
       then: Yup.string().required("Company name is required"),
     }),
   vatNumber: Yup.string()
     .min(9, "Min 9 characters")
     .max(20, "Max 30 characters")
-    .when("role", {
+    .when("role.value", {
       is: "Customer",
       then: Yup.string().required("VAT number is required"),
     }),
   firstName: Yup.string()
     .min(3, "Min 3 characters")
     .max(30, "Max 30 characters")
-    .when("role", {
+    .when("role.value", {
       is: (val: string) => ["Employee", "Manager"].includes(val),
       then: Yup.string().required("First name is required"),
     }),
   lastName: Yup.string()
     .min(3, "Min 3 characters")
     .max(30, "Max 30 characters")
-    .when("role", {
+    .when("role.value", {
       is: (val: string) => ["Employee", "Manager"].includes(val),
       then: Yup.string().required("Last name is required"),
     }),
 });
 
-interface EditAccountFormProps {
-  account: Account;
-  variant: Role;
-}
+interface CreateAccountFormProps {}
 
-export const EditAccountForm: React.FC<EditAccountFormProps> = ({
-  account,
-  variant,
-}) => {
+export const CreateAccountForm: React.FC<CreateAccountFormProps> = () => {
   const screenType = useScreenType();
-  const { companyName, firstName, lastName } = account;
   const [fileName, setFileName] = useState("");
 
   return (
     <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
       <Formik<{
-        role: string;
         email: string;
         image: string;
         password: string;
@@ -84,30 +93,36 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
         vatNumber: string;
         firstName: string;
         lastName: string;
+        role: SelectOption;
       }>
         initialValues={{
-          role: account.role,
-          email: account.email,
-          image: account.image,
+          email: "",
+          image: "",
           password: "",
           repeatPassword: "",
-          companyName: account.companyName || "",
-          vatNumber: account.vatNumber || "",
-          firstName: account.firstName || "",
-          lastName: account.lastName || "",
+          companyName: "",
+          vatNumber: "",
+          firstName: "",
+          lastName: "",
+          role: {
+            label: "-- Select role --",
+            value: "",
+          },
         }}
         validateOnChange={false}
         validateOnBlur={false}
-        validationSchema={editAccountSchema}
+        validationSchema={createAccountSchema}
         onSubmit={(values, actions) => {
+          const role: string = values.role.value;
           privateClient
-            .put(`accounts/${account.id}`, {
+            .post(`accounts`, {
               json: {
-                email: values.email,
                 image: values.image,
+                email: values.email,
                 password: values.password,
                 repeatPassword: values.repeatPassword,
-                ...(account.role === "Customer"
+                role,
+                ...(role === "Customer"
                   ? {
                       companyName: values.companyName,
                       vatNumber: values.vatNumber,
@@ -118,33 +133,28 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
                     }),
               },
             })
-            .then((res) => {
+            .then(async (res: any) => {
               if (res.ok) {
-                showSuccessToast(`Account updated successfully.`);
-                if (variant === "Manager") {
-                  router.push(`/accounts/${account.id}`);
-                } else {
-                  router.push(`/account/details`);
-                }
+                showSuccessToast(`Account created successfully.`);
+                const data: Account = await res.json();
+                if (data.id) router.push(`/accounts/${data.id}`);
               }
             })
             .catch((err) => {
               console.error(err);
-              actions.setSubmitting(false);
-            });
+            })
+            .finally(() => actions.setSubmitting(false));
         }}
       >
         {({ setFieldValue, values, errors, isSubmitting }) => (
           <Form className={`flex space-x-5 focus:outline-none w-full`}>
             <div className="flex flex-col justify-center items-center space-y-3 w-15 h-15 bg-primary-325 border-1 border-shadow-200 rounded-xl">
               <Avatar
-                src={values.image || "/img/avatar-placeholder.png"}
-                refresh={fileName}
-                username={
-                  companyName ? companyName : `${firstName} ${lastName}`
-                }
-                className="rounded-2xl"
                 size="lg"
+                className="rounded-2xl"
+                src={values.image || "/img/avatar-placeholder.png"}
+                isBase64={!!values.image}
+                refresh={fileName}
               />
               <UploadField
                 name="image"
@@ -189,7 +199,23 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
               </div>
 
               <div className="mt-4 flex flex-col space-y-3 lg:flex-row lg:space-x-5 lg:space-y-0">
-                {account.role === "Customer" && (
+                <div className="text-sm w-full">
+                  <div className="text-primary-400 mb-1">Role</div>
+                  <SelectBox
+                    padding="md"
+                    value={values.role}
+                    error={!!errors.role}
+                    options={roleOptions}
+                    onChange={(value: SelectOption) => {
+                      setFieldValue("role", value);
+                    }}
+                  />
+                  <div className={`flex mt-1`}>
+                    <InputErrorMsg>{errors?.role?.value}</InputErrorMsg>
+                  </div>
+                </div>
+
+                {values.role.value === "Customer" && (
                   <>
                     <div className="text-sm w-full">
                       <div className="text-primary-400 mb-1">Company Name</div>
@@ -202,7 +228,7 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
                   </>
                 )}
 
-                {["Employee", "Manager"].includes(account.role) && (
+                {["Employee", "Manager"].includes(values.role.value) && (
                   <>
                     <div className="text-sm w-full">
                       <div className="text-primary-400 mb-1">First Name</div>
