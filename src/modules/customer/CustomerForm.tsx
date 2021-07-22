@@ -36,103 +36,115 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({
   edit,
   fetch,
 }) => {
+  const screenType = useScreenType();
   return (
-    <WhiteCard padding="medium">
-      <div className="p-1 mr-5 flex-grow">
-        <Formik<{
-          companyName: string;
-          vatNumber: string;
-        }>
-          initialValues={
-            data
-              ? {
-                companyName: data?.companyName,
-                vatNumber: data?.vatNumber,
-              }
-              : {
-                companyName: "",
-                vatNumber: "",
-              }
-          }
-          validateOnChange={false}
-          validateOnBlur={false}
-          validationSchema={customerSchema}
-          onSubmit={({ companyName, vatNumber }, actions) => {
-            const url = data ? `customers/${data.id}` : `customers`;
-            privateClient(url, {
-              method: edit ? "put" : "post",
-              json: {
-                companyName,
-                vatNumber,
-              },
-            })
-              .then(async (res) => {
-                if (res.ok) {
-                  showSuccessToast(
-                    `Customer ${edit ? "updated" : "created"} successfully.`
-                  );
-                  if (edit) {
-                    router.push(`/customers/${data?.id}`);
-                  } else {
-                    const customer = await res.json();
-                    router.push(`/customers/${customer.id}`);
+    <MiddlePanel>
+      <div
+        className="grid gap-5 pb-6"
+        style={{
+          gridTemplateColumns: ["3-cols", "2-cols"].includes(screenType)
+            ? "1fr"
+            : "1fr",
+        }}
+      >
+        <WhiteCard padding="medium" className="flex-col">
+          <div className="p-1 mr-5 flex-grow">
+            <Formik<{
+              companyName: string;
+              vatNumber: string;
+            }>
+              initialValues={
+                data
+                  ? {
+                    companyName: data?.companyName,
+                    vatNumber: data?.vatNumber,
                   }
-                }
-              })
-              .catch((err) => {
-                console.error(err);
-                actions.setSubmitting(false);
-              });
-          }}
-        >
-          {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className="flex flex-col focus:outline-none w-full">
-              <div className="flex flex-row gap-5 focus:outline-none w-full">
-                <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Company Name</div>
-                  <InputField padding="lg" name="companyName" />
-                </div>
-
-                <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Vat Number</div>
-                  <InputField padding="lg" name="vatNumber" />
-                </div>
-              </div>
-
-              <div className={`flex mt-2 space-x-4 max-w-xs text-white h-6`}>
-                <Button
-                  loading={isSubmitting}
-                  color="secondary"
-                  type="submit"
-                  size="small"
-                  className={`flex w-full justify-center`}
-                  icon={<SolidCheck width={18} height={18} />}
-                >
-                  {edit ? "Save" : "Create"}
-                </Button>
-
-                <Button
-                  type="button"
-                  color="orange"
-                  size="small"
-                  className={`flex w-full justify-center`}
-                  onClick={() => router.back()}
-                  icon={
-                    <SolidPlus
-                      className="transform rotate-45"
-                      width={14}
-                      height={14}
-                    />
+                  : {
+                    companyName: "",
+                    vatNumber: "",
                   }
-                >
-                  Cancel
-                </Button>
-              </div>
-            </Form>
-          )}
-        </Formik>
+              }
+              validateOnChange={false}
+              validateOnBlur={false}
+              validationSchema={customerSchema}
+              onSubmit={({ companyName, vatNumber }, actions) => {
+                const url = data ? `customers/${data.id}` : `customers`;
+                privateClient(url, {
+                  method: edit ? "put" : "post",
+                  json: {
+                    companyName,
+                    vatNumber,
+                  },
+                })
+                  .then(async (res) => {
+                    if (res.ok) {
+                      showSuccessToast(
+                        `Customer ${edit ? "updated" : "created"} successfully.`
+                      );
+                      if (edit) {
+                        router.push(`/customers/${data?.id}`);
+                      } else {
+                        const customer = await res.json();
+                        router.push(`/customers/${customer.id}`);
+                      }
+                    }
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                    actions.setSubmitting(false);
+                  });
+              }}
+            >
+              {({ setFieldValue, values, errors, isSubmitting }) => (
+                <Form className="flex flex-col focus:outline-none w-full">
+                  <div className="flex flex-row gap-5 focus:outline-none w-full">
+                    <div className="mt-4 text-sm">
+                      <div className="text-primary-400 mb-1">Company Name</div>
+                      <InputField padding="lg" name="companyName" />
+                    </div>
+
+                    <div className="mt-4 text-sm">
+                      <div className="text-primary-400 mb-1">Vat Number</div>
+                      <InputField padding="lg" name="vatNumber" />
+                    </div>
+                  </div>
+
+                  <div className={`flex mt-6 space-x-4 max-w-xs text-white h-6`}>
+                    <Button
+                      loading={isSubmitting}
+                      color="secondary"
+                      type="submit"
+                      size="small"
+                      className={`flex w-full justify-center`}
+                      icon={<SolidCheck width={18} height={18} />}
+                    >
+                      {edit ? "Save" : "Create"}
+                    </Button>
+
+                    <Button
+                      type="button"
+                      color="orange"
+                      size="small"
+                      className={`flex w-full justify-center`}
+                      onClick={() => router.back()}
+                      icon={
+                        <SolidPlus
+                          className="transform rotate-45"
+                          width={14}
+                          height={14}
+                        />
+                      }
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        </WhiteCard>
       </div>
-    </WhiteCard>
+    </MiddlePanel>
   );
 };
 
@@ -192,7 +204,6 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
           >
             {data?.customerAddresses.map((customerAddress: CustomerAddress) => {
               const { name, address } = customerAddress;
-
               return (
                 <TableRow key={address.id}>
                   <TableCell>
@@ -285,20 +296,20 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
               }}
             >
               {({ setFieldValue, values, errors, isSubmitting }) => (
-                <Form className="flex flex-row gap-3 w-full focus:outline-none">
-                  <div className="mt-4 text-sm">
+                <Form className="flex flex-row gap-3 focus:outline-none">
+                  <div className="mt-4 text-sm flex-grow">
                     <InputField padding="md" name="name" placeholder="Name" />
                   </div>
-                  <div className="mt-4 text-sm">
+                  <div className="mt-4 text-sm flex-grow">
                     <InputField padding="md" name="street" placeholder="Street" />
                   </div>
-                  <div className="mt-4 text-sm">
+                  <div className="mt-4 text-sm flex-grow">
                     <InputField padding="md" name="city" placeholder="City" />
                   </div>
-                  <div className="mt-4 text-sm">
+                  <div className="mt-4 text-sm flex-grow">
                     <InputField padding="md" name="zipCode" placeholder="Zip Code" />
                   </div>
-                  <div className="mt-4 text-sm">
+                  <div className="mt-4 text-sm flex-grow">
                     <InputField padding="md" name="phoneNumber" placeholder="Phone Number" />
                   </div>
                   <div className="mt-4 text-sm self-center">
