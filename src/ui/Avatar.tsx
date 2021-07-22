@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 export const avatarSizeMap = {
@@ -17,6 +17,7 @@ export interface AvatarProps {
   isBase64?: boolean;
   username?: string;
   onError?: () => void;
+  refresh?: string;
 }
 
 export const Avatar: React.FC<AvatarProps> = ({
@@ -26,9 +27,14 @@ export const Avatar: React.FC<AvatarProps> = ({
   isBase64 = true,
   username = "",
   onError,
+  refresh = "",
 }) => {
   const [isError, setError] = useState(false);
   const imgSrc = isBase64 ? `data:image/png;base64,${src}` : src;
+
+  useEffect(() => {
+    setError(false);
+  }, [refresh]);
 
   return (
     <Image

@@ -13,6 +13,7 @@ import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { EmployeeOptions } from "./EmployeeOptions";
 import { BlueCard } from "../../ui/card/BlueCard";
+import Link from "next/link";
 
 interface EmployeeDetailsProps {}
 
@@ -65,7 +66,17 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
                   <div className="flex space-x-4 font-bold text-sm text-primary-500">
                     <p className="">
                       Account ID:{" "}
-                      <span className="text-blue">{data.accountId}</span>
+                      {account.role === "Manager" ? (
+                        <Link href={`/accounts/${data.accountId}`}>
+                          <span className="pl-1 text-blue cursor-pointer">
+                            {data.accountId}
+                          </span>
+                        </Link>
+                      ) : (
+                        <span className="pl-1 text-primary-800">
+                          {data.accountId}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -130,9 +141,9 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                 key={id}
                 onClick={() => push(`/service-requests/${id}`)}
               >
-                <TableCell className="py-0 flex space-x-3">
+                <TableCell className="py-1 flex space-x-3">
                   {account.role !== "Customer" && (
-                    <div className="md:block">
+                    <div className="flex">
                       <Avatar
                         src={customer?.image || ""}
                         username={customer?.companyName}

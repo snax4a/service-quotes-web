@@ -94,3 +94,8 @@ export declare interface ServiceRequestJobValuation {
   employee: Employee;
   jobValuation: JobValuation;
 }
+
+export declare interface SelectOption {
+  label: string;
+  value: string;
+}
