@@ -122,7 +122,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
                 </div>
               </div>
 
-              <div className={`flex mt-2 space-x-4 max-w-xs text-white h-6`}>
+              <div className={`flex mt-6 space-x-4 max-w-xs text-white h-6`}>
                 <Button
                   loading={isSubmitting}
                   color="secondary"

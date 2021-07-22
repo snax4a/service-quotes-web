@@ -26,10 +26,10 @@ export const EditCustomerPage: NextPage<EditCustomerPageProps> = () => {
         <PageHeader title="Edit customer" onBackClick={() => router.back()} />
         {isLoading && <CenterLoader />}
         {!isLoading && data && (
-          <CustomerForm account={account} edit data={data} fetch={fetch} />
-        )}
-        {!isLoading && data && (
-          <CustomerAddressForm account={account} data={data.customerAddresses} fetch={fetch} />
+          <>
+            <CustomerForm account={account} edit data={data} fetch={fetch} />
+            <CustomerAddressForm account={account} data={data.customerAddresses} fetch={fetch} />
+          </>
         )}
       </DefaultDesktopLayout>
     </WaitForAuth>
