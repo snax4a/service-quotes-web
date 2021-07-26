@@ -122,7 +122,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
                 </div>
               </div>
 
-              <div className={`flex mt-2 space-x-4 max-w-xs text-white h-6`}>
+              <div className={`flex mt-6 space-x-4 max-w-xs text-white h-6`}>
                 <Button
                   loading={isSubmitting}
                   color="secondary"
@@ -161,10 +161,10 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
           <p className="self-center text-md font-bold mb-2">Specializations</p>
 
           <div className="flex">
-            {data?.specializations ? (
-              data?.specializations.map((spec: Specialization) => (
+            {data!.specializations![0] ? (
+              data!.specializations!.map((spec: Specialization) => (
                 <EmployeeSpecializationOptions
-                  employeeId={data.id}
+                  employeeId={data!.id}
                   specialization={spec}
                   fetch={fetch}
                   key={spec.id}
