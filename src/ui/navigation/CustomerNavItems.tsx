@@ -3,6 +3,7 @@ import { SideNavItemProps } from "./SideNav";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import {
   OutlineActivity,
+  OutlineCog,
   OutlineDollar,
   OutlineNotepad,
   OutlineThunderbolt,
@@ -23,6 +24,7 @@ const CustomerNavItems: React.FC<CustomerNavItemsProps> = ({ NavItem }) => {
       name: "Service Requests",
       targetPath: "/service-requests",
     },
+    { icon: <OutlineCog />, name: "Addresses", targetPath: "/addresses" },
   ];
 
   return (
