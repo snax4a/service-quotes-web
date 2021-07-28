@@ -109,7 +109,7 @@ export const CustomerAddressesList: React.FC<CustomerAddressesListProps> = ({ })
           <Button
             color="white"
             size="small"
-            onClick={() => push("customerAddresses/create")}
+            onClick={() => push("addresses/create")}
           >
             Click here to add
           </Button>

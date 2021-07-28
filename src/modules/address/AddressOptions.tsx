@@ -21,9 +21,6 @@ export const AddressOptions: React.FC<AddressOptionsProps> = ({
 
   if (!account) return null;
 
-  console.log(account.customerId);
-  console.log(customerAddress.address.id);
-
   return (
     <OptionsPopover
       button={
@@ -53,7 +50,7 @@ export const AddressOptions: React.FC<AddressOptionsProps> = ({
             )
             .then(() => {
               showSuccessToast("Address has been removed.");
-              push(`addresses`);
+              push(`/addresses`);
             })
             .catch(() => {});
         }}
