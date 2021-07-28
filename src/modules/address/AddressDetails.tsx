@@ -8,14 +8,15 @@ import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
-import { ServiceRequest, Specialization } from "../../types";
+import { ServiceRequest } from "../../types";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { AddressOptions } from "./AddressOptions";
+import Image from "next/image";
 
-interface AddressDetailsProps {}
+interface AddressDetailsProps { }
 
-export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
+export const AddressDetails: React.FC<AddressDetailsProps> = ({ }) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
@@ -44,36 +45,65 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
       >
         <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
           <div
-            className="grid w-full font-inter"
+            className="grid font-inter grid-flow-col w-full"
             style={{
-              gridTemplateColumns: `50px 1fr`,
-              gridGap: 20,
+              gridTemplateColumns: `350px auto 50px`,
+              gridGap: 40,
             }}
           >
-            <Avatar
-              src={data.image || ""}
-              username={data.name}
-              size="md"
-            />
-            <div className="flex flex-col">
-              <div className="flex flex-col lg:flex-row lg:justify-between">
-                <div className="flex flex-col">
-                  <p className="text-black font-semibold">
-                    Name
-                    {data.name}
+            <div className="rounded-16 border-2">
+              <Image src="/img/analytics.png" width={350} height={250} />
+            </div>
+
+            <div className="grid grid-flow-row h-full">
+              <div className="self-center">
+                <p className="text-primary-400 font-medium font-inter text-sm">
+                  Name
+                </p>
+                <p className="text-primary-800 font-bold font-inter text-xl">
+                  {data.name}
+                </p>
+              </div>
+
+              <div className="flex flex-row gap-6 self-center">
+                <div>
+                  <p className="text-primary-400 font-medium font-inter text-sm">
+                    Street
                   </p>
-                  <div className="flex space-x-4 font-bold text-sm text-primary-500">
-                    <p className="">
-                      Address:{" "}
-                      {data.address.street} {" "} {data.address.city} {" "} {data.address.zipCode}
-                    </p>
-                    {data.address.phoneNumber}
-                  </div>
+                  <p className="text-primary-800 font-bold font-inter text-xl">
+                    {data.address.street}
+                  </p>
                 </div>
-                <div className="flex self-center mt-4">
-                  <AddressOptions customerAddress={data} />
+                <div>
+                  <p className="text-primary-400 font-medium font-inter text-sm">
+                    City
+                  </p>
+                  <p className="text-primary-800 font-bold font-inter text-xl">
+                    {data.address.city}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-primary-400 font-medium font-inter text-sm">
+                    Zip Code
+                  </p>
+                  <p className="text-primary-800 font-bold font-inter text-xl">
+                    {data.address.zipCode}
+                  </p>
                 </div>
               </div>
+
+              <div className="self-center">
+                <p className="text-primary-400 font-medium font-inter text-sm">
+                  Phone Number
+                </p>
+                <p className="text-primary-800 font-bold font-inter text-xl">
+                  {data.address.phoneNumber}
+                </p>
+              </div>
+            </div>
+            
+            <div className="justify-self-end">
+              <AddressOptions customerAddress={data} />
             </div>
           </div>
         </WhiteCard>
@@ -82,9 +112,9 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
   );
 };
 
-interface ServiceRequestsListProps {}
+interface ServiceRequestsListProps { }
 
-export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
+export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => {
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const empId = typeof query.id === "string" ? query.id : "";

@@ -44,19 +44,19 @@ export const AddressForm: React.FC<AddressFormProps> = ({
           initialValues={
             data
               ? {
-                  name: data.name,
-                  phoneNumber: data.address.phoneNumber,
-                  street: data.address.street,
-                  city: data.address.city,
-                  zipCode: data.address.zipCode,
-                }
+                name: data.name,
+                phoneNumber: data.address.phoneNumber,
+                street: data.address.street,
+                city: data.address.city,
+                zipCode: data.address.zipCode,
+              }
               : {
-                  name: "",
-                  phoneNumber: "",
-                  street: "",
-                  city: "",
-                  zipCode: "",
-                }
+                name: "",
+                phoneNumber: "",
+                street: "",
+                city: "",
+                zipCode: "",
+              }
           }
           validateOnChange={false}
           validateOnBlur={false}
@@ -76,8 +76,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
               .then(async (res) => {
                 if (res.ok) {
                   showSuccessToast(
-                    `Address ${
-                      edit ? "updated" : "created"
+                    `Address ${edit ? "updated" : "created"
                     } successfully.`
                   );
                   if (edit) {
@@ -95,37 +94,52 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         >
           {({ setFieldValue, values, errors, isSubmitting }) => (
             <Form className={`flex flex-col focus:outline-none w-full`}>
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Name</div>
-                <InputField padding="md" name="name" />
-              </div>
 
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Phone Number</div>
-                <InputField padding="md" name="phoneNumber" />
-              </div>
+              <div
+                className="grid font-inter w-3/4"
+                style={{
+                  gridTemplateColumns: `auto auto auto`,
+                  gridTemplateRows: `auto auto`,
+                  gridColumnGap: 40,
 
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Street</div>
-                <InputField padding="md" name="street" />
-              </div>
+                }}
+              >
 
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">City</div>
-                <InputField padding="md" name="city" />
-              </div>
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">Address Name</div>
+                  <InputField padding="lg" name="name" />
+                </div>
 
-              <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Zip Code</div>
-                <InputField padding="md" name="zipCode" />
-              </div>
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">Phone Number</div>
+                  <InputField padding="lg" name="phoneNumber" />
+                </div>
 
-              <div className={`flex mt-5 space-x-4 max-w-xs text-white`}>
+                <div>
+                  {/* EMPTY DIV TO FORCE STREET, CITY, ZIPCODE TOGHETER TO 2ND ROW */}
+                </div>
+
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">Street</div>
+                  <InputField padding="lg" name="street" />
+                </div>
+
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">City</div>
+                  <InputField padding="lg" name="city" />
+                </div>
+
+                <div className="mt-4 text-sm">
+                  <div className="text-primary-400 mb-1">Zip Code</div>
+                  <InputField padding="lg" name="zipCode" />
+                </div>
+              </div>
+              <div className={`flex mt-6 space-x-4 max-w-xs text-white`}>
                 <Button
                   loading={isSubmitting}
                   color="secondary"
                   type="submit"
-                  size="small"
+                  size="medium"
                   className={`flex w-full justify-center`}
                   icon={<SolidCheck width={18} height={18} />}
                 >
@@ -135,7 +149,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                 <Button
                   type="button"
                   color="orange"
-                  size="small"
+                  size="medium"
                   className={`flex w-full justify-center`}
                   onClick={() => router.back()}
                   icon={
@@ -152,10 +166,6 @@ export const AddressForm: React.FC<AddressFormProps> = ({
             </Form>
           )}
         </Formik>
-      </div>
-
-      <div className="hidden md:flex md:items-center px-4">
-        <Image src="/img/form.png" width={233} height={314} />
       </div>
     </WhiteCard>
   );
