@@ -99,3 +99,14 @@ export declare interface SelectOption {
   label: string;
   value: string;
 }
+
+export declare interface Payment {
+  id: UUID;
+  provider: string;
+  transactionId: string;
+  amount: number;
+  status: Status;
+  quoteId: UUID;
+  customerId: UUID;
+  date: string;
+}
