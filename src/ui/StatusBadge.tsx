@@ -3,10 +3,14 @@ import { camelCaseToWords } from "../lib/helpers";
 
 interface StatusBadgeProps {
   className?: string;
-  status: keyof typeof statuses;
+  status: keyof typeof statusesColors;
 }
 
-const statuses = {
+type statusColor = {
+  [key: string]: string
+}
+
+const statusesColors: statusColor = {
   Unpaid: "bg-orange-100 text-primary-800",
   Paid: "bg-blue text-white",
   New: "bg-blue text-white",
@@ -26,9 +30,11 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
 }) => {
   return (
     <span
-      className={`py-1 px-3 text-sm2 rounded font-semibold ${statuses[status]} ${className}`}
+      className={`py-1 px-3 text-sm2 rounded font-semibold ${statusesColors[status]} ${className}`}
     >
-      {camelCaseToWords(status).toUpperCase()}
+      {camelCaseToWords(status.toString()).toUpperCase()}
     </span>
   );
 };
+
+export {statusesColors};
