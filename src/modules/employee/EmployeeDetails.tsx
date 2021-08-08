@@ -114,24 +114,24 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const empId = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`servicerequests?employeeId=${empId}`);
+  const { data, isLoading } = useQueryData(
+    `servicerequests?employeeId=${empId}`
+  );
 
   if (!account) return null;
 
   const columnNames = ["Customer", "Address", "Title", "Status"];
 
-  if (!data) return null;
-
   return (
     <MiddlePanel>
-      <WhiteCard padding="medium" className="flex-col">
+      <WhiteCard padding="medium" className="flex-col mb-6.5">
         <p className="text-black font-semibold text-lg2">
           Assigned to services:
         </p>
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
             const { id, customerAddress, customer } = serviceRequest;

@@ -99,8 +99,6 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
   const columnNames = managerColumnNames;
 
-  if (!data) return null;
-
   return (
     <MiddlePanel>
       <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
@@ -139,7 +137,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((employee: Employee) => {
             return (

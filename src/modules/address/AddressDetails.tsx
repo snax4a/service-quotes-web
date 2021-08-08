@@ -14,14 +14,16 @@ import { StatusBadge } from "../../ui/StatusBadge";
 import { AddressOptions } from "./AddressOptions";
 import Image from "next/image";
 
-interface AddressDetailsProps { }
+interface AddressDetailsProps {}
 
-export const AddressDetails: React.FC<AddressDetailsProps> = ({ }) => {
+export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`customers/${account?.customerId}/address/${id}`);
+  const { data, isLoading } = useQueryData(
+    `customers/${account?.customerId}/address/${id}`
+  );
 
   if (!account) return null;
 
@@ -101,7 +103,7 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({ }) => {
                 </p>
               </div>
             </div>
-            
+
             <div className="justify-self-end">
               <AddressOptions customerAddress={data} />
             </div>
@@ -112,19 +114,19 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({ }) => {
   );
 };
 
-interface ServiceRequestsListProps { }
+interface ServiceRequestsListProps {}
 
-export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => {
+export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const empId = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`servicerequests?employeeId=${empId}`);
+  const { data, isLoading } = useQueryData(
+    `servicerequests?employeeId=${empId}`
+  );
 
   if (!account) return null;
 
   const columnNames = ["Customer", "Address", "Title", "Status"];
-
-  if (!data) return null;
 
   return (
     <MiddlePanel>
@@ -135,7 +137,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({ }) => 
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
             const { id, customerAddress, customer } = serviceRequest;

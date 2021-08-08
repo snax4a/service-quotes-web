@@ -7,8 +7,8 @@ interface StatusBadgeProps {
 }
 
 type statusColor = {
-  [key: string]: string
-}
+  [key: string]: string;
+};
 
 const statusesColors: statusColor = {
   Unpaid: "bg-orange-100 text-primary-800",
@@ -20,7 +20,8 @@ const statusesColors: statusColor = {
   Cancelled: "bg-orange text-white",
   Confirmed: "bg-green text-white",
   Rejected: "bg-orange text-white",
-  Errored: "bg-orange text-white",
+  Error: "bg-orange text-white",
+  Expired: "bg-red-disabled text-primary-800",
   Pending: "bg-primary-400 text-white",
 };
 
@@ -36,5 +37,3 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
     </span>
   );
 };
-
-export {statusesColors};

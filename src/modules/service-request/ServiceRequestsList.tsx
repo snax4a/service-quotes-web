@@ -86,8 +86,6 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
     "Status",
   ];
 
-  if (!data) return null;
-
   return (
     <MiddlePanel>
       {account.role === "Customer" && (
@@ -143,7 +141,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
             const { id, customerAddress, customer, plannedExecutionDate } =

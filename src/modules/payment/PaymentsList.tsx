@@ -33,12 +33,28 @@ const statusOptions = [
     value: "",
   },
   {
-    label: "Paid",
-    value: "Paid",
+    label: "Confirmed",
+    value: "Confirmed",
   },
   {
-    label: "Unpaid",
-    value: "Unpaid",
+    label: "Rejected",
+    value: "Rejected",
+  },
+  {
+    label: "Pending",
+    value: "Pending",
+  },
+  {
+    label: "New",
+    value: "New",
+  },
+  {
+    label: "Error",
+    value: "Error",
+  },
+  {
+    label: "Expired",
+    value: "Expired",
   },
 ];
 
@@ -47,7 +63,7 @@ const customerColumnNames = [
   "Provider",
   "Amount",
   "Quote Ref Number",
-  "Date Time",
+  "Created",
   "Satus",
 ];
 
@@ -55,25 +71,19 @@ interface CustomerDataRowProps {
   payment: Payment;
 }
 
-export const CustomerDataRow: React.FC<CustomerDataRowProps> = ({ payment }) => {
+export const CustomerDataRow: React.FC<CustomerDataRowProps> = ({
+  payment,
+}) => {
   return (
     <>
-      <TableCell className="py-5 text-md font-semibold">
-        {payment.transactionId}
+      <TableCell className="font-semibold">{payment.transactionId}</TableCell>
+      <TableCell>{payment.provider}</TableCell>
+      <TableCell className="text-blue-600">{payment.amount} PLN</TableCell>
+      <TableCell className="font-semibold">
+        #{payment.quote?.referenceNumber}
       </TableCell>
-      <TableCell className="py-5 text-md font-normal">
-        {payment.provider}
-      </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
-        {payment.amount} PLN
-      </TableCell>
-      <TableCell className="py-5 text-md font-semibold">
-        {payment.quoteId}
-      </TableCell>
-      <TableCell className="py-5 text-sm font-normal">
-        {formatDateString(payment.date, "intlDate")}
-      </TableCell>
-      <TableCell className="py-5">
+      <TableCell>{formatDateString(payment.created, "intlDate")}</TableCell>
+      <TableCell>
         <StatusBadge status={payment.status} />
       </TableCell>
     </>
@@ -85,7 +95,7 @@ const managerColumnNames = [
   "Customer Name",
   "Amount",
   "Quote Ref Number",
-  "Date Time",
+  "Created",
   "Satus",
 ];
 
@@ -96,31 +106,23 @@ interface ManagerDataRowProps {
 export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ payment }) => {
   return (
     <>
-      <TableCell className="py-5 text-md font-semibold">
-        {payment.transactionId}
+      <TableCell className="font-semibold">{payment.transactionId}</TableCell>
+      <TableCell>{payment.customer?.companyName}</TableCell>
+      <TableCell className="text-blue-600">{payment.amount} PLN</TableCell>
+      <TableCell className="font-semibold">
+        #{payment.quote?.referenceNumber}
       </TableCell>
-      <TableCell className="py-5 text-md font-normal">
-        {payment.customerId}
-      </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
-        {payment.amount} PLN
-      </TableCell>
-      <TableCell className="py-5 text-md font-semibold">
-        {payment.quoteId}
-      </TableCell>
-      <TableCell className="py-5 text-sm font-normal">
-        {formatDateString(payment.date, "intlDate")}
-      </TableCell>
-      <TableCell className="py-5">
+      <TableCell>{formatDateString(payment.created, "intlDate")}</TableCell>
+      <TableCell>
         <StatusBadge status={payment.status} />
       </TableCell>
     </>
   );
 };
 
-interface PaymentsListProps { }
+interface PaymentsListProps {}
 
-export const PaymentsList: React.FC<PaymentsListProps> = ({ }) => {
+export const PaymentsList: React.FC<PaymentsListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
   const screenType = useScreenType();
@@ -132,11 +134,11 @@ export const PaymentsList: React.FC<PaymentsListProps> = ({ }) => {
     currentTarget: { value },
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
+  const { data, isLoading } = useQueryData(
+    `payments?dateRange=${dateRange.value}&status=${status.value}&searchString=${searchString}`
+  );
+
   if (!account) return null;
-
-  const url = account.role === "Customer" ? `payments/customer/${account.customerId}` : `payments`;
-
-  const { data, isLoading } = useQueryData(url);
 
   const columnNames =
     account.role === "Customer" ? customerColumnNames : managerColumnNames;
@@ -179,6 +181,7 @@ export const PaymentsList: React.FC<PaymentsListProps> = ({ }) => {
             return (
               <TableRow
                 key={payment.id}
+                className="text-sm cursor-pointer"
                 onClick={() => push(`payments/${payment.id}`)}
               >
                 {account.role === "Customer" ? (
