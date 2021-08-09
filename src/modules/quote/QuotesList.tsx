@@ -156,8 +156,6 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
   const columnNames =
     account.role === "Customer" ? customerColumnNames : managerColumnNames;
 
-  if (!data) return null;
-
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
@@ -188,12 +186,13 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((quote: Quote) => {
             return (
               <TableRow
                 key={quote.id}
+                className="cursor-pointer"
                 onClick={() => push(`quotes/${quote.id}`)}
               >
                 {account.role === "Customer" ? (

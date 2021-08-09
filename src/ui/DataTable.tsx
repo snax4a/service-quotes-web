@@ -2,14 +2,19 @@ import React from "react";
 import { CenterLoader } from "./CenterLoader";
 
 export type TableRowProps = {
+  className?: string;
   onClick?: () => void;
 };
 
-export const TableRow: React.FC<TableRowProps> = ({ children, onClick }) => {
+export const TableRow: React.FC<TableRowProps> = ({
+  children,
+  className = "",
+  onClick,
+}) => {
   return (
     <tr
       onClick={onClick}
-      className="border-b-1 border-primary-200 hover:bg-primary-100"
+      className={`border-b-1 border-primary-200 hover:bg-primary-100 ${className}`}
     >
       {children}
     </tr>

@@ -59,15 +59,16 @@ export const Button: React.FC<ButtonProps> = ({
       data-testid="button"
       {...props}
     >
-      <span className={loading ? "hidden" : `flex items-center`}>
-        {icon ? <span className={`mr-2 items-center`}>{icon}</span> : null}
-        {children}
-      </span>
-      {loading ? (
-        <span className={`absolute`}>
+      <span className={`flex items-center`}>
+        {loading ? (
           <Spinner size={size === "small" ? "2" : "4"} />
-        </span>
-      ) : null}
+        ) : (
+          <>
+            {icon ? <span className={`mr-2 items-center`}>{icon}</span> : null}
+            {children}
+          </>
+        )}
+      </span>
     </button>
   );
 };

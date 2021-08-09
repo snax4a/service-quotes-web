@@ -34,7 +34,7 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ customer }) => {
         {customer.vatNumber}
       </TableCell>
       <TableCell className="py-5 text-sm text-blue-600 font-normal">
-        {"<ICON>"} {customer.id}
+        {customer.id}
       </TableCell>
     </>
   );
@@ -45,7 +45,6 @@ interface CustomersListProps {}
 export const CustomersList: React.FC<CustomersListProps> = ({}) => {
   const { account } = useContext(AuthContext);
   const { push } = useRouter();
-  const screenType = useScreenType();
   const [term, setTerm] = useState("");
   const [searchString, setSearchString] = useState("");
   const setSearchTerm = ({
@@ -67,8 +66,6 @@ export const CustomersList: React.FC<CustomersListProps> = ({}) => {
 
   const columnNames = managerColumnNames;
 
-  if (!data) return null;
-  
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
@@ -83,7 +80,7 @@ export const CustomersList: React.FC<CustomersListProps> = ({}) => {
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((customer: Customer) => {
             return (

@@ -9,7 +9,8 @@ export declare type Status =
   | "Confirmed"
   | "Rejected"
   | "Pending"
-  | "Errored"
+  | "Error"
+  | "Expired"
   | "Paid"
   | "Unpaid";
 
@@ -52,6 +53,7 @@ export declare interface Address {
 export declare interface ServiceRequest {
   id: UUID;
   customerId: UUID;
+  address: Address;
   addressId: UUID;
   customer: Customer | null;
   customerAddress: CustomerAddress | null;
@@ -98,4 +100,18 @@ export declare interface ServiceRequestJobValuation {
 export declare interface SelectOption {
   label: string;
   value: string;
+}
+
+export declare interface Payment {
+  id: UUID;
+  provider: string;
+  transactionId: string;
+  amount: number;
+  status: Status;
+  quoteId: UUID;
+  quote?: Quote;
+  customerId: UUID;
+  customer?: Customer;
+  created: string;
+  updated?: string;
 }

@@ -15,7 +15,7 @@ import { CustomerOptions } from "./CustomerOptions";
 
 interface CustomerDetailsProps {}
 
-export const CustomerDetails: React.FC<CustomerDetailsProps> = ({ }) => {
+export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
@@ -60,19 +60,17 @@ export const CustomerDetails: React.FC<CustomerDetailsProps> = ({ }) => {
             <div className="flex flex-col">
               <div className="flex flex-col lg:flex-row lg:justify-between">
                 <div className="flex flex-col">
-                  <p className="text-black font-semibold">
-                    {data.companyName}
-                  </p>
+                  <p className="text-black font-semibold">{data.companyName}</p>
                   <table className="font-bold text-sm text-primary-500 table-auto">
                     <tbody>
-                    <tr>
-                      <td>Vat Number:{" "}</td>
-                      <td className="text-black">{data.vatNumber}</td>
-                    </tr>
-                    <tr>
-                      <td>Account ID:{" "}</td>
-                      <td className="text-blue">{data.accountId}</td>
-                    </tr>
+                      <tr>
+                        <td>Vat Number: </td>
+                        <td className="text-black">{data.vatNumber}</td>
+                      </tr>
+                      <tr>
+                        <td>Account ID: </td>
+                        <td className="text-blue">{data.accountId}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -94,9 +92,7 @@ export const CustomerDetails: React.FC<CustomerDetailsProps> = ({ }) => {
         }}
       >
         <WhiteCard padding="medium" className="flex-col">
-          <p className="text-black font-semibold text-lg2">
-            Addresses:
-          </p>
+          <p className="text-black font-semibold text-lg2">Addresses:</p>
           <DataTable
             columns={columnNames}
             isLoading={isLoading}
@@ -107,21 +103,11 @@ export const CustomerDetails: React.FC<CustomerDetailsProps> = ({ }) => {
 
               return (
                 <TableRow key={address.id}>
-                  <TableCell>
-                    {name}
-                  </TableCell>
-                  <TableCell>
-                    {address.street}
-                  </TableCell>
-                  <TableCell>
-                    {address.city}
-                  </TableCell>
-                  <TableCell>
-                    {address.zipCode}
-                  </TableCell>
-                  <TableCell>
-                    {address.phoneNumber}
-                  </TableCell>
+                  <TableCell>{name}</TableCell>
+                  <TableCell>{address.street}</TableCell>
+                  <TableCell>{address.city}</TableCell>
+                  <TableCell>{address.zipCode}</TableCell>
+                  <TableCell>{address.phoneNumber}</TableCell>
                 </TableRow>
               );
             })}
@@ -135,27 +121,22 @@ export const CustomerDetails: React.FC<CustomerDetailsProps> = ({ }) => {
 interface ServiceRequestsListProps {}
 
 export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
-  const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const custId = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`servicerequests?customerId=${custId}`);
-
-  if (!account) return null;
+  const { data, isLoading } = useQueryData(
+    `servicerequests?customerId=${custId}`
+  );
 
   const columnNames = ["Address", "Title", "Status"];
 
-  if (!data) return null;
-
   return (
     <MiddlePanel>
-      <WhiteCard padding="medium" className="flex-col">
-        <p className="text-black font-semibold text-lg2">
-          Service requests:
-        </p>
+      <WhiteCard padding="medium" className="flex-col mb-6">
+        <p className="text-black font-semibold text-lg2">Service requests:</p>
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
             const { id, customerAddress } = serviceRequest;

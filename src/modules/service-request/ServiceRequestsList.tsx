@@ -86,8 +86,6 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
     "Status",
   ];
 
-  if (!data) return null;
-
   return (
     <MiddlePanel>
       {account.role === "Customer" && (
@@ -143,14 +141,18 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
-          dataCount={data.length}
+          dataCount={data?.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
-            const { id, customerAddress, customer, plannedExecutionDate } =
+            const { id, address, customer, plannedExecutionDate } =
               serviceRequest;
 
             return (
-              <TableRow key={id} onClick={() => push(`service-requests/${id}`)}>
+              <TableRow
+                key={id}
+                className="cursor-pointer"
+                onClick={() => push(`service-requests/${id}`)}
+              >
                 <TableCell className="py-5 flex space-x-3">
                   {account.role !== "Customer" && (
                     <div className="hidden md:block">
@@ -165,9 +167,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                   <div className="space-y-1">
                     <div>{customer?.companyName}</div>
                     <div className="text-sm2 text-primary-500">
-                      {customerAddress?.address.street},{" "}
-                      {customerAddress?.address.zipCode}{" "}
-                      {customerAddress?.address.city}
+                      {address?.street}, {address?.zipCode} {address?.city}
                     </div>
                   </div>
                 </TableCell>

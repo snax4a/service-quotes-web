@@ -8,21 +8,22 @@ import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
-import { ServiceRequest, Specialization } from "../../types";
+import { ServiceRequest } from "../../types";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
-import { EmployeeOptions } from "./EmployeeOptions";
-import { BlueCard } from "../../ui/card/BlueCard";
-import Link from "next/link";
+import { AddressOptions } from "./AddressOptions";
+import Image from "next/image";
 
-interface EmployeeDetailsProps {}
+interface AddressDetailsProps {}
 
-export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
+export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
   const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`employees/${id}`);
+  const { data, isLoading } = useQueryData(
+    `customers/${account?.customerId}/address/${id}`
+  );
 
   if (!account) return null;
 
@@ -31,7 +32,7 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
   }
 
   if (data.status === 404) {
-    return <InfoText>Could not find employee</InfoText>;
+    return <InfoText>Could not find address</InfoText>;
   }
 
   return (
@@ -46,60 +47,65 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
       >
         <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
           <div
-            className="grid w-full font-inter"
+            className="grid font-inter grid-flow-col w-full"
             style={{
-              gridTemplateColumns: `50px 1fr`,
-              gridGap: 20,
+              gridTemplateColumns: `350px auto 50px`,
+              gridGap: 40,
             }}
           >
-            <Avatar
-              src={data.image || ""}
-              username={data.firstName + " " + data.lastName}
-              size="md"
-            />
-            <div className="flex flex-col">
-              <div className="flex flex-col lg:flex-row lg:justify-between">
-                <div className="flex flex-col">
-                  <p className="text-black font-semibold">
-                    {data.firstName} {data.lastName}
+            <div className="rounded-16 border-2">
+              <Image src="/img/analytics.png" width={350} height={250} />
+            </div>
+
+            <div className="grid grid-flow-row h-full">
+              <div className="self-center">
+                <p className="text-primary-400 font-medium font-inter text-sm">
+                  Name
+                </p>
+                <p className="text-primary-800 font-bold font-inter text-xl">
+                  {data.name}
+                </p>
+              </div>
+
+              <div className="flex flex-row gap-6 self-center">
+                <div>
+                  <p className="text-primary-400 font-medium font-inter text-sm">
+                    Street
                   </p>
-                  <div className="flex space-x-4 font-bold text-sm text-primary-500">
-                    <p className="">
-                      Account ID:{" "}
-                      {account.role === "Manager" ? (
-                        <Link href={`/accounts/${data.accountId}`}>
-                          <span className="pl-1 text-blue cursor-pointer">
-                            {data.accountId}
-                          </span>
-                        </Link>
-                      ) : (
-                        <span className="pl-1 text-primary-800">
-                          {data.accountId}
-                        </span>
-                      )}
-                    </p>
-                  </div>
+                  <p className="text-primary-800 font-bold font-inter text-xl">
+                    {data.address.street}
+                  </p>
                 </div>
-                <div className="flex self-center mt-4">
-                  <EmployeeOptions employee={data} />
+                <div>
+                  <p className="text-primary-400 font-medium font-inter text-sm">
+                    City
+                  </p>
+                  <p className="text-primary-800 font-bold font-inter text-xl">
+                    {data.address.city}
+                  </p>
                 </div>
+                <div>
+                  <p className="text-primary-400 font-medium font-inter text-sm">
+                    Zip Code
+                  </p>
+                  <p className="text-primary-800 font-bold font-inter text-xl">
+                    {data.address.zipCode}
+                  </p>
+                </div>
+              </div>
+
+              <div className="self-center">
+                <p className="text-primary-400 font-medium font-inter text-sm">
+                  Phone Number
+                </p>
+                <p className="text-primary-800 font-bold font-inter text-xl">
+                  {data.address.phoneNumber}
+                </p>
               </div>
             </div>
 
-            <div className="flex text-primary-500 mt-3 w-full md:mt-1">
-              <p className="self-center text-md font-bold">Specializations:</p>
-              {data.specializations[0] ? (
-                data.specializations.map((spec: Specialization) => (
-                  <BlueCard
-                    className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
-                    key={spec.id}
-                  >
-                    {spec.name}
-                  </BlueCard>
-                ))
-              ) : (
-                <p className="ml-2">None</p>
-              )}
+            <div className="justify-self-end">
+              <AddressOptions customerAddress={data} />
             </div>
           </div>
         </WhiteCard>
@@ -124,7 +130,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <WhiteCard padding="medium" className="flex-col mb-6.5">
+      <WhiteCard padding="medium" className="flex-col">
         <p className="text-black font-semibold text-lg2">
           Assigned to services:
         </p>
