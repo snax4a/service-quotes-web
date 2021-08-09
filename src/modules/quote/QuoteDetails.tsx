@@ -107,7 +107,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
     return <CenterLoader />;
   }
 
-  if (data.status === 404) {
+  if (!data) {
     return <InfoText>Could not find quote</InfoText>;
   }
 

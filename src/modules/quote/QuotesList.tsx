@@ -192,6 +192,7 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
             return (
               <TableRow
                 key={quote.id}
+                className="cursor-pointer"
                 onClick={() => push(`quotes/${quote.id}`)}
               >
                 {account.role === "Customer" ? (

@@ -148,7 +148,11 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
               serviceRequest;
 
             return (
-              <TableRow key={id} onClick={() => push(`service-requests/${id}`)}>
+              <TableRow
+                key={id}
+                className="cursor-pointer"
+                onClick={() => push(`service-requests/${id}`)}
+              >
                 <TableCell className="py-5 flex space-x-3">
                   {account.role !== "Customer" && (
                     <div className="hidden md:block">

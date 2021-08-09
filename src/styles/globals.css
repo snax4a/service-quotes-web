@@ -9,6 +9,7 @@
 
   --color-primary-100: #f7f7f7;
   --color-primary-200: #e4e4e4;
+  --color-primary-225: #e3e6ec;
   --color-primary-250: #f8f8f8;
   --color-primary-300: #eff0f6;
   --color-primary-325: rgba(228, 228, 228, 0.3);
@@ -120,4 +121,21 @@ button:focus {
 
 .ReactModal__Content {
   overflow: visible !important;
+}
+
+input[type="checkbox"]:checked {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background: var(--color-blue-300);
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1rem;
+}
+
+input[type="checkbox"]:checked:after {
+  content: "✓";
+  color: white;
 }

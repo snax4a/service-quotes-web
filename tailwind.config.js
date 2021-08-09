@@ -37,6 +37,7 @@ module.exports = {
       primary: {
         100: "var(--color-primary-100)",
         200: "var(--color-primary-200)",
+        225: "var(--color-primary-225)",
         250: "var(--color-primary-250)",
         300: "var(--color-primary-300)",
         325: "var(--color-primary-325)",
@@ -125,6 +126,7 @@ module.exports = {
         1: "1px",
       },
       borderRadius: {
+        4: "4px",
         5: "5px",
         8: "8px",
         16: "16px",
