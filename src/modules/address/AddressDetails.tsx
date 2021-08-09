@@ -53,8 +53,16 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
               gridGap: 40,
             }}
           >
-            <div className="rounded-16 border-2">
-              <Image src="/img/analytics.png" width={350} height={250} />
+            <div
+              className="flex items-center justify-center rounded-xl bg-primary-325 border-1 border-shadow-200"
+              style={{ height: 265 }}
+            >
+              <Image
+                className="self-center"
+                src="/img/address-icon.png"
+                width={244}
+                height={153}
+              />
             </div>
 
             <div className="grid grid-flow-row h-full">

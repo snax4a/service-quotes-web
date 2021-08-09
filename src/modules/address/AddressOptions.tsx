@@ -4,7 +4,7 @@ import { RoundedButton } from "../../ui/RoundedButton";
 import { OptionsPopover } from "../../ui/OptionsPopover";
 import { SettingsIcon } from "../../ui/SettingsIcon";
 import { AuthContext } from "../auth/AuthProvider";
-import { DotsHorizontal, OutlineNotepad, OutlineTrash } from "../../icons";
+import { DotsHorizontal, OutlinePencilAlt, OutlineTrash } from "../../icons";
 import { useRouter } from "next/router";
 import { privateClient } from "../../lib/queryClient";
 import { showSuccessToast } from "../../lib/toasts";
@@ -36,7 +36,7 @@ export const AddressOptions: React.FC<AddressOptionsProps> = ({
         onClick={() => {
           push(`${customerAddress.address.id}/edit`);
         }}
-        icon={<OutlineNotepad height={17} width={17} />}
+        icon={<OutlinePencilAlt height={17} width={17} />}
         label="Edit address"
         transition
         transparent
