@@ -8,12 +8,14 @@ import { SolidCheveronRight } from "../icons";
 
 export type ServiceCardProps = {
   className?: string;
+  withImage?: boolean;
   service: ServiceRequest;
   onClick?: () => void;
 };
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   service,
+  withImage = true,
   onClick,
 }) => {
   const { customer, customerAddress, title } = service;
@@ -23,12 +25,14 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       onClick={onClick}
       className="flex-1 w-full self-start cursor-pointer my-1"
     >
-      <Avatar
-        src={customer?.image || ""}
-        username={customer?.companyName}
-        className="rounded-2xl"
-        size="md"
-      />
+      {withImage && (
+        <Avatar
+          src={customer?.image || ""}
+          username={customer?.companyName}
+          className="rounded-2xl"
+          size="md"
+        />
+      )}
 
       <div className="flex flex-col flex-1 justify-between ml-4">
         <TitleText>{title}</TitleText>

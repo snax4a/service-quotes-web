@@ -10,6 +10,7 @@ import { ServicesInProgressList } from "./ServicesInProgressList";
 import { ServicesAssignedToList } from "./ServicesAssignedToList";
 import { CurrentlyWorkingOn } from "./CurrentlyWorkingOn";
 import { LoggedWorkList } from "./LoggedWorkList";
+import { ServicesList } from "./ServicesList";
 
 interface StatsControllerProps {}
 
@@ -76,6 +77,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
 
         <div className="flex flex-1 items-start w-full">
           {account.role === "Manager" && <ServicesInProgressList />}
+          {account.role === "Customer" && <ServicesList />}
           {account.role === "Employee" && (
             <ServicesAssignedToList account={account} />
           )}
