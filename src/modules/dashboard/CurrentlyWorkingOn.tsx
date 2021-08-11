@@ -19,7 +19,14 @@ export const CurrentlyWorkingOn: React.FC<CurrentlyWorkingOnProps> = ({}) => {
   );
 
   if (isLoading) return <CenterLoader />;
-  if (!data) return null;
+
+  if (!data) {
+    return (
+      <h2 className="text-center text-2xl font-semibold my-5">
+        Currently you are not working on any service
+      </h2>
+    );
+  }
 
   const { title, customerAddress, plannedExecutionDate } = data;
   const { street, city, zipCode } = customerAddress.address;
