@@ -7,6 +7,7 @@ import { BlueCard } from "../../ui/card/BlueCard";
 import { Button } from "../../ui/Button";
 import { UnpaidQuotesList } from "./UnpaidQuotesList";
 import { ServicesInProgressList } from "./ServicesInProgressList";
+import { ServicesAssignedToList } from "./ServicesAssignedToList";
 
 interface StatsControllerProps {}
 
@@ -18,7 +19,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <div className="flex w-full">
+      <div className="flex flex-col xl:flex-row w-full">
         <div className={`flex flex-1 flex-col`}>
           <div className="max-w-2xl">
             <BlueCard
@@ -91,6 +92,9 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
 
         <div className="flex flex-1 items-start w-full">
           {account.role === "Manager" && <ServicesInProgressList />}
+          {account.role === "Employee" && (
+            <ServicesAssignedToList account={account} />
+          )}
         </div>
       </div>
     </MiddlePanel>
