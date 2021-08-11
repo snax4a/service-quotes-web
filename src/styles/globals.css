@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +9,12 @@
 
   --color-primary-100: #f7f7f7;
   --color-primary-200: #e4e4e4;
+  --color-primary-225: #e3e6ec;
+  --color-primary-250: #f8f8f8;
   --color-primary-300: #eff0f6;
+  --color-primary-325: rgba(228, 228, 228, 0.3);
+  --color-primary-350: #bbbbbb;
+  --color-primary-400: #b2b3bd;
   --color-primary-500: #808191;
   --color-primary-600: #6e7191;
   --color-primary-700: #242c37;
@@ -22,16 +27,19 @@
   --color-blue-300: #3f8cff;
   --color-blue-400: #367de6;
   --color-blue-500: #2d70d5;
+  --color-blue-600: #5f75ee;
   --color-orange-100: #ffe2ac;
+  --color-orange-400: #fa8b72;
   --color-orange-500: #ff7c5d;
   --color-orange-600: #fe764a;
-  --color-accent-glow: rgba(253, 77, 77, 0.3);
+  --color-green-400: #7fba7a;
   --color-red: #fd4d4d;
   --color-red-hover: #fd6868;
   --color-red-disabled: #f5bfbf;
   --screen-height-reduction: 0px;
   --color-primary-100-translucent: rgba(222, 227, 234, 0.15);
   --color-shadow-100: rgba(0, 0, 0, 0.1);
+  --color-shadow-200: rgba(0, 0, 0, 0.2);
 }
 
 html,
@@ -109,4 +117,25 @@ button:focus {
   width: calc(100% - 46px);
   opacity: 0.4;
   bottom: -20px;
+}
+
+.ReactModal__Content {
+  overflow: visible !important;
+}
+
+input[type="checkbox"]:checked {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background: var(--color-blue-300);
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1rem;
+}
+
+input[type="checkbox"]:checked:after {
+  content: "✓";
+  color: white;
 }

@@ -8,18 +8,20 @@ import { Spinner } from "./Spinner";
 const sizeClassnames = {
   big: "py-2 px-6 text-sm rounded-lg",
   bigRounded: "py-3 px-6 text-sm rounded-xl",
-  small: "px-2 py-1 text-sm rounded-md",
+  medium: "px-4 py-2 text-sm rounded-full",
+  small: "px-4 py-1.5 text-sm rounded-2xl",
+  small2: "px-4 py-1.5 text-xs rounded-2xl",
   tiny: "px-1 text-sm rounded-5",
 };
 
 const colorClassnames = {
   primary: "text-white bg-blue hover:bg-blue-200 disabled:text-primary-300",
-  secondary:
-    "text-white bg-accent transition duration-200 ease-in-out hover:bg-accent-hover disabled:text-accent-disabled disabled:bg-accent-hover",
+  orange: "text-white bg-orange hover:bg-orange-400",
+  secondary: "text-white bg-primary-800 hover:bg-primary-700",
   "secondary-800":
     "text-white bg-primary-800 hover:bg-primary-600 disabled:text-primary-300",
   white: "text-primary-800 bg-white hover:bg-orange-600 hover:text-white",
-  transparent: "text-white bg-transparent",
+  transparent: "text-primary-600 bg-transparent",
   "accent-secondary":
     "text-white bg-secondary hover:bg-secondary-washed-out disabled:text-secondary-washed-out",
 };
@@ -57,15 +59,16 @@ export const Button: React.FC<ButtonProps> = ({
       data-testid="button"
       {...props}
     >
-      <span className={loading ? "opacity-0" : `flex items-center`}>
-        {icon ? <span className={`mr-2 items-center`}>{icon}</span> : null}
-        {children}
-      </span>
-      {loading ? (
-        <span className={`absolute`}>
+      <span className={`flex items-center`}>
+        {loading ? (
           <Spinner size={size === "small" ? "2" : "4"} />
-        </span>
-      ) : null}
+        ) : (
+          <>
+            {icon ? <span className={`mr-2 items-center`}>{icon}</span> : null}
+            {children}
+          </>
+        )}
+      </span>
     </button>
   );
 };

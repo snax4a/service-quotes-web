@@ -7,6 +7,7 @@ const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.8)",
       zIndex: 1000,
+      overflow: "visible",
     },
     content: {
       top: "50%",
@@ -38,6 +39,8 @@ export const Modal: React.FC<
       (currentActive?.nextElementSibling as HTMLElement)?.focus();
     }
   };
+
+  ReactModal.setAppElement("#__next");
 
   return (
     <ReactModal

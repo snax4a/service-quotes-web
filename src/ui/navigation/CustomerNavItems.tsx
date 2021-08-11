@@ -4,6 +4,7 @@ import { useScreenType } from "../../shared-hooks/useScreenType";
 import {
   OutlineActivity,
   OutlineDollar,
+  OutlineLocationMarker,
   OutlineNotepad,
   OutlineThunderbolt,
 } from "../../icons";
@@ -22,6 +23,11 @@ const CustomerNavItems: React.FC<CustomerNavItemsProps> = ({ NavItem }) => {
       icon: <OutlineThunderbolt />,
       name: "Service Requests",
       targetPath: "/service-requests",
+    },
+    {
+      icon: <OutlineLocationMarker width={25} height={25} />,
+      name: "Addresses",
+      targetPath: "/addresses",
     },
   ];
 
