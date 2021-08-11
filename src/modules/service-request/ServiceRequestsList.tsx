@@ -144,7 +144,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
           dataCount={data?.length}
         >
           {data?.map((serviceRequest: ServiceRequest) => {
-            const { id, address, customer, plannedExecutionDate } =
+            const { id, customerAddress, customer, plannedExecutionDate } =
               serviceRequest;
 
             return (
@@ -167,7 +167,9 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                   <div className="space-y-1">
                     <div>{customer?.companyName}</div>
                     <div className="text-sm2 text-primary-500">
-                      {address?.street}, {address?.zipCode} {address?.city}
+                      {customerAddress?.address?.street},{" "}
+                      {customerAddress?.address?.zipCode}{" "}
+                      {customerAddress?.address?.city}
                     </div>
                   </div>
                 </TableCell>
