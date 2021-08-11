@@ -92,7 +92,7 @@ export declare interface JobValuation {
 
 export declare interface ServiceRequestJobValuation {
   serviceRequestId: UUID;
-  date: Date;
+  date: string;
   employee: Employee;
   jobValuation: JobValuation;
 }

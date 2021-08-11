@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { CenterLoader } from "../../ui/CenterLoader";
 import { TitleText } from "../../ui/TitleText";
 import { ServiceCard } from "../../ui/ServiceCard";
+import { InfoText } from "../../ui/InfoText";
 
 interface ServicesInProgressListProps {}
 
@@ -16,13 +17,14 @@ export const ServicesInProgressList: React.FC<ServicesInProgressListProps> =
     );
 
     if (isLoading) return <CenterLoader />;
-    if (!data) return null;
 
     return (
       <div className="flex flex-col flex-1 mt-6 mb-6 xl:ml-6 xl:mt-0">
         <TitleText size="md" className="mb-2 w-full">
           Services In Progress
         </TitleText>
+
+        {data?.length === 0 && <InfoText>There are no services in progress.</InfoText>}
 
         {data?.map((service: ServiceRequest) => (
           <ServiceCard

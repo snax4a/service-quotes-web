@@ -36,14 +36,10 @@ export function createDateFormatOptions(
       };
     }
     default: {
-      // EN returns Tuesday, March 16, 2021, 5:45 PM
       return {
-        weekday: "long",
         year: "numeric",
-        month: "long",
+        month: "numeric",
         day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
       };
     }
   }

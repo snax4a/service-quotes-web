@@ -7,6 +7,7 @@ interface TitleTextProps {
 
 const sizes = {
   base: "text-base font-semibold",
+  sm: "text-sm font-medium",
   md: "text-lg2 font-bold",
 };
 

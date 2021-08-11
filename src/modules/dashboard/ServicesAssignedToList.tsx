@@ -6,6 +6,7 @@ import { CenterLoader } from "../../ui/CenterLoader";
 import { TitleText } from "../../ui/TitleText";
 import { ServiceCard } from "../../ui/ServiceCard";
 import { Account } from "../auth/AuthProvider";
+import { InfoText } from "../../ui/InfoText";
 
 interface ServicesAssignedToListProps {
   account: Account;
@@ -20,13 +21,16 @@ export const ServicesAssignedToList: React.FC<ServicesAssignedToListProps> = ({
   );
 
   if (isLoading) return <CenterLoader />;
-  if (!data) return null;
 
   return (
     <div className="flex flex-col flex-1 mt-6 mb-6 xl:ml-6 xl:mt-0">
       <TitleText size="md" className="mb-2 w-full">
         Services you are assigned to
       </TitleText>
+
+      {data?.length === 0 && (
+        <InfoText>There are no services assigned to you.</InfoText>
+      )}
 
       {data?.map((service: ServiceRequest) => (
         <ServiceCard

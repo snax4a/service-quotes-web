@@ -9,6 +9,7 @@ import { UnpaidQuotesList } from "./UnpaidQuotesList";
 import { ServicesInProgressList } from "./ServicesInProgressList";
 import { ServicesAssignedToList } from "./ServicesAssignedToList";
 import { CurrentlyWorkingOn } from "./CurrentlyWorkingOn";
+import { LoggedWorkList } from "./LoggedWorkList";
 
 interface StatsControllerProps {}
 
@@ -21,7 +22,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
   return (
     <MiddlePanel>
       <div className="flex flex-col xl:flex-row w-full">
-        <div className={`flex flex-1 flex-col`}>
+        <div className={`flex flex-1 flex-col pb-6`}>
           <div className="max-w-2xl">
             <BlueCard
               shadowEffect={true}
@@ -70,6 +71,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
           {["Manager", "Customer"].includes(account.role) && (
             <UnpaidQuotesList role={account.role} />
           )}
+          {account.role === "Employee" && <LoggedWorkList />}
         </div>
 
         <div className="flex flex-1 items-start w-full">

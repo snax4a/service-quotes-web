@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { CenterLoader } from "../../ui/CenterLoader";
 import { TitleText } from "../../ui/TitleText";
 import { QuoteCard } from "../../ui/QuoteCard";
+import { InfoText } from "../../ui/InfoText";
 
 interface UnpaidQuotesListProps {
   role: Role;
@@ -15,13 +16,13 @@ export const UnpaidQuotesList: React.FC<UnpaidQuotesListProps> = ({ role }) => {
   const { data, isLoading } = useQueryData("quotes/unpaid");
 
   if (isLoading) return <CenterLoader />;
-  if (!data) return null;
 
   return (
     <>
       <TitleText size="md" className="mt-7.5 mb-4.5">
         Unpaid quotes
       </TitleText>
+      {data?.length === 0 && <InfoText>There are no unpaid quotes.</InfoText>}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-2xl">
         {data?.map((quote: Quote) => (
           <QuoteCard
