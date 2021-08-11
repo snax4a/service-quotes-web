@@ -8,6 +8,7 @@ import { Button } from "../../ui/Button";
 import { UnpaidQuotesList } from "./UnpaidQuotesList";
 import { ServicesInProgressList } from "./ServicesInProgressList";
 import { ServicesAssignedToList } from "./ServicesAssignedToList";
+import { CurrentlyWorkingOn } from "./CurrentlyWorkingOn";
 
 interface StatsControllerProps {}
 
@@ -63,26 +64,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
                   </div>
                 </>
               )}
-              {account.role === "Employee" && (
-                <>
-                  <Image src="/img/form.png" width={233} height={314} />
-                  <div className="flex flex-col space-y-5">
-                    <h1 className="text-4.5xl font-semibold leading-11">
-                      Fill in the form
-                      <br />
-                      to request
-                      <br />a service!
-                    </h1>
-                    <Button
-                      color="white"
-                      size="bigRounded"
-                      onClick={() => push("/service-requests/create")}
-                    >
-                      Request a Service
-                    </Button>
-                  </div>
-                </>
-              )}
+              {account.role === "Employee" && <CurrentlyWorkingOn />}
             </BlueCard>
           </div>
           {["Manager", "Customer"].includes(account.role) && (
