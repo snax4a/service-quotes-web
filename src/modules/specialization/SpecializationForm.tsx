@@ -28,93 +28,97 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
 }) => {
   return (
     <WhiteCard padding="medium">
-      <div className="p-1 mr-5 flex-grow">
-        <Formik<{
-          name: string;
-        }>
-          initialValues={
-            data
-              ? {
-                name: data.name,
-              }
-              : {
-                name: "",
-              }
-          }
-          validateOnChange={false}
-          validateOnBlur={false}
-          validationSchema={specializationSchema}
-          onSubmit={({ name }, actions) => {
-            const url = data ? `specializations/${data.id}` : `specializations`;
-            privateClient(url, {
-              method: edit ? "put" : "post",
-              json: {
-                name
-              },
-            })
-              .then(async (res) => {
-                if (res.ok) {
-                  showSuccessToast(
-                    `Specialization ${edit ? "updated" : "created"
-                    } successfully.`
-                  );
-                  router.push(`/specializations`);
+      {data ? (
+        <div className="p-1 mr-5 flex-grow">
+          <Formik<{
+            name: string;
+          }>
+            initialValues={
+              data
+                ? {
+                  name: data.name,
                 }
+                : {
+                  name: "",
+                }
+            }
+            validateOnChange={false}
+            validateOnBlur={false}
+            validationSchema={specializationSchema}
+            onSubmit={({ name }, actions) => {
+              const url = data ? `specializations/${data.id}` : `specializations`;
+              privateClient(url, {
+                method: edit ? "put" : "post",
+                json: {
+                  name
+                },
               })
-              .catch((err) => {
-                console.error(err);
-                actions.setSubmitting(false);
-              });
-          }}
-        >
-          {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className='flex flex-col focus:outline-none w-full'>
+                .then(async (res) => {
+                  if (res.ok) {
+                    showSuccessToast(
+                      `Specialization ${edit ? "updated" : "created"
+                      } successfully.`
+                    );
+                    router.push(`/specializations`);
+                  }
+                })
+                .catch((err) => {
+                  console.error(err);
+                  actions.setSubmitting(false);
+                });
+            }}
+          >
+            {({ setFieldValue, values, errors, isSubmitting }) => (
+              <Form className='flex flex-col focus:outline-none w-full'>
 
-              <div className='flex flex-row gap-5 focus:outline-none w-full'>
-                <div className="mt-4 text-sm flex-grow">
-                  <div className="text-primary-400 mb-1">Name</div>
-                  <InputField
-                    padding="lg"
-                    name="name"
-                  />
-                </div>
-
-                <>
-                  <div className={`flex mt-5 space-x-4 max-w-xs text-white`}>
-                    <Button
-                      loading={isSubmitting}
-                      color="secondary"
-                      type="submit"
-                      size="small"
-                      className={`flex w-full justify-center h-6.5 self-end`}
-                      icon={<SolidCheck width={18} height={18} />}
-                    >
-                      {edit ? "Save" : "Create"}
-                    </Button>
-
-                    <Button
-                      type="button"
-                      color="orange"
-                      size="small"
-                      className={`flex w-full justify-center h-6.5 self-end`}
-                      onClick={() => router.back()}
-                      icon={
-                        <SolidPlus
-                          className="transform rotate-45"
-                          width={14}
-                          height={14}
-                        />
-                      }
-                    >
-                      Cancel
-                    </Button>
+                <div className='flex flex-row gap-5 focus:outline-none w-full'>
+                  <div className="mt-4 text-sm flex-grow">
+                    <div className="text-primary-400 mb-1">Name</div>
+                    <InputField
+                      padding="lg"
+                      name="name"
+                    />
                   </div>
-                </>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
+
+                  <>
+                    <div className={`flex mt-5 space-x-4 max-w-xs text-white`}>
+                      <Button
+                        loading={isSubmitting}
+                        color="secondary"
+                        type="submit"
+                        size="small"
+                        className={`flex w-full justify-center h-6.5 self-end`}
+                        icon={<SolidCheck width={18} height={18} />}
+                      >
+                        {edit ? "Save" : "Create"}
+                      </Button>
+
+                      <Button
+                        type="button"
+                        color="orange"
+                        size="small"
+                        className={`flex w-full justify-center h-6.5 self-end`}
+                        onClick={() => router.back()}
+                        icon={
+                          <SolidPlus
+                            className="transform rotate-45"
+                            width={14}
+                            height={14}
+                          />
+                        }
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      ) : (
+        <p>Specialization not found.</p>
+      )}
     </WhiteCard>
   );
 };
