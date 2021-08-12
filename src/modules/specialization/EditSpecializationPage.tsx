@@ -8,7 +8,6 @@ import { PageHeader } from "../../ui/PageHeader";
 import { SpecializationForm } from "./SpecializationForm";
 import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
-import { CenterLoader } from "../../ui/CenterLoader";
 
 interface EditSpecializationPageProps {}
 
@@ -26,14 +25,8 @@ export const EditSpecializationPage: NextPage<EditSpecializationPageProps> =
       <WaitForAuth>
         <HeaderController embed={{}} title="Edit Specialization" />
         <DefaultDesktopLayout>
-          <PageHeader
-            title="Edit specialization"
-            onBackClick={() => router.back()}
-          />
-          {isLoading && <CenterLoader />}
-          {!isLoading && data && (
-            <SpecializationForm account={account} edit data={data} />
-          )}
+          <PageHeader title="Edit specialization" onBackClick={() => router.back()} />
+          <SpecializationForm account={account} edit data={data} />
         </DefaultDesktopLayout>
       </WaitForAuth>
     );
