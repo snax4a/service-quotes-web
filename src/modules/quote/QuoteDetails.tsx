@@ -203,8 +203,8 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
           </p>
           <h3 className="text-lg font-medium mt-6">Completed At:</h3>
           <p className="text-primary-500 text-sm">
-            {data.serviceRequest.completed
-              ? formatDateString(data.serviceRequest.completed, "intlDate")
+            {data.serviceRequest.completionDate
+              ? formatDateString(data.serviceRequest.completionDate, "intlDate")
               : null}
           </p>
         </WhiteCard>
