@@ -16,7 +16,9 @@ export const EditServiceRequestPage: NextPage<EditServiceRequestPageProps> =
   () => {
     const { account } = useContext(AuthContext);
     const { query } = useRouter();
-    const { data, isLoading } = useQueryData(`servicerequests/${query.id}`);
+    const { data, isLoading } = useQueryData(`servicerequests/${query.id}`, {
+      enabled: !!query.id,
+    });
 
     if (!account) return null;
 
