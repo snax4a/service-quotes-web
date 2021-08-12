@@ -8,7 +8,7 @@ import { PageHeader } from "../../ui/PageHeader";
 import { SpecializationForm } from "./SpecializationForm";
 import { AuthContext } from "../auth/AuthProvider";
 
-interface CreateSpecializationPageProps { }
+interface CreateSpecializationPageProps {}
 
 export const CreateSpecializationPage: NextPage<CreateSpecializationPageProps> =
   () => {
@@ -17,7 +17,7 @@ export const CreateSpecializationPage: NextPage<CreateSpecializationPageProps> =
     if (!account) return null;
 
     return (
-      <WaitForAuth>
+      <WaitForAuth roles={["Manager"]}>
         <HeaderController embed={{}} title="Create Specialization" />
         <DefaultDesktopLayout>
           <PageHeader

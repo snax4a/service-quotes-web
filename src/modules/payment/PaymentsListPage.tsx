@@ -11,7 +11,7 @@ interface PaymentsListPageProps {}
 
 export const PaymentsListPage: NextPage<PaymentsListPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager", "Customer"]}>
       <HeaderController embed={{}} title="Payments List" />
       <DefaultDesktopLayout>
         <PageHeader title="Payments list" onBackClick={() => router.back()} />

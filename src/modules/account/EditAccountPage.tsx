@@ -40,7 +40,7 @@ export const EditAccountPage: NextPage<EditAccountPageProps> = () => {
   if (!account || !accountDetails || loading) return <CenterLoader />;
 
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager"]}>
       <HeaderController embed={{}} title="Edit account" />
       <DefaultDesktopLayout>
         <PageHeader title="Edit account" onBackClick={() => router.back()} />

@@ -11,7 +11,7 @@ interface QuoteDetailsPageProps {}
 
 export const QuoteDetailsPage: NextPage<QuoteDetailsPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager", "Customer"]}>
       <HeaderController embed={{}} title="Quote details" />
       <DefaultDesktopLayout>
         <PageHeader title="Quote details" onBackClick={() => router.back()} />

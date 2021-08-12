@@ -11,10 +11,13 @@ interface CustomerDetailsPageProps {}
 
 export const CustomerDetailsPage: NextPage<CustomerDetailsPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager"]}>
       <HeaderController embed={{}} title="Customer Details" />
       <DefaultDesktopLayout>
-        <PageHeader title="Customer details" onBackClick={() => router.back()} />
+        <PageHeader
+          title="Customer details"
+          onBackClick={() => router.back()}
+        />
         <CustomerDetails />
         <ServiceRequestsList />
       </DefaultDesktopLayout>

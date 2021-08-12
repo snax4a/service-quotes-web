@@ -25,7 +25,7 @@ export const EditAddressPage: NextPage<EditAddressPageProps> = () => {
   if (!account) return null;
 
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Customer"]}>
       <HeaderController embed={{}} title="Edit address" />
       <DefaultDesktopLayout>
         <PageHeader title="Edit address" onBackClick={() => router.back()} />

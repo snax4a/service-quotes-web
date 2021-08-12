@@ -11,7 +11,7 @@ interface CustomersListPageProps {}
 
 export const CustomersListPage: NextPage<CustomersListPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager"]}>
       <HeaderController embed={{}} title="Customer List" />
       <DefaultDesktopLayout>
         <PageHeader title="Customer list" onBackClick={() => router.back()} />

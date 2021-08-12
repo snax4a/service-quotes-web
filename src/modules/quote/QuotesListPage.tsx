@@ -11,7 +11,7 @@ interface QuotesListPageProps {}
 
 export const QuotesListPage: NextPage<QuotesListPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager", "Customer"]}>
       <HeaderController embed={{}} title="Quotes List" />
       <DefaultDesktopLayout>
         <PageHeader title="Quotes list" onBackClick={() => router.back()} />

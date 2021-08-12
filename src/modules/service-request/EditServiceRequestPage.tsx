@@ -23,7 +23,7 @@ export const EditServiceRequestPage: NextPage<EditServiceRequestPageProps> =
     if (!account) return null;
 
     return (
-      <WaitForAuth>
+      <WaitForAuth roles={["Customer", "Manager"]}>
         <HeaderController embed={{}} title="Edit service request" />
         <DefaultDesktopLayout>
           <PageHeader

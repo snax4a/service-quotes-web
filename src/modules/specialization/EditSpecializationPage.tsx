@@ -23,7 +23,7 @@ export const EditSpecializationPage: NextPage<EditSpecializationPageProps> =
     if (!account) return null;
 
     return (
-      <WaitForAuth>
+      <WaitForAuth roles={["Manager"]}>
         <HeaderController embed={{}} title="Edit Specialization" />
         <DefaultDesktopLayout>
           <PageHeader
