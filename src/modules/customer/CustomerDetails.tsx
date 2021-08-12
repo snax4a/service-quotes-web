@@ -13,9 +13,9 @@ import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { CustomerOptions } from "./CustomerOptions";
 
-interface CustomerDetailsProps {}
+interface CustomerProps {}
 
-export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
+export const Customer: React.FC<CustomerProps> = ({}) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
@@ -28,10 +28,6 @@ export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
 
   if (isLoading) {
     return <CenterLoader />;
-  }
-
-  if (data.status === 404) {
-    return <InfoText>Could not find customer</InfoText>;
   }
 
   return (
@@ -167,3 +163,35 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
     </MiddlePanel>
   );
 };
+
+interface CustomerDetailsProps {}
+
+export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
+    const { account } = useContext(AuthContext);
+    const { query } = useRouter();
+    const screenType = useScreenType();
+    const id = typeof query.id === "string" ? query.id : "";
+    const { data, isLoading } = useQueryData(`customers/${id}`);
+
+    if (!account) return null;
+
+    if (isLoading) {
+      return <CenterLoader />;
+    }
+
+    if (!data) {
+      return (
+        <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+          Customer not found.
+        </WhiteCard>);
+    }
+
+    return (
+      <MiddlePanel>
+        <div className="flex flex-col pb-6">
+          <Customer />
+          <ServiceRequestsList />
+        </div>
+      </MiddlePanel>
+    );
+  };
