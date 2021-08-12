@@ -15,9 +15,9 @@ import { EmployeeOptions } from "./EmployeeOptions";
 import { BlueCard } from "../../ui/card/BlueCard";
 import Link from "next/link";
 
-interface EmployeeDetailsProps {}
+interface EmployeeProps {}
 
-export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
+export const Employee: React.FC<EmployeeProps> = ({ }) => {
   const screenType = useScreenType();
   const { account } = useContext(AuthContext);
   const { query, push } = useRouter();
@@ -28,10 +28,6 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
 
   if (isLoading) {
     return <CenterLoader />;
-  }
-
-  if (data.status === 404) {
-    return <InfoText>Could not find employee</InfoText>;
   }
 
   return (
@@ -45,63 +41,67 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
         }}
       >
         <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
-          <div
-            className="grid w-full font-inter"
-            style={{
-              gridTemplateColumns: `50px 1fr`,
-              gridGap: 20,
-            }}
-          >
-            <Avatar
-              src={data.image || ""}
-              username={data.firstName + " " + data.lastName}
-              size="md"
-            />
-            <div className="flex flex-col">
-              <div className="flex flex-col lg:flex-row lg:justify-between">
-                <div className="flex flex-col">
-                  <p className="text-black font-semibold">
-                    {data.firstName} {data.lastName}
-                  </p>
-                  <div className="flex space-x-4 font-bold text-sm text-primary-500">
-                    <p className="">
-                      Account ID:{" "}
-                      {account.role === "Manager" ? (
-                        <Link href={`/accounts/${data.accountId}`}>
-                          <span className="pl-1 text-blue cursor-pointer">
+          {data ? (
+            <div
+              className="grid w-full font-inter"
+              style={{
+                gridTemplateColumns: `50px 1fr`,
+                gridGap: 20,
+              }}
+            >
+              <Avatar
+                src={data.image || ""}
+                username={data.firstName + " " + data.lastName}
+                size="md"
+              />
+              <div className="flex flex-col">
+                <div className="flex flex-col lg:flex-row lg:justify-between">
+                  <div className="flex flex-col">
+                    <p className="text-black font-semibold">
+                      {data.firstName} {data.lastName}
+                    </p>
+                    <div className="flex space-x-4 font-bold text-sm text-primary-500">
+                      <p className="">
+                        Account ID:{" "}
+                        {account.role === "Manager" ? (
+                          <Link href={`/accounts/${data.accountId}`}>
+                            <span className="pl-1 text-blue cursor-pointer">
+                              {data.accountId}
+                            </span>
+                          </Link>
+                        ) : (
+                          <span className="pl-1 text-primary-800">
                             {data.accountId}
                           </span>
-                        </Link>
-                      ) : (
-                        <span className="pl-1 text-primary-800">
-                          {data.accountId}
-                        </span>
-                      )}
-                    </p>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex self-center mt-4">
+                    <EmployeeOptions employee={data} />
                   </div>
                 </div>
-                <div className="flex self-center mt-4">
-                  <EmployeeOptions employee={data} />
-                </div>
+              </div>
+
+              <div className="flex text-primary-500 mt-3 w-full md:mt-1">
+                <p className="self-center text-md font-bold">Specializations:</p>
+                {data.specializations[0] ? (
+                  data.specializations.map((spec: Specialization) => (
+                    <BlueCard
+                      className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
+                      key={spec.id}
+                    >
+                      {spec.name}
+                    </BlueCard>
+                  ))
+                ) : (
+                  <p className="ml-2">None</p>
+                )}
               </div>
             </div>
-
-            <div className="flex text-primary-500 mt-3 w-full md:mt-1">
-              <p className="self-center text-md font-bold">Specializations:</p>
-              {data.specializations[0] ? (
-                data.specializations.map((spec: Specialization) => (
-                  <BlueCard
-                    className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
-                    key={spec.id}
-                  >
-                    {spec.name}
-                  </BlueCard>
-                ))
-              ) : (
-                <p className="ml-2">None</p>
-              )}
-            </div>
-          </div>
+          ) : (
+            <p>Employee not found.</p>
+          )}
         </WhiteCard>
       </div>
     </MiddlePanel>
@@ -177,3 +177,35 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
     </MiddlePanel>
   );
 };
+
+interface EmployeeDetailsProps {}
+
+export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
+    const { account } = useContext(AuthContext);
+    const { query } = useRouter();
+    const screenType = useScreenType();
+    const id = typeof query.id === "string" ? query.id : "";
+    const { data, isLoading } = useQueryData(`employees/${id}`);
+
+    if (!account) return null;
+
+    if (isLoading) {
+      return <CenterLoader />;
+    }
+
+    if (!data) {
+      return (
+        <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+          Employee not found.
+        </WhiteCard>);
+    }
+
+    return (
+      <MiddlePanel>
+        <div className="flex flex-col pb-6">
+          <Employee />
+          <ServiceRequestsList />
+        </div>
+      </MiddlePanel>
+    );
+  };
