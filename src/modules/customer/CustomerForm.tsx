@@ -14,7 +14,6 @@ import { MiddlePanel } from "../layouts/GridPanels";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
-import { InfoText } from "../../ui/InfoText";
 import { CenterLoader } from "../../ui/CenterLoader";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { RoundedButton } from "../../ui/RoundedButton";
@@ -25,13 +24,12 @@ const customerSchema = Yup.object().shape({
 });
 
 interface CustomerFormProps {
-  account: Account;
   data?: Customer;
   edit?: boolean;
   fetch?: any;
 }
 
-export const CustomerForm: React.FC<CustomerFormProps> = ({
+export const CustomerDetailsForm: React.FC<CustomerFormProps> = ({
   data,
   edit,
   fetch,
@@ -157,8 +155,6 @@ const customerAddressSchema = Yup.object().shape({
 });
 
 interface CustomerAddressFormProps {
-  account: Account;
-  data?: CustomerAddress;
   fetch?: any;
 }
 
@@ -177,10 +173,6 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
 
   if (isLoading) {
     return <CenterLoader />;
-  }
-
-  if (data.status === 404) {
-    return <InfoText>Could not find customer</InfoText>;
   }
 
   return (
@@ -328,3 +320,44 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
     </MiddlePanel>
   );
 };
+
+
+
+
+
+interface CustomerFormProps {
+  data?: Customer;
+  edit?: boolean;
+  fetch?: any;
+}
+
+export const CustomerForm: React.FC<CustomerFormProps> = ({
+  data,
+  edit,
+  fetch,
+}) => {
+  const { account } = useContext(AuthContext);
+  const { query } = useRouter();
+  const screenType = useScreenType();
+  const id = typeof query.id === "string" ? query.id : "";
+  //const { data2, isLoading } = useQueryData(`customers/${id}`);
+
+  if (!account) return null;
+
+  if (!data && edit) {
+    return (
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+        Customer not found.
+      </WhiteCard>);
+  }
+
+  return (
+    <MiddlePanel>
+      <div className="flex flex-col pb-6">
+        <CustomerDetailsForm edit data={data} fetch={fetch} />
+        <CustomerAddressForm fetch={fetch} />
+      </div>
+    </MiddlePanel>
+  );
+};
+

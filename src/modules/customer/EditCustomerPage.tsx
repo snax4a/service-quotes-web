@@ -10,7 +10,7 @@ import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { CenterLoader } from "../../ui/CenterLoader";
 
-interface EditCustomerPageProps {}
+interface EditCustomerPageProps { }
 
 export const EditCustomerPage: NextPage<EditCustomerPageProps> = () => {
   const { account } = useContext(AuthContext);
@@ -26,17 +26,7 @@ export const EditCustomerPage: NextPage<EditCustomerPageProps> = () => {
       <HeaderController embed={{}} title="Edit Customer" />
       <DefaultDesktopLayout>
         <PageHeader title="Edit customer" onBackClick={() => router.back()} />
-        {isLoading && <CenterLoader />}
-        {!isLoading && data && (
-          <>
-            <CustomerForm account={account} edit data={data} fetch={fetch} />
-            <CustomerAddressForm
-              account={account}
-              data={data.customerAddresses}
-              fetch={fetch}
-            />
-          </>
-        )}
+        <CustomerForm edit data={data} fetch={fetch} />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );
