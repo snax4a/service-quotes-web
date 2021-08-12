@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import { Account } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import { privateClient } from "../../lib/queryClient";
-import { showSuccessToast } from "../../lib/toasts";
+import { showErrorToast, showSuccessToast } from "../../lib/toasts";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { InputField } from "../../form-fields/InputField";
 import { SolidCheck, SolidPlus } from "../../icons";
@@ -13,6 +13,9 @@ import { UploadField } from "../../form-fields/UploadField";
 import { Avatar } from "../../ui/Avatar";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { Role } from "../../types";
+
+const ALLOWED_FILE_SIZE = 3 * 1024 * 1024; // ~= 3 MB
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const editAccountSchema = Yup.object().shape({
   role: Yup.string().required(),
@@ -161,7 +164,17 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
                       }
                     };
                     if (newFile.name !== fileName) {
-                      reader.readAsDataURL(newFile);
+                      if (!SUPPORTED_FORMATS.includes(newFile.type)) {
+                        showErrorToast(
+                          "Only .jpg, .png, .gif file formats are allowed"
+                        );
+                      } else if (newFile.size > ALLOWED_FILE_SIZE) {
+                        showErrorToast(
+                          "Image size is too big. Max allowed size is 3 MB."
+                        );
+                      } else {
+                        reader.readAsDataURL(newFile);
+                      }
                     }
                   }
                 }}
