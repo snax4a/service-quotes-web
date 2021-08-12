@@ -12,27 +12,28 @@ import { CenterLoader } from "../../ui/CenterLoader";
 
 interface EditAddressPageProps {}
 
-export const EditAddressPage: NextPage<EditAddressPageProps> =
-  () => {
-    const { account } = useContext(AuthContext);
-    const { query } = useRouter();
-    const { data, isLoading } = useQueryData(`customers/${account?.customerId}/address/${query.id}`);
+export const EditAddressPage: NextPage<EditAddressPageProps> = () => {
+  const { account } = useContext(AuthContext);
+  const { query } = useRouter();
+  const { data, isLoading } = useQueryData(
+    `customers/${account?.customerId}/address/${query.id}`,
+    {
+      enabled: !!query.id && !!account?.customerId,
+    }
+  );
 
-    if (!account) return null;
+  if (!account) return null;
 
-    return (
-      <WaitForAuth>
-        <HeaderController embed={{}} title="Edit address" />
-        <DefaultDesktopLayout>
-          <PageHeader
-            title="Edit address"
-            onBackClick={() => router.back()}
-          />
-          {isLoading && <CenterLoader />}
-          {!isLoading && data && (
-            <AddressForm account={account} edit data={data} />
-          )}
-        </DefaultDesktopLayout>
-      </WaitForAuth>
-    );
-  };
+  return (
+    <WaitForAuth>
+      <HeaderController embed={{}} title="Edit address" />
+      <DefaultDesktopLayout>
+        <PageHeader title="Edit address" onBackClick={() => router.back()} />
+        {isLoading && <CenterLoader />}
+        {!isLoading && data && (
+          <AddressForm account={account} edit data={data} />
+        )}
+      </DefaultDesktopLayout>
+    </WaitForAuth>
+  );
+};

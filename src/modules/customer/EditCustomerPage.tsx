@@ -15,7 +15,9 @@ interface EditCustomerPageProps {}
 export const EditCustomerPage: NextPage<EditCustomerPageProps> = () => {
   const { account } = useContext(AuthContext);
   const { query } = useRouter();
-  const { data, isLoading, fetch } = useQueryData(`customers/${query.id}`);
+  const { data, isLoading, fetch } = useQueryData(`customers/${query.id}`, {
+    enabled: !!query.id,
+  });
 
   if (!account) return null;
 
@@ -28,7 +30,11 @@ export const EditCustomerPage: NextPage<EditCustomerPageProps> = () => {
         {!isLoading && data && (
           <>
             <CustomerForm account={account} edit data={data} fetch={fetch} />
-            <CustomerAddressForm account={account} data={data.customerAddresses} fetch={fetch} />
+            <CustomerAddressForm
+              account={account}
+              data={data.customerAddresses}
+              fetch={fetch}
+            />
           </>
         )}
       </DefaultDesktopLayout>

@@ -10,13 +10,15 @@ import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { CenterLoader } from "../../ui/CenterLoader";
 
-interface EditSpecializationPageProps { }
+interface EditSpecializationPageProps {}
 
 export const EditSpecializationPage: NextPage<EditSpecializationPageProps> =
   () => {
     const { account } = useContext(AuthContext);
     const { query } = useRouter();
-    const { data, isLoading } = useQueryData(`specializations/${query.id}`);
+    const { data, isLoading } = useQueryData(`specializations/${query.id}`, {
+      enabled: !!query.id,
+    });
 
     if (!account) return null;
 
