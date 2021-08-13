@@ -465,6 +465,7 @@ interface ServiceRequestDetailsProps {}
 
 export const ServiceRequestDetails: React.FC<ServiceRequestDetailsProps> =
   ({}) => {
+    const screenType = useScreenType();
     const { account } = useContext(AuthContext);
     const { query } = useRouter();
     const id = typeof query.id === "string" ? query.id : "";
@@ -477,7 +478,11 @@ export const ServiceRequestDetails: React.FC<ServiceRequestDetailsProps> =
     }
 
     if (!data) {
-      return <InfoText>Could not find service request</InfoText>;
+      return (
+        <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
+          Service not found.
+        </WhiteCard>
+      );
     }
 
     return (

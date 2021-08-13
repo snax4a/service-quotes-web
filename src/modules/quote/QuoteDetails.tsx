@@ -108,7 +108,11 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
   }
 
   if (!data) {
-    return <InfoText>Could not find quote</InfoText>;
+    return (
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
+        Quote not found.
+      </WhiteCard>
+    );
   }
 
   const { address } = data.serviceRequest;

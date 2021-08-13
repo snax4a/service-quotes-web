@@ -17,7 +17,7 @@ export const CreateServiceRequestPage: NextPage<CreateServiceRequestPageProps> =
     if (!account) return null;
 
     return (
-      <WaitForAuth>
+      <WaitForAuth roles={["Manager", "Customer"]}>
         <HeaderController embed={{}} title="Create service request" />
         <DefaultDesktopLayout>
           <PageHeader

@@ -31,8 +31,12 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
     return <CenterLoader />;
   }
 
-  if (data.status === 404) {
-    return <InfoText>Could not find address</InfoText>;
+  if (!data) {
+    return (
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
+        Address not found.
+      </WhiteCard>
+    );
   }
 
   return (

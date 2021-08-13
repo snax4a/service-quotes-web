@@ -3,7 +3,6 @@ import useQueryData from "../../shared-hooks/useQueryData";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { MiddlePanel } from "../layouts/GridPanels";
 import { useRouter } from "next/router";
-import { InfoText } from "../../ui/InfoText";
 import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
@@ -167,31 +166,32 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 interface CustomerDetailsProps {}
 
 export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
-    const { account } = useContext(AuthContext);
-    const { query } = useRouter();
-    const screenType = useScreenType();
-    const id = typeof query.id === "string" ? query.id : "";
-    const { data, isLoading } = useQueryData(`customers/${id}`);
+  const { account } = useContext(AuthContext);
+  const { query } = useRouter();
+  const screenType = useScreenType();
+  const id = typeof query.id === "string" ? query.id : "";
+  const { data, isLoading } = useQueryData(`customers/${id}`);
 
-    if (!account) return null;
+  if (!account) return null;
 
-    if (isLoading) {
-      return <CenterLoader />;
-    }
+  if (isLoading) {
+    return <CenterLoader />;
+  }
 
-    if (!data) {
-      return (
-        <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
-          Customer not found.
-        </WhiteCard>);
-    }
-
+  if (!data) {
     return (
-      <MiddlePanel>
-        <div className="flex flex-col pb-6">
-          <Customer />
-          <ServiceRequestsList />
-        </div>
-      </MiddlePanel>
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
+        Customer not found.
+      </WhiteCard>
     );
-  };
+  }
+
+  return (
+    <MiddlePanel>
+      <div className="flex flex-col pb-6">
+        <Customer />
+        <ServiceRequestsList />
+      </div>
+    </MiddlePanel>
+  );
+};

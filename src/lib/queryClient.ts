@@ -4,7 +4,6 @@ import { useTokenStore } from "../modules/auth/useTokenStore";
 import { apiBaseUrl } from "./constants";
 import { decodeToken, isBefore } from "./helpers";
 import ky, { NormalizedOptions } from "ky";
-import { useRouter } from 'next/router';
 
 export const publicClient = ky.extend({
   prefixUrl: apiBaseUrl,
@@ -67,13 +66,6 @@ export const privateClient = publicClient.extend({
         }
       },
     ],
-    afterResponse: [
-      (request, options, response) => {
-        if (response.status === 401) {
-          window.location.href = "/";
-        }
-      }
-    ]
   },
 });
 
