@@ -9,6 +9,7 @@ import { AccountDetails } from "./AccountDetails";
 import { AuthContext, Account } from "../auth/AuthProvider";
 import { privateClient } from "../../lib/queryClient";
 import { CenterLoader } from "../../ui/CenterLoader";
+import { WhiteCard } from "../../ui/card/WhiteCard";
 
 interface AccountDetailsPageProps {}
 
@@ -17,6 +18,7 @@ export const AccountDetailsPage: NextPage<AccountDetailsPageProps> = () => {
   const { id } = router.query;
   const { account } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [accountDetails, setAccountDetails] = useState<Account>();
 
   useEffect(() => {
@@ -28,23 +30,36 @@ export const AccountDetailsPage: NextPage<AccountDetailsPageProps> = () => {
             const data: Account = await res.json();
             setAccountDetails(data);
           })
-          .catch((err) => console.error(err))
+          .catch((err) => {
+            console.error(err);
+            setError(true);
+          })
           .finally(() => setLoading(false));
       } else {
-        setAccountDetails(account);
-        setLoading(false);
+        // eslint-disable-next-line no-lonely-if
+        if (id && id !== account.id) {
+          router.replace("/");
+        } else {
+          setAccountDetails(account);
+          setLoading(false);
+        }
       }
     }
-  }, [account, id]);
+  }, [account, id, router]);
 
-  if (!account || !accountDetails || loading) return <CenterLoader />;
+  if (loading || !account || (!accountDetails && !error)) {
+    return <CenterLoader />;
+  }
 
   return (
     <WaitForAuth>
       <HeaderController embed={{}} title="Account details" />
       <DefaultDesktopLayout>
         <PageHeader title="Account details" onBackClick={() => router.back()} />
-        <AccountDetails account={accountDetails} variant={account.role} />
+        {error && <WhiteCard padding={"big"}>Account not found.</WhiteCard>}
+        {!error && (
+          <AccountDetails account={accountDetails} variant={account.role} />
+        )}
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

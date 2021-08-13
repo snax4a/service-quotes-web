@@ -54,7 +54,7 @@ const createAccountSchema = Yup.object().shape({
       then: Yup.string().required("Company name is required"),
     }),
   vatNumber: Yup.string()
-    .min(9, "Min 9 characters")
+    .min(10, "Min 10 characters")
     .max(20, "Max 30 characters")
     .when("role.value", {
       is: "Customer",
