@@ -31,11 +31,16 @@ export const EditAccountPage: NextPage<EditAccountPageProps> = () => {
           .catch((err) => console.error(err))
           .finally(() => setLoading(false));
       } else {
-        setAccountDetails(account);
-        setLoading(false);
+        // eslint-disable-next-line no-lonely-if
+        if (id && id !== account.id) {
+          router.replace("/");
+        } else {
+          setAccountDetails(account);
+          setLoading(false);
+        }
       }
     }
-  }, [account, id]);
+  }, [account, id, router]);
 
   if (!account || !accountDetails || loading) return <CenterLoader />;
 

@@ -22,7 +22,7 @@ export const EditEmployeePage: NextPage<EditEmployeePageProps> = () => {
   if (!account) return null;
 
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager"]}>
       <HeaderController embed={{}} title="Edit Employee" />
       <DefaultDesktopLayout>
         <PageHeader title="Edit employee" onBackClick={() => router.back()} />

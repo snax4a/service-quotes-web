@@ -12,7 +12,7 @@ interface PaymentMethodSelectionPageProps {}
 export const PaymentMethodSelectionPage: NextPage<PaymentMethodSelectionPageProps> =
   () => {
     return (
-      <WaitForAuth>
+      <WaitForAuth roles={["Customer"]}>
         <HeaderController embed={{}} title="Pay for the service" />
         <DefaultDesktopLayout>
           <PageHeader

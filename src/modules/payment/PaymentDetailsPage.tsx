@@ -11,7 +11,7 @@ interface PaymentDetailsPageProps {}
 
 export const PaymentDetailsPage: NextPage<PaymentDetailsPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager", "Customer"]}>
       <HeaderController embed={{}} title="Payment Details" />
       <DefaultDesktopLayout>
         <PageHeader title="Payment details" onBackClick={() => router.back()} />

@@ -28,14 +28,15 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
   edit,
 }) => {
   const screenType = useScreenType();
-  
+
   if (!account) return null;
 
   if (!data && edit) {
     return (
-      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
         Specialization not found.
-      </WhiteCard>);
+      </WhiteCard>
+    );
   }
 
   return (
@@ -47,11 +48,11 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
           initialValues={
             data
               ? {
-                name: data.name,
-              }
+                  name: data.name,
+                }
               : {
-                name: "",
-              }
+                  name: "",
+                }
           }
           validateOnChange={false}
           validateOnBlur={false}
@@ -61,16 +62,17 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
             privateClient(url, {
               method: edit ? "put" : "post",
               json: {
-                name
+                name,
               },
             })
-              .then(async (res) => {
+              .then((res) => {
                 if (res.ok) {
                   showSuccessToast(
-                    `Specialization ${edit ? "updated" : "created"
+                    `Specialization ${
+                      edit ? "updated" : "created"
                     } successfully.`
                   );
-                  router.push(`/specializations`);
+                  router.push(`/employees/specializations`);
                 }
               })
               .catch((err) => {
@@ -80,15 +82,11 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
           }}
         >
           {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className='flex flex-col focus:outline-none w-full'>
-
-              <div className='flex flex-row gap-5 focus:outline-none w-full'>
+            <Form className="flex flex-col focus:outline-none w-full">
+              <div className="flex flex-row gap-5 focus:outline-none w-full">
                 <div className="mt-4 text-sm flex-grow">
                   <div className="text-primary-400 mb-1">Name</div>
-                  <InputField
-                    padding="lg"
-                    name="name"
-                  />
+                  <InputField padding="lg" name="name" />
                 </div>
 
                 <>

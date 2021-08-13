@@ -16,7 +16,7 @@ export const CreateAccountPage: NextPage<CreateAccountPageProps> = () => {
   if (!account) return null;
 
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Manager"]}>
       <HeaderController embed={{}} title="Create account" />
       <DefaultDesktopLayout>
         <PageHeader title="Create account" onBackClick={() => router.back()} />

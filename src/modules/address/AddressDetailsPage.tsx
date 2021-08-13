@@ -11,7 +11,7 @@ interface AddressDetailsPageProps {}
 
 export const AddressDetailsPage: NextPage<AddressDetailsPageProps> = () => {
   return (
-    <WaitForAuth>
+    <WaitForAuth roles={["Customer"]}>
       <HeaderController embed={{}} title="Address Details" />
       <DefaultDesktopLayout>
         <PageHeader title="Address details" onBackClick={() => router.back()} />

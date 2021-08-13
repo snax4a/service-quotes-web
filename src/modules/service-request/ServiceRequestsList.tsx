@@ -15,6 +15,7 @@ import { AuthContext } from "../auth/AuthProvider";
 import { BlueCard } from "../../ui/card/BlueCard";
 import { Button } from "../../ui/Button";
 import Image from "next/image";
+import { SolidPlus } from "../../icons";
 
 const dateRangeOptions = [
   {
@@ -88,13 +89,14 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      {account.role === "Customer" && (
+      {["Customer", "Manager"].includes(account.role) && (
         <BlueCard className="mb-6 py-5 px-6 flex-col items-start shadow-md relative overflow-hidden">
           <h1
             className="text-3xl md:text-5xl font-semibold"
             style={{ lineHeight: "50px" }}
           >
-            Your business needs help?
+            {account.role === "Customer" && "Your business needs help?"}
+            {account.role === "Manager" && "Customer needs help?"}
           </h1>
           <p className="text-sm font-inter font-normal mt-1 mb-3">
             Just fill in the form and our employees will take car of it.
@@ -104,7 +106,8 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
             size="small"
             onClick={() => push("service-requests/create")}
           >
-            Request a service
+            {account.role === "Customer" && "Request a service"}
+            {account.role === "Manager" && "Create new service request"}
           </Button>
 
           <div className="hidden lg:block absolute right-0 -bottom-2 z-0">

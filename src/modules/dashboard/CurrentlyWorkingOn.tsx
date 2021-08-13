@@ -59,7 +59,11 @@ export const CurrentlyWorkingOn: React.FC<CurrentlyWorkingOnProps> = ({}) => {
         <OutlineCalendar width={33} height={33} />
         <div className="flex flex-col text-lg2">
           <h4 className="font-semibold">Planned execution date:</h4>
-          <p>{formatDateString(plannedExecutionDate, "intlDate")}</p>
+          <p>
+            {plannedExecutionDate
+              ? formatDateString(plannedExecutionDate, "intlDate")
+              : "not set"}
+          </p>
         </div>
       </div>
 

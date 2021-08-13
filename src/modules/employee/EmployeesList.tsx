@@ -107,7 +107,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
         </p>
 
         <RoundedButton
-          onClick={() => push(`/specializations`)}
+          onClick={() => push(`/employees/specializations`)}
           className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md"
         >
           Here

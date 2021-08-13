@@ -7,16 +7,20 @@ import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { PageHeader } from "../../ui/PageHeader";
 import { SpecializationList } from "./SpecializationList";
 
-interface SpecializationListPageProps { }
+interface SpecializationListPageProps {}
 
-export const SpecializationListPage: NextPage<SpecializationListPageProps> = () => {
-  return (
-    <WaitForAuth>
-      <HeaderController embed={{}} title="Specialization List" />
-      <DefaultDesktopLayout>
-        <PageHeader title="Specialization list" onBackClick={() => router.back()} />
-        <SpecializationList />
-      </DefaultDesktopLayout>
-    </WaitForAuth>
-  );
-};
+export const SpecializationListPage: NextPage<SpecializationListPageProps> =
+  () => {
+    return (
+      <WaitForAuth roles={["Manager"]}>
+        <HeaderController embed={{}} title="Specialization List" />
+        <DefaultDesktopLayout>
+          <PageHeader
+            title="Specialization list"
+            onBackClick={() => router.back()}
+          />
+          <SpecializationList />
+        </DefaultDesktopLayout>
+      </WaitForAuth>
+    );
+  };
