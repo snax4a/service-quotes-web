@@ -10,10 +10,8 @@ import { AuthContext } from "../auth/AuthProvider";
 
 interface CreateSpecializationPageProps {}
 
-export const CreateSpecializationPage: NextPage<CreateSpecializationPageProps> =
-  () => {
+export const CreateSpecializationPage: NextPage<CreateSpecializationPageProps> = () => {
     const { account } = useContext(AuthContext);
-
     if (!account) return null;
 
     return (

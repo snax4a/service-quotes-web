@@ -1,21 +1,18 @@
 import { Form, Formik } from "formik";
 import React, { useContext } from "react";
 import { Customer, CustomerAddress } from "../../types";
-import { Account } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import { privateClient } from "../../lib/queryClient";
 import { showSuccessToast } from "../../lib/toasts";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { InputField } from "../../form-fields/InputField";
 import { OutlineTrash, SolidCheck, SolidPlus } from "../../icons";
-import router, { useRouter } from "next/router";
+import router from "next/router";
 import * as Yup from "yup";
 import { MiddlePanel } from "../layouts/GridPanels";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
-import { CenterLoader } from "../../ui/CenterLoader";
-import useQueryData from "../../shared-hooks/useQueryData";
 import { RoundedButton } from "../../ui/RoundedButton";
 
 const customerSchema = Yup.object().shape({
@@ -155,26 +152,17 @@ const customerAddressSchema = Yup.object().shape({
 });
 
 interface CustomerAddressFormProps {
+  data?: Customer;
   fetch?: any;
 }
 
 export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
+  data,
   fetch,
 }) => {
   const screenType = useScreenType();
-  const { account } = useContext(AuthContext);
-  const { query, push } = useRouter();
-  const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`customers/${id}`);
-
-  if (!account) return null;
-
+  // Extra empty column name for button
   const columnNames = ["Name", "Street", "City", "Zip Code", "Phone Number", ""];
-
-  if (isLoading) {
-    return <CenterLoader />;
-  }
-
   return (
     <MiddlePanel>
       <div
@@ -191,10 +179,9 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
           </p>
           <DataTable
             columns={columnNames}
-            isLoading={isLoading}
-            dataCount={data.length}
+            dataCount={data!.customerAddresses!.length}
           >
-            {data?.customerAddresses.map((customerAddress: CustomerAddress) => {
+            {data!.customerAddresses!.map((customerAddress: CustomerAddress) => {
               const { name, address } = customerAddress;
               return (
                 <TableRow key={address.id}>
@@ -218,7 +205,7 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
                       className="w-min"
                       onClick={() => {
                         privateClient
-                          .delete(`customers/${id}/address/${address.id}`)
+                          .delete(`customers/${data?.id}/address/${address.id}`)
                           .then(() => {
                             showSuccessToast("Address has been removed.");
                             fetch();
@@ -241,28 +228,21 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
               zipCode: string;
               phoneNumber: string;
             }>
+              // Initial values are always empty as formik here is only ever used for adding addresses.
               initialValues={
-                data
-                  ? {
-                    name: data?.name,
-                    street: data?.address?.street,
-                    city: data?.address?.city,
-                    zipCode: data?.address?.zipCode,
-                    phoneNumber: data?.address?.phoneNumber
-                  }
-                  : {
-                    name: "",
-                    street: "",
-                    city: "",
-                    zipCode: "",
-                    phoneNumber: "",
-                  }
+                {
+                  name: "",
+                  street: "",
+                  city: "",
+                  zipCode: "",
+                  phoneNumber: "",
+                }
               }
               validateOnChange={false}
               validateOnBlur={false}
               validationSchema={customerAddressSchema}
               onSubmit={({ name, street, city, zipCode, phoneNumber }, actions) => {
-                const url = data ? `customers/${id}/address` : `customers`;
+                const url = data ? `customers/${data.id}/address` : `customers`;
                 privateClient(url, {
                   method: "post",
                   json: {
@@ -321,10 +301,6 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
   );
 };
 
-
-
-
-
 interface CustomerFormProps {
   data?: Customer;
   edit?: boolean;
@@ -337,13 +313,9 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({
   fetch,
 }) => {
   const { account } = useContext(AuthContext);
-  const { query } = useRouter();
-  const screenType = useScreenType();
-  const id = typeof query.id === "string" ? query.id : "";
-  //const { data2, isLoading } = useQueryData(`customers/${id}`);
-
   if (!account) return null;
 
+  const screenType = useScreenType();
   if (!data && edit) {
     return (
       <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
@@ -355,9 +327,8 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({
     <MiddlePanel>
       <div className="flex flex-col pb-6">
         <CustomerDetailsForm edit data={data} fetch={fetch} />
-        <CustomerAddressForm fetch={fetch} />
+        <CustomerAddressForm data={data} fetch={fetch} />
       </div>
     </MiddlePanel>
   );
 };
-

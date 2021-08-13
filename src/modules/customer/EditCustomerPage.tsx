@@ -8,7 +8,6 @@ import { PageHeader } from "../../ui/PageHeader";
 import { CustomerForm, CustomerAddressForm } from "./CustomerForm";
 import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
-import { CenterLoader } from "../../ui/CenterLoader";
 
 interface EditCustomerPageProps { }
 

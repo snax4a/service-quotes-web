@@ -3,33 +3,27 @@ import useQueryData from "../../shared-hooks/useQueryData";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { MiddlePanel } from "../layouts/GridPanels";
 import { useRouter } from "next/router";
-import { InfoText } from "../../ui/InfoText";
 import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
-import { AuthContext } from "../auth/AuthProvider";
+import { Account, AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
-import { ServiceRequest, Specialization } from "../../types";
+import { Employee, ServiceRequest, Specialization } from "../../types";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { EmployeeOptions } from "./EmployeeOptions";
 import { BlueCard } from "../../ui/card/BlueCard";
 import Link from "next/link";
 
-interface EmployeeProps {}
+interface EmployeeDetailsCardProps {
+  account: Account
+  data: Employee
+}
 
-export const Employee: React.FC<EmployeeProps> = ({ }) => {
+export const EmployeeDetailsCard: React.FC<EmployeeDetailsCardProps> = ({
+  account,
+  data
+}) => {
   const screenType = useScreenType();
-  const { account } = useContext(AuthContext);
-  const { query, push } = useRouter();
-  const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`employees/${id}`);
-
-  if (!account) return null;
-
-  if (isLoading) {
-    return <CenterLoader />;
-  }
-
   return (
     <MiddlePanel>
       <div
@@ -85,8 +79,8 @@ export const Employee: React.FC<EmployeeProps> = ({ }) => {
 
               <div className="flex text-primary-500 mt-3 w-full md:mt-1">
                 <p className="self-center text-md font-bold">Specializations:</p>
-                {data.specializations[0] ? (
-                  data.specializations.map((spec: Specialization) => (
+                {data!.specializations ? (
+                  data!.specializations.map((spec: Specialization) => (
                     <BlueCard
                       className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
                       key={spec.id}
@@ -108,20 +102,20 @@ export const Employee: React.FC<EmployeeProps> = ({ }) => {
   );
 };
 
-interface ServiceRequestsListProps {}
+interface ServiceRequestsListProps {
+  account: Account
+  employeeId: string
+}
 
-export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
-  const { account } = useContext(AuthContext);
-  const { query, push } = useRouter();
-  const empId = typeof query.id === "string" ? query.id : "";
+export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
+  account,
+  employeeId
+}) => {
+  const { push } = useRouter();
   const { data, isLoading } = useQueryData(
-    `servicerequests?employeeId=${empId}`
+    `servicerequests?employeeId=${employeeId}`
   );
-
-  if (!account) return null;
-
   const columnNames = ["Customer", "Address", "Title", "Status"];
-
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col mb-6.5">
@@ -182,13 +176,13 @@ interface EmployeeDetailsProps {}
 
 export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
     const { account } = useContext(AuthContext);
+    if (!account) return null;
+
     const { query } = useRouter();
     const screenType = useScreenType();
     const id = typeof query.id === "string" ? query.id : "";
     const { data, isLoading } = useQueryData(`employees/${id}`);
-
-    if (!account) return null;
-
+    
     if (isLoading) {
       return <CenterLoader />;
     }
@@ -203,8 +197,8 @@ export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
     return (
       <MiddlePanel>
         <div className="flex flex-col pb-6">
-          <Employee />
-          <ServiceRequestsList />
+          <EmployeeDetailsCard account={account} data={data} />
+          <ServiceRequestsList account={account} employeeId={data.id} />
         </div>
       </MiddlePanel>
     );

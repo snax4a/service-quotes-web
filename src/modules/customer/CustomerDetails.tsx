@@ -7,28 +7,20 @@ import { CenterLoader } from "../../ui/CenterLoader";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 import { AuthContext } from "../auth/AuthProvider";
 import { Avatar } from "../../ui/Avatar";
-import { CustomerAddress, ServiceRequest } from "../../types";
+import { Customer, CustomerAddress, ServiceRequest } from "../../types";
 import { DataTable, TableRow, TableCell } from "../../ui/DataTable";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { CustomerOptions } from "./CustomerOptions";
 
-interface CustomerProps {}
+interface CustomerDetailsCardProps {
+  data: Customer;
+}
 
-export const Customer: React.FC<CustomerProps> = ({}) => {
+export const CustomerDetailsCard: React.FC<CustomerDetailsCardProps> = ({
+  data
+}) => {
   const screenType = useScreenType();
-  const { account } = useContext(AuthContext);
-  const { query, push } = useRouter();
-  const id = typeof query.id === "string" ? query.id : "";
-  const { data, isLoading } = useQueryData(`customers/${id}`);
-
-  if (!account) return null;
-
   const columnNames = ["Name", "Street", "City", "Zip Code", "Phone Number"];
-
-  if (isLoading) {
-    return <CenterLoader />;
-  }
-
   return (
     <MiddlePanel>
       <div
@@ -90,10 +82,9 @@ export const Customer: React.FC<CustomerProps> = ({}) => {
           <p className="text-black font-semibold text-lg2">Addresses:</p>
           <DataTable
             columns={columnNames}
-            isLoading={isLoading}
-            dataCount={data.length}
+            dataCount={data.customerAddresses!.length}
           >
-            {data?.customerAddresses.map((customerAddress: CustomerAddress) => {
+            {data.customerAddresses!.map((customerAddress: CustomerAddress) => {
               const { name, address } = customerAddress;
 
               return (
@@ -113,13 +104,16 @@ export const Customer: React.FC<CustomerProps> = ({}) => {
   );
 };
 
-interface ServiceRequestsListProps {}
+interface ServiceRequestsListProps {
+  customerId: String
+}
 
-export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
+export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
+  customerId
+}) => {
   const { query, push } = useRouter();
-  const custId = typeof query.id === "string" ? query.id : "";
   const { data, isLoading } = useQueryData(
-    `servicerequests?customerId=${custId}`
+    `servicerequests?customerId=${customerId}`
   );
 
   const columnNames = ["Address", "Title", "Status"];
@@ -135,7 +129,6 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
         >
           {data?.map((serviceRequest: ServiceRequest) => {
             const { id, customerAddress } = serviceRequest;
-
             return (
               <TableRow
                 key={id}
@@ -163,16 +156,16 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   );
 };
 
-interface CustomerDetailsProps {}
+interface CustomerDetailsProps { }
 
-export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
+export const CustomerDetails: React.FC<CustomerDetailsProps> = ({ }) => {
   const { account } = useContext(AuthContext);
-  const { query } = useRouter();
+  if (!account) return null;
+
   const screenType = useScreenType();
+  const { query } = useRouter();
   const id = typeof query.id === "string" ? query.id : "";
   const { data, isLoading } = useQueryData(`customers/${id}`);
-
-  if (!account) return null;
 
   if (isLoading) {
     return <CenterLoader />;
@@ -189,8 +182,8 @@ export const CustomerDetails: React.FC<CustomerDetailsProps> = ({}) => {
   return (
     <MiddlePanel>
       <div className="flex flex-col pb-6">
-        <Customer />
-        <ServiceRequestsList />
+        <CustomerDetailsCard data={data} />
+        <ServiceRequestsList customerId={data.id} />
       </div>
     </MiddlePanel>
   );
