@@ -57,7 +57,7 @@ export const AccountDetailsPage: NextPage<AccountDetailsPageProps> = () => {
       <DefaultDesktopLayout>
         <PageHeader title="Account details" onBackClick={() => router.back()} />
         {error && <WhiteCard padding={"big"}>Account not found.</WhiteCard>}
-        {!error && (
+        {!error && accountDetails && (
           <AccountDetails account={accountDetails} variant={account.role} />
         )}
       </DefaultDesktopLayout>
