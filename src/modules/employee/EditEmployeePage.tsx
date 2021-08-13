@@ -10,7 +10,7 @@ import { AuthContext } from "../auth/AuthProvider";
 import useQueryData from "../../shared-hooks/useQueryData";
 import { CenterLoader } from "../../ui/CenterLoader";
 
-interface EditEmployeePageProps {}
+interface EditEmployeePageProps { }
 
 export const EditEmployeePage: NextPage<EditEmployeePageProps> = () => {
   const { account } = useContext(AuthContext);
@@ -26,10 +26,7 @@ export const EditEmployeePage: NextPage<EditEmployeePageProps> = () => {
       <HeaderController embed={{}} title="Edit Employee" />
       <DefaultDesktopLayout>
         <PageHeader title="Edit employee" onBackClick={() => router.back()} />
-        {isLoading && <CenterLoader />}
-        {!isLoading && data && (
-          <EmployeeForm account={account} edit data={data} fetch={fetch} />
-        )}
+        <EmployeeForm account={account} edit data={data} fetch={fetch} />
       </DefaultDesktopLayout>
     </WaitForAuth>
   );

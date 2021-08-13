@@ -13,6 +13,7 @@ import Image from "next/image";
 import router from "next/router";
 import * as Yup from "yup";
 import { SelectBox } from "../../ui/SelectBox";
+import { useScreenType } from "../../shared-hooks/useScreenType";
 
 const employeeSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
@@ -31,6 +32,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
   edit,
   fetch,
 }) => {
+  const screenType = useScreenType();
   const [specializationsOptions, setSpecializationsOptions] = useState([
     {
       label: "Select specialization",
@@ -59,6 +61,13 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!data && edit) {
+    return (
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+        Employee not found.
+      </WhiteCard>);
+  }
+
   return (
     <WhiteCard padding="medium">
       <div className="p-1 mr-5 flex-grow">
@@ -69,13 +78,13 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
           initialValues={
             data
               ? {
-                  firstName: data.firstName,
-                  lastName: data.lastName,
-                }
+                firstName: data.firstName,
+                lastName: data.lastName,
+              }
               : {
-                  firstName: "",
-                  lastName: "",
-                }
+                firstName: "",
+                lastName: "",
+              }
           }
           validateOnChange={false}
           validateOnBlur={false}
@@ -206,7 +215,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
                     showSuccessToast("Specialization has been added.");
                     fetch();
                   })
-                  .catch(() => {});
+                  .catch(() => { });
               }}
             >
               {"Add"}

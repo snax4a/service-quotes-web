@@ -10,6 +10,7 @@ import { InputField } from "../../form-fields/InputField";
 import { SolidCheck, SolidPlus } from "../../icons";
 import router from "next/router";
 import * as Yup from "yup";
+import { useScreenType } from "../../shared-hooks/useScreenType";
 
 const specializationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -26,6 +27,17 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
   data,
   edit,
 }) => {
+  const screenType = useScreenType();
+  
+  if (!account) return null;
+
+  if (!data && edit) {
+    return (
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+        Specialization not found.
+      </WhiteCard>);
+  }
+
   return (
     <WhiteCard padding="medium">
       <div className="p-1 mr-5 flex-grow">
