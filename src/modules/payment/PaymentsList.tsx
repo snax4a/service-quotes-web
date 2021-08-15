@@ -64,7 +64,7 @@ const customerColumnNames = [
   "Amount",
   "Quote Ref Number",
   "Created",
-  "Satus",
+  "Status",
 ];
 
 interface CustomerDataRowProps {
@@ -96,7 +96,7 @@ const managerColumnNames = [
   "Amount",
   "Quote Ref Number",
   "Created",
-  "Satus",
+  "Status",
 ];
 
 interface ManagerDataRowProps {
