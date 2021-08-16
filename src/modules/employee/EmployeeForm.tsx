@@ -70,7 +70,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
 
   return (
     <WhiteCard padding="medium">
-      <div className="p-1 mr-5 flex-grow">
+      <div className="flex-grow p-1 mr-5">
         <Formik<{
           firstName: string;
           lastName: string;
@@ -118,15 +118,15 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
           }}
         >
           {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className="flex flex-col focus:outline-none w-full">
-              <div className="flex flex-row gap-5 focus:outline-none w-full">
+            <Form className="flex flex-col w-full focus:outline-none">
+              <div className="flex flex-row gap-5 w-full focus:outline-none">
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Firstname</div>
+                  <div className="mb-1 text-primary-400">Firstname</div>
                   <InputField padding="lg" name="firstName" />
                 </div>
 
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Lastname</div>
+                  <div className="mb-1 text-primary-400">Lastname</div>
                   <InputField padding="lg" name="lastName" />
                 </div>
               </div>
@@ -166,8 +166,8 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
 
         <hr className="my-6"></hr>
 
-        <div className="text-primary-500 w-full md:mt-1">
-          <p className="self-center text-md font-bold mb-2">Specializations</p>
+        <div className="w-full md:mt-1 text-primary-500">
+          <p className="self-center mb-2 font-bold text-md">Specializations</p>
 
           <div className="flex">
             {data!.specializations![0] ? (
@@ -185,7 +185,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
           </div>
 
           <div
-            className="grid gap-2 w-full mt-6"
+            className="grid gap-2 mt-6 w-full"
             style={{
               gridTemplateColumns: "7fr 1fr",
             }}
@@ -224,7 +224,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
         </div>
       </div>
 
-      <div className="hidden md:flex md:items-center px-4">
+      <div className="hidden px-4 md:flex md:items-center">
         <Image src="/img/form.png" width={233} height={314} />
       </div>
     </WhiteCard>

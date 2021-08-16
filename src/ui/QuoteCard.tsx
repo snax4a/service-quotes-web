@@ -25,7 +25,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
 
   return (
     <WhiteCard onClick={onClick} className="flex-col w-full cursor-pointer">
-      <div className="flex flex-col justify-between text-left w-full space-y-3 font-semibold">
+      <div className="flex flex-col justify-between space-y-3 w-full font-semibold text-left">
         {type === "Manager" && <TitleText>{customer?.companyName}</TitleText>}
         {type === "Customer" && <TitleText>#{referenceNumber}</TitleText>}
         <InfoText className="text-xs">

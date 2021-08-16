@@ -139,7 +139,7 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
       >
         {({ setFieldValue, values, errors, isSubmitting }) => (
           <Form className={`flex space-x-5 focus:outline-none w-full`}>
-            <div className="flex flex-col justify-center items-center space-y-3 w-15 h-15 bg-primary-325 border-1 border-shadow-200 rounded-xl">
+            <div className="flex flex-col justify-center items-center space-y-3 rounded-xl w-15 h-15 bg-primary-325 border-1 border-shadow-200">
               <Avatar
                 src={values.image || "/img/avatar-placeholder.png"}
                 refresh={fileName}
@@ -182,17 +182,17 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
             </div>
 
             <div className="flex flex-col flex-grow justify-between">
-              <div className="flex flex-col space-y-3 lg:flex-row lg:space-x-5 lg:space-y-0">
-                <div className="text-sm w-full">
-                  <div className="text-primary-400 mb-1">Email Address</div>
+              <div className="flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:space-x-5">
+                <div className="w-full text-sm">
+                  <div className="mb-1 text-primary-400">Email Address</div>
                   <InputField padding="lg" name="email" />
                 </div>
-                <div className="text-sm w-full">
-                  <div className="text-primary-400 mb-1">Password</div>
+                <div className="w-full text-sm">
+                  <div className="mb-1 text-primary-400">Password</div>
                   <InputField padding="lg" name="password" type="password" />
                 </div>
-                <div className="text-sm w-full">
-                  <div className="text-primary-400 mb-1">Repeat password</div>
+                <div className="w-full text-sm">
+                  <div className="mb-1 text-primary-400">Repeat password</div>
                   <InputField
                     padding="lg"
                     name="repeatPassword"
@@ -201,15 +201,15 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
                 </div>
               </div>
 
-              <div className="mt-4 flex flex-col space-y-3 lg:flex-row lg:space-x-5 lg:space-y-0">
+              <div className="flex flex-col mt-4 space-y-3 lg:flex-row lg:space-y-0 lg:space-x-5">
                 {account.role === "Customer" && (
                   <>
-                    <div className="text-sm w-full">
-                      <div className="text-primary-400 mb-1">Company Name</div>
+                    <div className="w-full text-sm">
+                      <div className="mb-1 text-primary-400">Company Name</div>
                       <InputField padding="lg" name="companyName" type="text" />
                     </div>
-                    <div className="text-sm w-full">
-                      <div className="text-primary-400 mb-1">VAT Number</div>
+                    <div className="w-full text-sm">
+                      <div className="mb-1 text-primary-400">VAT Number</div>
                       <InputField padding="lg" name="vatNumber" type="text" />
                     </div>
                   </>
@@ -217,12 +217,12 @@ export const EditAccountForm: React.FC<EditAccountFormProps> = ({
 
                 {["Employee", "Manager"].includes(account.role) && (
                   <>
-                    <div className="text-sm w-full">
-                      <div className="text-primary-400 mb-1">First Name</div>
+                    <div className="w-full text-sm">
+                      <div className="mb-1 text-primary-400">First Name</div>
                       <InputField padding="lg" name="firstName" type="text" />
                     </div>
-                    <div className="text-sm w-full">
-                      <div className="text-primary-400 mb-1">Last Name</div>
+                    <div className="w-full text-sm">
+                      <div className="mb-1 text-primary-400">Last Name</div>
                       <InputField padding="lg" name="lastName" type="text" />
                     </div>
                   </>

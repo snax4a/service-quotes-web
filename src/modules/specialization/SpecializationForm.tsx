@@ -41,7 +41,7 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
 
   return (
     <WhiteCard padding="medium">
-      <div className="p-1 mr-5 flex-grow">
+      <div className="flex-grow p-1 mr-5">
         <Formik<{
           name: string;
         }>
@@ -82,10 +82,10 @@ export const SpecializationForm: React.FC<SpecializationFormProps> = ({
           }}
         >
           {({ setFieldValue, values, errors, isSubmitting }) => (
-            <Form className="flex flex-col focus:outline-none w-full">
-              <div className="flex flex-row gap-5 focus:outline-none w-full">
-                <div className="mt-4 text-sm flex-grow">
-                  <div className="text-primary-400 mb-1">Name</div>
+            <Form className="flex flex-col w-full focus:outline-none">
+              <div className="flex flex-row gap-5 w-full focus:outline-none">
+                <div className="flex-grow mt-4 text-sm">
+                  <div className="mb-1 text-primary-400">Name</div>
                   <InputField padding="lg" name="name" />
                 </div>
 

@@ -21,12 +21,12 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         }`}
       >
         {title && (
-          <span className="text-2xl md:text-5xl font-semibold">{title}</span>
+          <span className="text-2xl font-semibold md:text-5xl">{title}</span>
         )}
         {children}
         {onBackClick && (
           <button
-            className="flex items-center p-3 ml-6 h-4 bg-primary-800 text-sm text-white rounded-16"
+            className="flex items-center p-3 ml-6 h-4 text-sm text-white bg-primary-800 rounded-16"
             onClick={onBackClick}
           >
             <ArrowLeft className="mr-2" />

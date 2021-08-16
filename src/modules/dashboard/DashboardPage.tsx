@@ -33,8 +33,8 @@ export const DashboardTitle: React.FC<DashboardTitleProps> = ({ children }) => {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-2xls font-medium">{title}</h2>
-      <h1 className="text-2xl md:text-5xl font-semibold">{subtitle}</h1>
+      <h2 className="font-medium text-2xls">{title}</h2>
+      <h1 className="text-2xl font-semibold md:text-5xl">{subtitle}</h1>
       {children}
     </div>
   );

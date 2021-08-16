@@ -16,7 +16,7 @@ export const ServicesList: React.FC<ServicesListProps> = ({}) => {
   if (isLoading) return <CenterLoader />;
 
   return (
-    <div className="flex flex-col flex-1 mt-6 mb-6 xl:ml-6 xl:mt-0">
+    <div className="flex flex-col flex-1 mt-6 mb-6 xl:mt-0 xl:ml-6">
       <TitleText size="md" className="mb-2 w-full">
         Your outsourced services
       </TitleText>

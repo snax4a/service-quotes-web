@@ -23,7 +23,7 @@ export const UnpaidQuotesList: React.FC<UnpaidQuotesListProps> = ({ role }) => {
         Unpaid quotes
       </TitleText>
       {data?.length === 0 && <InfoText>There are no unpaid quotes.</InfoText>}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-2xl">
+      <div className="grid grid-cols-1 gap-4 max-w-2xl md:grid-cols-3 md:gap-5">
         {data?.map((quote: Quote) => (
           <QuoteCard
             key={quote.id}

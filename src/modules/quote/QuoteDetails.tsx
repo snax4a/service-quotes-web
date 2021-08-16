@@ -29,9 +29,9 @@ export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
   }
 
   return (
-    <table className="w-full mt-3 text-sm2">
+    <table className="mt-3 w-full text-sm2">
       <thead>
-        <tr className="text-primary-400 font-medium font-inter border-b-1 border-primary-350">
+        <tr className="font-medium text-primary-400 font-inter border-b-1 border-primary-350">
           <td className="py-2">Description</td>
           <td className="py-2">Quantity</td>
           <td className="py-2">Unit Price</td>
@@ -66,9 +66,9 @@ export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
   }
 
   return (
-    <table className="w-full mt-3 text-sm2">
+    <table className="mt-3 w-full text-sm2">
       <thead>
-        <tr className="text-primary-400 font-medium font-inter border-b-1 border-primary-350">
+        <tr className="font-medium text-primary-400 font-inter border-b-1 border-primary-350">
           <td className="py-2">Work Type</td>
           <td className="py-2">Labor Hours</td>
           <td className="py-2">Hourly Rate</td>
@@ -129,7 +129,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
       >
         <WhiteCard padding="big" className="flex-col">
           <div className="flex justify-between pb-3 border-b-1 border-primary-350">
-            <h2 className="text-2xls font-medium">
+            <h2 className="font-medium text-2xls">
               Quote #{data.referenceNumber}
             </h2>
             <h3 className="text-primary-500">
@@ -184,29 +184,29 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({}) => {
         </WhiteCard>
 
         <WhiteCard padding="big" className="flex-col">
-          <h2 className="text-2xls font-medium">Service Request</h2>
-          <h3 className="text-lg font-medium mt-6">Title:</h3>
-          <p className="text-primary-500 text-sm">
+          <h2 className="font-medium text-2xls">Service Request</h2>
+          <h3 className="mt-6 text-lg font-medium">Title:</h3>
+          <p className="text-sm text-primary-500">
             {data.serviceRequest.title}
           </p>
-          <h3 className="text-lg font-medium mt-6">Description:</h3>
-          <p className="text-primary-500 text-sm">
+          <h3 className="mt-6 text-lg font-medium">Description:</h3>
+          <p className="text-sm text-primary-500">
             {data.serviceRequest.description}
           </p>
-          <h3 className="text-lg font-medium mt-6">Address:</h3>
-          <p className="text-primary-500 text-sm">
+          <h3 className="mt-6 text-lg font-medium">Address:</h3>
+          <p className="text-sm text-primary-500">
             {address.street}, {address.zipCode} {address.city}
           </p>
-          <h3 className="text-lg font-medium mt-6">Status:</h3>
-          <p className="text-primary-500 text-sm">
+          <h3 className="mt-6 text-lg font-medium">Status:</h3>
+          <p className="text-sm text-primary-500">
             {data.serviceRequest.status}
           </p>
-          <h3 className="text-lg font-medium mt-6">Created At:</h3>
-          <p className="text-primary-500 text-sm">
+          <h3 className="mt-6 text-lg font-medium">Created At:</h3>
+          <p className="text-sm text-primary-500">
             {formatDateString(data.serviceRequest.created, "intlDate")}
           </p>
-          <h3 className="text-lg font-medium mt-6">Completed At:</h3>
-          <p className="text-primary-500 text-sm">
+          <h3 className="mt-6 text-lg font-medium">Completed At:</h3>
+          <p className="text-sm text-primary-500">
             {data.serviceRequest.completionDate
               ? formatDateString(data.serviceRequest.completionDate, "intlDate")
               : null}

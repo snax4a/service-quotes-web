@@ -40,7 +40,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
           } bg-primary-250 border-1 text-sm border-black border-opacity-20 rounded-2xl cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm ${ring}`}
         >
           <span className="block truncate">{value.label}</span>
-          <span className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+          <span className="flex absolute inset-y-0 right-0 items-center pr-4 pointer-events-none">
             <SolidSelector
               className="w-4 h-4 text-gray-400"
               aria-hidden="true"
@@ -56,7 +56,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
           leaveFrom="transform scale-100 opacity-100"
           leaveTo="transform scale-95 opacity-0"
         >
-          <Listbox.Options className="absolute z-50 w-full py-1 mt-2 overflow-auto text-base bg-primary-250 border-1 border-black border-opacity-10 rounded-2xl shadow-sm max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Listbox.Options className="overflow-auto absolute z-50 py-1 mt-2 w-full max-h-60 text-base rounded-2xl border-black border-opacity-10 ring-1 ring-black ring-opacity-5 shadow-sm sm:text-sm focus:outline-none bg-primary-250 border-1">
             {options.map((option, index) => (
               <Listbox.Option
                 key={index}

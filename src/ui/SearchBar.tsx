@@ -35,7 +35,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     >
       {!mobile && (
         <button
-          className="h-full px-4 flex items-center text-primary-600"
+          className="flex items-center px-4 h-full text-primary-600"
           onClick={onSearch}
         >
           <SolidSearch className="transform scale-95" />

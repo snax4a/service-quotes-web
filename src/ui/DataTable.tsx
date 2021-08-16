@@ -39,7 +39,7 @@ export type NoDataRowProps = {
 export const NoDataRow: React.FC<NoDataRowProps> = ({ colSpan }) => {
   return (
     <TableRow>
-      <td colSpan={colSpan} className="text-primary-500 text-center py-5">
+      <td colSpan={colSpan} className="py-5 text-center text-primary-500">
         No data found
       </td>
     </TableRow>
@@ -59,7 +59,7 @@ export const DataTable: React.FC<DataTableProps> = ({
   dataCount,
 }) => {
   return (
-    <table className="table-auto font-inter w-full text-left">
+    <table className="w-full text-left table-auto font-inter">
       <thead className="border-b-1 border-primary-200">
         <tr className="text-primary-400 text-sm2">
           {columns.map((columnName, index) => (

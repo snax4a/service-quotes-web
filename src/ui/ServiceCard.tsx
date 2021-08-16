@@ -23,7 +23,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   return (
     <WhiteCard
       onClick={onClick}
-      className="flex-1 w-full self-start cursor-pointer my-1"
+      className="flex-1 self-start my-1 w-full cursor-pointer"
     >
       {withImage && (
         <Avatar
@@ -36,7 +36,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
       <div className="flex flex-col flex-1 justify-between ml-4">
         <TitleText>{title}</TitleText>
-        <InfoText className="text-sm2 font-semibold">
+        <InfoText className="font-semibold text-sm2">
           {customerAddress?.address?.street} {customerAddress?.address?.zipCode}
           , {customerAddress?.address?.city}
         </InfoText>

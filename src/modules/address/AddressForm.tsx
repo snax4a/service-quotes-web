@@ -33,7 +33,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
 }) => {
   return (
     <WhiteCard padding="medium">
-      <div className="p-1 mr-5 flex-grow">
+      <div className="flex-grow p-1 mr-5">
         <Formik<{
           name: string;
           phoneNumber: string;
@@ -96,7 +96,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({
             <Form className={`flex flex-col focus:outline-none w-full`}>
 
               <div
-                className="grid font-inter w-3/4"
+                className="grid w-3/4 font-inter"
                 style={{
                   gridTemplateColumns: `auto auto auto`,
                   gridTemplateRows: `auto auto`,
@@ -106,12 +106,12 @@ export const AddressForm: React.FC<AddressFormProps> = ({
               >
 
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Address Name</div>
+                  <div className="mb-1 text-primary-400">Address Name</div>
                   <InputField padding="lg" name="name" />
                 </div>
 
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Phone Number</div>
+                  <div className="mb-1 text-primary-400">Phone Number</div>
                   <InputField padding="lg" name="phoneNumber" />
                 </div>
 
@@ -120,17 +120,17 @@ export const AddressForm: React.FC<AddressFormProps> = ({
                 </div>
 
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Street</div>
+                  <div className="mb-1 text-primary-400">Street</div>
                   <InputField padding="lg" name="street" />
                 </div>
 
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">City</div>
+                  <div className="mb-1 text-primary-400">City</div>
                   <InputField padding="lg" name="city" />
                 </div>
 
                 <div className="mt-4 text-sm">
-                  <div className="text-primary-400 mb-1">Zip Code</div>
+                  <div className="mb-1 text-primary-400">Zip Code</div>
                   <InputField padding="lg" name="zipCode" />
                 </div>
               </div>

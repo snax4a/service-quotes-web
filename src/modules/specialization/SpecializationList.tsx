@@ -22,13 +22,13 @@ interface ManagerDataRowProps {
 export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ specialization }) => {
   return (
     <>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         {specialization.name}
       </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         Edit
       </TableCell>
-      <TableCell className="py-5 text-sm text-primary-500 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-primary-500">
         Delete
       </TableCell>
     </>
@@ -67,7 +67,7 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({ }) => {
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
         <div
-          className="grid gap-3 w-full mb-4"
+          className="grid gap-3 mb-4 w-full"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "4fr 1fr",
@@ -82,7 +82,7 @@ export const SpecializationList: React.FC<SpecializationListProps> = ({ }) => {
             push(`specializations/create`);
           }}>
             <BlueCard
-              className="flex items-center justify-center rounded-md">
+              className="flex justify-center items-center rounded-md">
               + Add New
             </BlueCard>
           </Button>

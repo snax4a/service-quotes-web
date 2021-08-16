@@ -92,7 +92,7 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
           <div className="flex flex-col lg:flex-row lg:justify-between">
             <div className="flex flex-col">
               {role !== "Customer" && (
-                <p className="text-blue font-semibold">
+                <p className="font-semibold text-blue">
                   {customer?.companyName}
                 </p>
               )}
@@ -110,7 +110,7 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-col text-sm2 text-primary-500 mt-4 lg:mt-0 lg:text-right">
+            <div className="flex flex-col mt-4 lg:mt-0 lg:text-right text-sm2 text-primary-500">
               <p className="text-primary-500 text-sm2">
                 Requested on: {formatDateString(created, "intlDate")}
               </p>
@@ -128,7 +128,7 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
             <StatusBadge status={status} />
           </div>
 
-          <p className="text-sm text-primary-500 mt-3 whitespace-pre-line md:mt-1 max-w-3xl">
+          <p className="mt-3 max-w-3xl text-sm whitespace-pre-line md:mt-1 text-primary-500">
             {description}
           </p>
 
@@ -164,7 +164,7 @@ export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
 
   return (
     <WhiteCard
-      className="mt-6 flex-col"
+      className="flex-col mt-6"
       padding={screenType === "fullscreen" ? "medium" : "big"}
     >
       <h3 className="text-lg font-medium">Materials used:</h3>
@@ -172,7 +172,7 @@ export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
       {isLoading ? (
         <CenterLoader />
       ) : (
-        <div className="flex flex-col mt-3 font-inter font-semibold">
+        <div className="flex flex-col mt-3 font-semibold font-inter">
           <div
             className="grid gap-3 py-2 text-sm2 text-primary-400 border-b-1 border-primary-350"
             style={{
@@ -320,7 +320,7 @@ export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
 
   return (
     <WhiteCard
-      className="mt-6 flex-col"
+      className="flex-col mt-6"
       padding={screenType === "fullscreen" ? "medium" : "big"}
     >
       <h3 className="text-lg font-medium">Job valuations:</h3>
@@ -328,7 +328,7 @@ export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
       {isLoading ? (
         <CenterLoader />
       ) : (
-        <div className="flex flex-col mt-3 font-inter font-semibold">
+        <div className="flex flex-col mt-3 font-semibold font-inter">
           <div
             className="grid gap-3 py-2 text-sm2 text-primary-400 border-b-1 border-primary-350"
             style={{

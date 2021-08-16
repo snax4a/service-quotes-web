@@ -51,15 +51,15 @@ export const EmployeeDetailsCard: React.FC<EmployeeDetailsCardProps> = ({
               <div className="flex flex-col">
                 <div className="flex flex-col lg:flex-row lg:justify-between">
                   <div className="flex flex-col">
-                    <p className="text-black font-semibold">
+                    <p className="font-semibold text-black">
                       {data.firstName} {data.lastName}
                     </p>
-                    <div className="flex space-x-4 font-bold text-sm text-primary-500">
+                    <div className="flex space-x-4 text-sm font-bold text-primary-500">
                       <p className="">
                         Account ID:{" "}
                         {account.role === "Manager" ? (
                           <Link href={`/accounts/${data.accountId}`}>
-                            <span className="pl-1 text-blue cursor-pointer">
+                            <span className="pl-1 cursor-pointer text-blue">
                               {data.accountId}
                             </span>
                           </Link>
@@ -77,12 +77,12 @@ export const EmployeeDetailsCard: React.FC<EmployeeDetailsCardProps> = ({
                 </div>
               </div>
 
-              <div className="flex text-primary-500 mt-3 w-full md:mt-1">
-                <p className="self-center text-md font-bold">Specializations:</p>
+              <div className="flex mt-3 w-full md:mt-1 text-primary-500">
+                <p className="self-center font-bold text-md">Specializations:</p>
                 {data!.specializations ? (
                   data!.specializations.map((spec: Specialization) => (
                     <BlueCard
-                      className="justify-center w-min rounded-sm py-0.5 px-2 ml-2 text-sm"
+                      className="justify-center py-0.5 px-2 ml-2 w-min text-sm rounded-sm"
                       key={spec.id}
                     >
                       {spec.name}
@@ -119,7 +119,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col mb-6.5">
-        <p className="text-black font-semibold text-lg2">
+        <p className="font-semibold text-black text-lg2">
           Assigned to services:
         </p>
         <DataTable
@@ -135,7 +135,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
                 key={id}
                 onClick={() => push(`/service-requests/${id}`)}
               >
-                <TableCell className="py-1 flex space-x-3">
+                <TableCell className="flex py-1 space-x-3">
                   {account.role !== "Customer" && (
                     <div className="flex">
                       <Avatar
@@ -146,11 +146,11 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
                       />
                     </div>
                   )}
-                  <div className="space-y-1 self-center">
+                  <div className="self-center space-y-1">
                     {customer?.companyName}
                   </div>
                 </TableCell>
-                <TableCell className="py-0 text-sm text-primary-500 font-normal">
+                <TableCell className="py-0 text-sm font-normal text-primary-500">
                   <div className="text-sm2 text-primary-500">
                     {customerAddress?.address.street},{" "}
                     {customerAddress?.address.zipCode}{" "}

@@ -31,11 +31,11 @@ export const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> =
           padding={screenType === "fullscreen" ? "medium" : "big"}
           className="flex-row"
         >
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid gap-6 lg:grid-cols-3">
             <div className="flex flex-col w-full">
-              <h4 className="text-lg mb-5">Payment details</h4>
+              <h4 className="mb-5 text-lg">Payment details</h4>
 
-              <div className="flex flex-col flex-1 justify-between text-center text-primary-400 text-lg font-semibold border border-primary-200 rounded-16 py-5 px-4">
+              <div className="flex flex-col flex-1 justify-between py-5 px-4 text-lg font-semibold text-center border text-primary-400 border-primary-200 rounded-16">
                 <div>
                   <p>Pament for Quote:</p>
                   <p className="text-primary-800 text-2xls">
@@ -44,7 +44,7 @@ export const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> =
                 </div>
 
                 <div className="text-green">
-                  <h3 className="text-4.5xl leading-8">{data?.total}</h3>
+                  <h3 className="leading-8 text-4.5xl">{data?.total}</h3>
                   <h5 className="text-2xls">PLN</h5>
                 </div>
 
@@ -56,18 +56,18 @@ export const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> =
             </div>
 
             <div className="flex flex-col w-full">
-              <h4 className="text-lg mb-5">Choose payment method</h4>
+              <h4 className="mb-5 text-lg">Choose payment method</h4>
 
               <div className="flex flex-col space-y-5">
                 <div
-                  className="grid border-2 border-blue rounded-16 p-5 cursor-pointer"
+                  className="grid p-5 border-2 cursor-pointer border-blue rounded-16"
                   style={{
                     gridTemplateColumns: `40px 1fr`,
                   }}
                 >
                   <input
                     type="checkbox"
-                    className="h-3.5 w-3.5 rounded-4 mt-2"
+                    className="mt-2 w-3.5 h-3.5 rounded-4"
                     checked={selectedMethod === "Paynow"}
                     onChange={() => setSelectedMethod("Paynow")}
                   />
@@ -83,14 +83,14 @@ export const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> =
                 </div>
 
                 <div
-                  className="grid border border-primary-200 rounded-16 px-5 py-3 cursor-not-allowed"
+                  className="grid py-3 px-5 border cursor-not-allowed border-primary-200 rounded-16"
                   style={{
                     gridTemplateColumns: `40px 1fr`,
                   }}
                 >
                   <input
                     type="checkbox"
-                    className="h-3.5 w-3.5 rounded-4 mt-2"
+                    className="mt-2 w-3.5 h-3.5 rounded-4"
                     checked={selectedMethod === "Paypal"}
                     onChange={() => {}}
                   />

@@ -17,7 +17,7 @@ interface ManagerDataRowProps {
 export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ customer }) => {
   return (
     <>
-      <TableCell className="py-5 flex space-x-3">
+      <TableCell className="flex py-5 space-x-3">
         <div className="hidden md:block">
           <Avatar
             src={customer?.image || ""}
@@ -27,13 +27,13 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ customer }) => {
           />
         </div>
       </TableCell>
-      <TableCell className="py-5 text-sm text-black font-normal">
+      <TableCell className="py-5 text-sm font-normal text-black">
         {customer.companyName}
       </TableCell>
-      <TableCell className="py-5 text-sm text-black font-normal">
+      <TableCell className="py-5 text-sm font-normal text-black">
         {customer.vatNumber}
       </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         {customer.id}
       </TableCell>
     </>
@@ -69,7 +69,7 @@ export const CustomersList: React.FC<CustomersListProps> = ({}) => {
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
-        <div className="grid gap-3 w-full mb-4">
+        <div className="grid gap-3 mb-4 w-full">
           <SearchBar
             value={term}
             onChange={setSearchTerm}

@@ -22,7 +22,7 @@ export const CurrentlyWorkingOn: React.FC<CurrentlyWorkingOnProps> = ({}) => {
 
   if (!data) {
     return (
-      <h2 className="text-center text-2xl font-semibold my-5">
+      <h2 className="my-5 text-2xl font-semibold text-center">
         Currently you are not working on any service
       </h2>
     );
@@ -33,11 +33,11 @@ export const CurrentlyWorkingOn: React.FC<CurrentlyWorkingOnProps> = ({}) => {
 
   return (
     <div className="flex flex-col flex-1">
-      <h2 className="text-4xl lg:text-4.5xl font-semibold mb-2">
+      <h2 className="mb-2 text-4xl font-semibold lg:text-4.5xl">
         Currently working on:
       </h2>
 
-      <div className="flex items-center space-x-3 my-2">
+      <div className="flex items-center my-2 space-x-3">
         <OutlinePencil width={33} height={33} />
         <div className="flex flex-col text-lg2">
           <h4 className="font-semibold">Title:</h4>
@@ -45,7 +45,7 @@ export const CurrentlyWorkingOn: React.FC<CurrentlyWorkingOnProps> = ({}) => {
         </div>
       </div>
 
-      <div className="flex items-center space-x-3 my-3">
+      <div className="flex items-center my-3 space-x-3">
         <OutlineLocationMarker width={33} height={33} />
         <div className="flex flex-col text-lg2">
           <h4 className="font-semibold">Address:</h4>
@@ -55,7 +55,7 @@ export const CurrentlyWorkingOn: React.FC<CurrentlyWorkingOnProps> = ({}) => {
         </div>
       </div>
 
-      <div className="flex items-center space-x-3 my-3">
+      <div className="flex items-center my-3 space-x-3">
         <OutlineCalendar width={33} height={33} />
         <div className="flex flex-col text-lg2">
           <h4 className="font-semibold">Planned execution date:</h4>

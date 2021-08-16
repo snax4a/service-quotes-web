@@ -149,7 +149,7 @@ export const PaymentsList: React.FC<PaymentsListProps> = ({}) => {
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
         <div
-          className="grid gap-3 w-full mb-4"
+          className="grid gap-3 mb-4 w-full"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 1fr 2fr",

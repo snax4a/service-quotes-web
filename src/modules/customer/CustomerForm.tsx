@@ -43,7 +43,7 @@ export const CustomerDetailsForm: React.FC<CustomerFormProps> = ({
         }}
       >
         <WhiteCard padding="medium" className="flex-col">
-          <div className="p-1 mr-5 flex-grow">
+          <div className="flex-grow p-1 mr-5">
             <Formik<{
               companyName: string;
               vatNumber: string;
@@ -91,15 +91,15 @@ export const CustomerDetailsForm: React.FC<CustomerFormProps> = ({
               }}
             >
               {({ setFieldValue, values, errors, isSubmitting }) => (
-                <Form className="flex flex-col focus:outline-none w-full">
-                  <div className="flex flex-row gap-5 focus:outline-none w-full">
+                <Form className="flex flex-col w-full focus:outline-none">
+                  <div className="flex flex-row gap-5 w-full focus:outline-none">
                     <div className="mt-4 text-sm">
-                      <div className="text-primary-400 mb-1">Company Name</div>
+                      <div className="mb-1 text-primary-400">Company Name</div>
                       <InputField padding="lg" name="companyName" />
                     </div>
 
                     <div className="mt-4 text-sm">
-                      <div className="text-primary-400 mb-1">Vat Number</div>
+                      <div className="mb-1 text-primary-400">Vat Number</div>
                       <InputField padding="lg" name="vatNumber" />
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
         }}
       >
         <WhiteCard padding="medium" className="flex-col">
-          <p className="text-black font-semibold text-lg2">
+          <p className="font-semibold text-black text-lg2">
             Addresses:
           </p>
           <DataTable
@@ -269,22 +269,22 @@ export const CustomerAddressForm: React.FC<CustomerAddressFormProps> = ({
             >
               {({ setFieldValue, values, errors, isSubmitting }) => (
                 <Form className="flex flex-row gap-3 focus:outline-none">
-                  <div className="mt-4 text-sm flex-grow">
+                  <div className="flex-grow mt-4 text-sm">
                     <InputField padding="md" name="name" placeholder="Name" />
                   </div>
-                  <div className="mt-4 text-sm flex-grow">
+                  <div className="flex-grow mt-4 text-sm">
                     <InputField padding="md" name="street" placeholder="Street" />
                   </div>
-                  <div className="mt-4 text-sm flex-grow">
+                  <div className="flex-grow mt-4 text-sm">
                     <InputField padding="md" name="city" placeholder="City" />
                   </div>
-                  <div className="mt-4 text-sm flex-grow">
+                  <div className="flex-grow mt-4 text-sm">
                     <InputField padding="md" name="zipCode" placeholder="Zip Code" />
                   </div>
-                  <div className="mt-4 text-sm flex-grow">
+                  <div className="flex-grow mt-4 text-sm">
                     <InputField padding="md" name="phoneNumber" placeholder="Phone Number" />
                   </div>
-                  <div className="mt-4 text-sm self-center">
+                  <div className="self-center mt-4 text-sm">
                     <button type="submit">
                       <RoundedButton className="w-min" >
                         <SolidPlus height={17} width={17} />

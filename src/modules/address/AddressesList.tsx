@@ -23,19 +23,19 @@ export const CustomerDataRow: React.FC<CustomerDataRowProps> = ({
 }) => {
   return (
     <>
-      <TableCell className="py-5 flex space-x-3">
+      <TableCell className="flex py-5 space-x-3">
         {customerAddress.name}
       </TableCell>
-      <TableCell className="py-5 text-sm text-black font-normal">
+      <TableCell className="py-5 text-sm font-normal text-black">
         {customerAddress.address.street}
       </TableCell>
-      <TableCell className="py-5 text-sm text-black font-normal">
+      <TableCell className="py-5 text-sm font-normal text-black">
         {customerAddress.address.city}
       </TableCell>
-      <TableCell className="py-5 text-sm text-black font-normal">
+      <TableCell className="py-5 text-sm font-normal text-black">
         {customerAddress.address.zipCode}
       </TableCell>
-      <TableCell className="py-5 text-sm text-black font-normal">
+      <TableCell className="py-5 text-sm font-normal text-black">
         {customerAddress.address.phoneNumber}
       </TableCell>
     </>
@@ -100,9 +100,9 @@ export const CustomerAddressesList: React.FC<CustomerAddressesListProps> =
 
     return (
       <MiddlePanel>
-        <BlueCard className="mb-6 py-5 px-6 flex-col items-start shadow-md relative">
+        <BlueCard className="relative flex-col items-start py-5 px-6 mb-6 shadow-md">
           <h1
-            className="text-3xl md:text-5xl font-semibold mb-4"
+            className="mb-4 text-3xl font-semibold md:text-5xl"
             style={{ lineHeight: "50px" }}
           >
             Your company has new address?
@@ -115,14 +115,14 @@ export const CustomerAddressesList: React.FC<CustomerAddressesListProps> =
             Click here to add
           </Button>
 
-          <div className="hidden lg:block absolute right-6 -bottom-5 z-1">
+          <div className="hidden absolute -bottom-5 right-6 lg:block z-1">
             <Image src="/img/address-icon.png" width={350} height={215} />
           </div>
         </BlueCard>
 
         <WhiteCard padding="medium" className="flex-col">
           <div
-            className="grid gap-3 w-full mb-4"
+            className="grid gap-3 mb-4 w-full"
             style={{
               gridTemplateColumns:
                 screenType === "fullscreen" ? "1fr" : "1fr 4fr",
