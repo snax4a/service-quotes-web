@@ -33,15 +33,18 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
                 <>
                   <Image src="/img/analytics.png" width={270} height={287} />
                   <div className="flex flex-col space-y-5">
-                    <h1 className="text-4.5xl font-semibold leading-12">
-                      Top 3
-                      <br />
-                      customers
-                      <br />
-                      this month
+                    <h1 className="text-4xl font-semibold leading-12">
+                      Start by <br />
+                      checking new payments
                     </h1>
-                    <Button color="white" size="bigRounded" onClick={() => {}}>
-                      See Now
+                    <Button
+                      color="white"
+                      size="bigRounded"
+                      onClick={() => {
+                        push("/payments");
+                      }}
+                    >
+                      Check Now
                     </Button>
                   </div>
                 </>
