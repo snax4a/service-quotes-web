@@ -149,17 +149,17 @@ export const ServiceDetails: React.FC<ServiceDetailsProps> = ({
 };
 
 interface ServiceMaterialsProps {
-  serviceId: UUID;
+  service: ServiceRequest;
   role: Role;
 }
 
 export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
-  serviceId,
+  service,
   role,
 }) => {
   const screenType = useScreenType();
   const { data, isLoading, fetch } = useQueryData(
-    `servicerequests/${serviceId}/materials`
+    `servicerequests/${service.id}/materials`
   );
 
   return (
@@ -203,99 +203,101 @@ export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
               <div>{material.quantity}</div>
               <div>{material.unitPrice.toFixed(2)} PLN</div>
               <div className="flex">
-                {["Manager", "Employee"].includes(role) && (
-                  <RoundedButton
-                    onClick={() => {
-                      privateClient
-                        .delete(
-                          `servicerequests/${serviceId}/materials/${material.id}`
-                        )
-                        .then(() => {
-                          showSuccessToast("Material has been removed.");
-                          fetch();
-                        })
-                        .catch(() => {});
-                    }}
-                  >
-                    <OutlineTrash height={17} width={17} />
-                  </RoundedButton>
-                )}
+                {["Manager", "Employee"].includes(role) &&
+                  service.status === "InProgress" && (
+                    <RoundedButton
+                      onClick={() => {
+                        privateClient
+                          .delete(
+                            `servicerequests/${service.id}/materials/${material.id}`
+                          )
+                          .then(() => {
+                            showSuccessToast("Material has been removed.");
+                            fetch();
+                          })
+                          .catch(() => {});
+                      }}
+                    >
+                      <OutlineTrash height={17} width={17} />
+                    </RoundedButton>
+                  )}
               </div>
             </div>
           ))}
 
-          {["Manager", "Employee"].includes(role) && (
-            <Formik<{
-              description: string;
-              quantity: number;
-              unitPrice: number;
-            }>
-              initialValues={{
-                description: "",
-                quantity: 1,
-                unitPrice: 0.0,
-              }}
-              validateOnChange={false}
-              validateOnBlur={false}
-              validationSchema={materialSchema}
-              onSubmit={({ description, quantity, unitPrice }, actions) => {
-                privateClient
-                  .post(`servicerequests/${serviceId}/materials`, {
-                    json: {
-                      description,
-                      quantity,
-                      unitPrice,
-                    },
-                  })
-                  .then(() => {
-                    actions.setSubmitting(false);
-                    showSuccessToast("Material has been added.");
-                    fetch();
-                  })
-                  .catch(() => {
-                    actions.setSubmitting(false);
-                  });
-              }}
-            >
-              {({ isSubmitting }) => (
-                <Form
-                  className={`grid gap-3 mt-4.5 text-sm w-full items-start`}
-                  style={{
-                    gridTemplateColumns:
-                      screenType === "fullscreen"
-                        ? "1fr 90px 90px 30px"
-                        : "1fr 120px 120px 30px",
-                  }}
-                >
-                  <InputField name="description" padding="md" />
-                  <InputField
-                    name="quantity"
-                    type="number"
-                    step="1"
-                    padding="md"
-                  />
-                  <InputField
-                    name="unitPrice"
-                    type="number"
-                    step="0.01"
-                    pattern="[+-]?\d+(?:[.,]\d+)?"
-                    padding="md"
-                  />
-                  <Button
-                    loading={isSubmitting}
-                    color="transparent"
-                    type="submit"
-                    size="tiny"
-                    className={`mt-1 flex w-full justify-center`}
+          {["Manager", "Employee"].includes(role) &&
+            service.status === "InProgress" && (
+              <Formik<{
+                description: string;
+                quantity: number;
+                unitPrice: number;
+              }>
+                initialValues={{
+                  description: "",
+                  quantity: 1,
+                  unitPrice: 0.0,
+                }}
+                validateOnChange={false}
+                validateOnBlur={false}
+                validationSchema={materialSchema}
+                onSubmit={({ description, quantity, unitPrice }, actions) => {
+                  privateClient
+                    .post(`servicerequests/${service.id}/materials`, {
+                      json: {
+                        description,
+                        quantity,
+                        unitPrice,
+                      },
+                    })
+                    .then(() => {
+                      actions.setSubmitting(false);
+                      showSuccessToast("Material has been added.");
+                      fetch();
+                    })
+                    .catch(() => {
+                      actions.setSubmitting(false);
+                    });
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form
+                    className={`grid gap-3 mt-4.5 text-sm w-full items-start`}
+                    style={{
+                      gridTemplateColumns:
+                        screenType === "fullscreen"
+                          ? "1fr 90px 90px 30px"
+                          : "1fr 120px 120px 30px",
+                    }}
                   >
-                    <RoundedButton>
-                      <SolidPlus height={17} width={17} />
-                    </RoundedButton>
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          )}
+                    <InputField name="description" padding="md" />
+                    <InputField
+                      name="quantity"
+                      type="number"
+                      step="1"
+                      padding="md"
+                    />
+                    <InputField
+                      name="unitPrice"
+                      type="number"
+                      step="0.01"
+                      pattern="[+-]?\d+(?:[.,]\d+)?"
+                      padding="md"
+                    />
+                    <Button
+                      loading={isSubmitting}
+                      color="transparent"
+                      type="submit"
+                      size="tiny"
+                      className={`mt-1 flex w-full justify-center`}
+                    >
+                      <RoundedButton>
+                        <SolidPlus height={17} width={17} />
+                      </RoundedButton>
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+            )}
         </div>
       )}
     </WhiteCard>
@@ -303,17 +305,17 @@ export const ServiceMaterials: React.FC<ServiceMaterialsProps> = ({
 };
 
 interface ServiceJobValuationsProps {
-  serviceId: UUID;
+  service: ServiceRequest;
   account: Account;
 }
 
 export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
-  serviceId,
+  service,
   account,
 }) => {
   const screenType = useScreenType();
   const { data, isLoading, fetch } = useQueryData(
-    `servicerequests/${serviceId}/job-valuations`
+    `servicerequests/${service.id}/job-valuations`
   );
 
   return (
@@ -362,99 +364,104 @@ export const ServiceJobValuations: React.FC<ServiceJobValuationsProps> = ({
               </div>
               <div>{srjv.jobValuation.hourlyRate.toFixed(2)} PLN</div>
               <div className="flex">
-                {["Manager", "Employee"].includes(account.role) && (
-                  <RoundedButton
-                    onClick={() => {
-                      privateClient
-                        .delete(`servicerequests/${serviceId}/job-valuations`, {
-                          json: {
-                            employeeId: srjv.employee.id,
-                            jobValuationId: srjv.jobValuation.id,
-                            serviceRequestId: srjv.serviceRequestId,
-                          },
-                        })
-                        .then(() => {
-                          showSuccessToast("Job valuation has been removed.");
-                          fetch();
-                        })
-                        .catch(() => {});
-                    }}
-                  >
-                    <OutlineTrash height={17} width={17} />
-                  </RoundedButton>
-                )}
+                {["Manager", "Employee"].includes(account.role) &&
+                  service.status === "InProgress" && (
+                    <RoundedButton
+                      onClick={() => {
+                        privateClient
+                          .delete(
+                            `servicerequests/${service.id}/job-valuations`,
+                            {
+                              json: {
+                                employeeId: srjv.employee.id,
+                                jobValuationId: srjv.jobValuation.id,
+                                serviceRequestId: srjv.serviceRequestId,
+                              },
+                            }
+                          )
+                          .then(() => {
+                            showSuccessToast("Job valuation has been removed.");
+                            fetch();
+                          })
+                          .catch(() => {});
+                      }}
+                    >
+                      <OutlineTrash height={17} width={17} />
+                    </RoundedButton>
+                  )}
               </div>
             </div>
           ))}
 
-          {["Manager", "Employee"].includes(account.role) && (
-            <Formik<{
-              workType: string;
-              laborHours: string;
-              hourlyRate: number;
-            }>
-              initialValues={{
-                workType: "",
-                laborHours: "01:00",
-                hourlyRate: 0,
-              }}
-              validateOnChange={false}
-              validateOnBlur={false}
-              validationSchema={jobValuationSchema}
-              onSubmit={({ workType, laborHours, hourlyRate }, actions) => {
-                privateClient
-                  .post(`servicerequests/${serviceId}/job-valuations`, {
-                    json: {
-                      employeeId: account.employeeId,
-                      workType,
-                      laborHours,
-                      hourlyRate,
-                    },
-                  })
-                  .then(() => {
-                    actions.setSubmitting(false);
-                    showSuccessToast("Job valuation has been added.");
-                    fetch();
-                  })
-                  .catch(() => {
-                    actions.setSubmitting(false);
-                  });
-              }}
-            >
-              {({ isSubmitting }) => (
-                <Form
-                  className={`grid gap-3 mt-4.5 text-sm w-full items-start`}
-                  style={{
-                    gridTemplateColumns:
-                      screenType === "fullscreen"
-                        ? "1fr 90px 90px 30px"
-                        : "1fr 120px 120px 30px",
-                  }}
-                >
-                  <InputField name="workType" padding="md" />
-                  <InputField name="laborHours" type="string" padding="md" />
-                  <InputField
-                    name="hourlyRate"
-                    type="number"
-                    step="0.01"
-                    pattern="[+-]?\d+(?:[.,]\d+)?"
-                    padding="md"
-                  />
-                  <Button
-                    loading={isSubmitting}
-                    color="transparent"
-                    type="submit"
-                    size="tiny"
-                    className={`mt-1 flex w-full justify-center`}
+          {["Manager", "Employee"].includes(account.role) &&
+            service.status === "InProgress" && (
+              <Formik<{
+                workType: string;
+                laborHours: string;
+                hourlyRate: number;
+              }>
+                initialValues={{
+                  workType: "",
+                  laborHours: "01:00",
+                  hourlyRate: 0,
+                }}
+                validateOnChange={false}
+                validateOnBlur={false}
+                validationSchema={jobValuationSchema}
+                onSubmit={({ workType, laborHours, hourlyRate }, actions) => {
+                  privateClient
+                    .post(`servicerequests/${service.id}/job-valuations`, {
+                      json: {
+                        employeeId: account.employeeId,
+                        workType,
+                        laborHours,
+                        hourlyRate,
+                      },
+                    })
+                    .then(() => {
+                      actions.setSubmitting(false);
+                      showSuccessToast("Job valuation has been added.");
+                      fetch();
+                    })
+                    .catch(() => {
+                      actions.setSubmitting(false);
+                    });
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form
+                    className={`grid gap-3 mt-4.5 text-sm w-full items-start`}
+                    style={{
+                      gridTemplateColumns:
+                        screenType === "fullscreen"
+                          ? "1fr 90px 90px 30px"
+                          : "1fr 120px 120px 30px",
+                    }}
                   >
-                    <RoundedButton>
-                      <SolidPlus height={17} width={17} />
-                    </RoundedButton>
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          )}
+                    <InputField name="workType" padding="md" />
+                    <InputField name="laborHours" type="string" padding="md" />
+                    <InputField
+                      name="hourlyRate"
+                      type="number"
+                      step="0.01"
+                      pattern="[+-]?\d+(?:[.,]\d+)?"
+                      padding="md"
+                    />
+                    <Button
+                      loading={isSubmitting}
+                      color="transparent"
+                      type="submit"
+                      size="tiny"
+                      className={`mt-1 flex w-full justify-center`}
+                    >
+                      <RoundedButton>
+                        <SolidPlus height={17} width={17} />
+                      </RoundedButton>
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+            )}
         </div>
       )}
     </WhiteCard>
@@ -491,8 +498,8 @@ export const ServiceRequestDetails: React.FC<ServiceRequestDetailsProps> =
           <ServiceDetails service={data} role={account.role} fetch={fetch} />
           {["InProgress", "Completed"].includes(data.status) && (
             <>
-              <ServiceMaterials serviceId={data.id} role={account.role} />
-              <ServiceJobValuations serviceId={data.id} account={account} />
+              <ServiceMaterials service={data} role={account.role} />
+              <ServiceJobValuations service={data} account={account} />
             </>
           )}
         </div>
