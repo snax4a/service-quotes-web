@@ -21,8 +21,8 @@ export const BlueCard: React.FC<BlueCardProps> = ({
       </div>
       {shadowEffect && (
         <>
-          <div className="se-2 bg-blue-50 rounded-3xl h-7 w-full" />
-          <div className="se-3 bg-blue-50 rounded-3xl h-7 w-full" />
+          <div className="w-full h-7 bg-blue-50 rounded-3xl se-2" />
+          <div className="w-full h-7 bg-blue-50 rounded-3xl se-3" />
         </>
       )}
     </div>

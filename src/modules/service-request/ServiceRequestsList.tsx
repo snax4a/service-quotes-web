@@ -90,15 +90,15 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   return (
     <MiddlePanel>
       {["Customer", "Manager"].includes(account.role) && (
-        <BlueCard className="mb-6 py-5 px-6 flex-col items-start shadow-md relative overflow-hidden">
+        <BlueCard className="overflow-hidden relative flex-col items-start py-5 px-6 mb-6 shadow-md">
           <h1
-            className="text-3xl md:text-5xl font-semibold"
+            className="text-3xl font-semibold md:text-5xl"
             style={{ lineHeight: "50px" }}
           >
             {account.role === "Customer" && "Your business needs help?"}
             {account.role === "Manager" && "Customer needs help?"}
           </h1>
-          <p className="text-sm font-inter font-normal mt-1 mb-3">
+          <p className="mt-1 mb-3 text-sm font-normal font-inter">
             Just fill in the form and our employees will take car of it.
           </p>
           <Button
@@ -110,7 +110,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
             {account.role === "Manager" && "Create new service request"}
           </Button>
 
-          <div className="hidden lg:block absolute right-0 -bottom-2 z-0">
+          <div className="hidden absolute right-0 -bottom-2 z-0 lg:block">
             <Image src="/img/purple-ball.png" width={747} height={141} />
           </div>
         </BlueCard>
@@ -118,7 +118,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
 
       <WhiteCard padding="medium" className="flex-col">
         <div
-          className="grid gap-3 w-full mb-4"
+          className="grid gap-3 mb-4 w-full"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 1fr 2fr",
@@ -156,7 +156,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                 className="cursor-pointer"
                 onClick={() => push(`service-requests/${id}`)}
               >
-                <TableCell className="py-5 flex space-x-3">
+                <TableCell className="flex py-5 space-x-3">
                   {account.role !== "Customer" && (
                     <div className="hidden md:block">
                       <Avatar
@@ -176,7 +176,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                     </div>
                   </div>
                 </TableCell>
-                <TableCell className="py-5 text-sm text-primary-500 font-normal">
+                <TableCell className="py-5 text-sm font-normal text-primary-500">
                   {serviceRequest.title}
                 </TableCell>
                 <TableCell className="py-5 text-sm font-normal">

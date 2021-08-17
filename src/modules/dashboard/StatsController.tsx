@@ -22,12 +22,12 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <div className="flex flex-col xl:flex-row w-full">
+      <div className="flex flex-col w-full xl:flex-row">
         <div className={`flex flex-1 flex-col pb-6`}>
           <div className="max-w-2xl">
             <BlueCard
               shadowEffect={true}
-              className="p-7 space-y-5 md:space-x-6 items-center flex-col md:flex-row"
+              className="flex-col items-center p-7 space-y-5 md:flex-row md:space-x-6"
             >
               {account.role === "Manager" && (
                 <>
@@ -53,7 +53,7 @@ export const StatsController: React.FC<StatsControllerProps> = ({}) => {
                 <>
                   <Image src="/img/form.png" width={233} height={314} />
                   <div className="flex flex-col space-y-5">
-                    <h1 className="text-4.5xl font-semibold leading-11">
+                    <h1 className="font-semibold text-4.5xl leading-11">
                       Fill in the form
                       <br />
                       to request

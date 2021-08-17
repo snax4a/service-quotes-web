@@ -43,7 +43,7 @@ export const OptionsPopover: React.FC<OptionsPopoverProps> = ({
             <Popover.Panel
               className={`absolute z-10 px-4 mt-2 left-1/2 sm:px-0 lg:max-w-3xl transform ${pos}`}
             >
-              <div className="overflow-hidden rounded-2xl shadow-md ring-1 ring-black ring-opacity-5">
+              <div className="overflow-hidden rounded-2xl ring-1 ring-black ring-opacity-5 shadow-md">
                 <div
                   className={`relative flex flex-col bg-white ${padding} ${className}`}
                 >

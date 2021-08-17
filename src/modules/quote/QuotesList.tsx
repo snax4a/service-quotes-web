@@ -52,10 +52,10 @@ export const CustomerDataRow: React.FC<CustomerDataRowProps> = ({ quote }) => {
 
   return (
     <>
-      <TableCell className="py-5 text-md font-normal">
+      <TableCell className="py-5 font-normal text-md">
         #{quote.referenceNumber}
       </TableCell>
-      <TableCell className="py-5 text-sm text-primary-500 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-primary-500">
         <div className="space-y-1">
           <div className="font-semibold">{title}</div>
           <div className="text-sm2">
@@ -63,7 +63,7 @@ export const CustomerDataRow: React.FC<CustomerDataRowProps> = ({ quote }) => {
           </div>
         </div>
       </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         {quote.total} PLN
       </TableCell>
       <TableCell className="py-5 text-sm font-normal">
@@ -85,7 +85,7 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ quote }) => {
 
   return (
     <>
-      <TableCell className="py-5 flex space-x-3">
+      <TableCell className="flex py-5 space-x-3">
         <div className="hidden md:block">
           <Avatar
             src={customer?.image || ""}
@@ -101,7 +101,7 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ quote }) => {
           </div>
         </div>
       </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         {quote.total} PLN
       </TableCell>
       <TableCell className="py-5">
@@ -110,7 +110,7 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ quote }) => {
       <TableCell className="py-5 text-sm font-normal">
         {formatDateString(quote.created, "intlDate")}
       </TableCell>
-      <TableCell className="py-5 text-sm text-primary-500 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-primary-500">
         {title}
       </TableCell>
     </>
@@ -160,7 +160,7 @@ export const QuotesList: React.FC<QuotesListProps> = ({}) => {
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
         <div
-          className="grid gap-3 w-full mb-4"
+          className="grid gap-3 mb-4 w-full"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 1fr 2fr",

@@ -36,7 +36,7 @@ export const MobileNavItem: React.FC<MobileNavItemProps> = ({
 
   return (
     <Link href={targetPath}>
-      <div className="flex cursor-pointer h-full w-7 justify-center items-center group">
+      <div className="flex justify-center items-center w-7 h-full cursor-pointer group">
         {children &&
           React.Children.map(children, (child) => {
             if (!child) return;

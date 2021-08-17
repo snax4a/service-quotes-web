@@ -24,7 +24,7 @@ export const EmployeeSpecializationOptions: React.FC<EmployeeSpecializationOptio
       <OptionsPopover
         button={
           <BlueCard
-            className="justify-center w-min rounded-sm py-0.5 px-2 mr-2 text-sm"
+            className="justify-center py-0.5 px-2 mr-2 w-min text-sm rounded-sm"
             key={specialization.id}
           >
             {specialization.name}

@@ -59,7 +59,7 @@ export const AccountList: React.FC<AccountListProps> = ({}) => {
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col mb-6.5">
         <div
-          className="grid gap-3 w-full mb-4"
+          className="grid gap-3 mb-4 w-full"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 3fr 1fr",
@@ -90,7 +90,7 @@ export const AccountList: React.FC<AccountListProps> = ({}) => {
           {data?.map((acc: Account) => {
             return (
               <TableRow key={acc.id} onClick={() => push(`accounts/${acc.id}`)}>
-                <TableCell className="py-5 flex space-x-3">
+                <TableCell className="flex py-5 space-x-3">
                   <div className="hidden md:block">
                     <Avatar
                       src={acc?.image || "/img/avatar-placeholder.png"}
@@ -100,7 +100,7 @@ export const AccountList: React.FC<AccountListProps> = ({}) => {
                     />
                   </div>
                 </TableCell>
-                <TableCell className="py-5 text-sm text-primary-600 font-normal">
+                <TableCell className="py-5 text-sm font-normal text-primary-600">
                   {acc.email}
                 </TableCell>
                 <TableCell className="py-5 text-sm font-normal">

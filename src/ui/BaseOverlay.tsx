@@ -19,13 +19,13 @@ export const BaseOverlay: React.FC<BaseOverlayProps> = ({
 }) => {
   return (
     <div
-      className="flex flex-col w-full rounded-8 bg-primary-700 border border-primary-800 overflow-hidden relative"
+      className="flex overflow-hidden relative flex-col w-full border rounded-8 bg-primary-700 border-primary-800"
       data-testid="base-overlay"
       {...props}
     >
       {overlay ? overlay : ""}
       {title && (
-        <div className="px-4 py-3 border-b border-primary-600 flex items-center">
+        <div className="flex items-center py-3 px-4 border-b border-primary-600">
           <h4 className="text-primary-100">{title}</h4>
         </div>
       )}
@@ -34,7 +34,7 @@ export const BaseOverlay: React.FC<BaseOverlayProps> = ({
 
       {actionButton && (
         <button
-          className="flex px-4 bg-primary-700 md:hover:bg-primary-750 text-primary-100 outline-none font-semibold text-sm focus:outline-none"
+          className="flex px-4 text-sm font-semibold outline-none focus:outline-none bg-primary-700 text-primary-100 md:hover:bg-primary-750"
           style={{
             paddingTop: 8,
             paddingBottom: 12,

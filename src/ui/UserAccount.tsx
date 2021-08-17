@@ -19,14 +19,14 @@ export const UserAccount: React.FC = () => {
     : `${account.firstName} ${account.lastName}`;
 
   return (
-    <div className="flex items-center p-3 h-10 w-full group">
+    <div className="flex items-center p-3 w-full h-10 group">
       <div className="flex items-center pr-3">
         <Avatar src={account.image || ""} username={username} />
       </div>
       {isDesktop ? (
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col items-start font-semibold">
-            <div className="text-sm text-primary-800 whitespace-nowrap">
+            <div className="text-sm whitespace-nowrap text-primary-800">
               {username.length < 15
                 ? username
                 : username.substring(0, 13) + "..."}

@@ -42,7 +42,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
     <MiddlePanel>
       <WhiteCard
         padding={screenType === "fullscreen" ? "medium" : "big"}
-        className="flex-col space-y-5 items-center md:flex-row md:items-start md:space-y-0"
+        className="flex-col items-center space-y-5 md:flex-row md:items-start md:space-y-0"
       >
         <Avatar
           src={image || ""}
@@ -51,7 +51,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
           size="md"
         />
 
-        <div className="flex flex-col flex-grow md:pl-4 space-y-1 text-primary-500 text-sm font-semibold font-inter">
+        <div className="flex flex-col flex-grow space-y-1 text-sm font-semibold md:pl-4 text-primary-500 font-inter">
           <p>
             Role:{" "}
             <span className="pl-1 text-primary-800">{role.toUpperCase()}</span>
@@ -91,7 +91,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
                 Employee ID:{" "}
                 {variant === "Manager" ? (
                   <Link href={`/employees/${employeeId}`}>
-                    <span className="pl-1 text-blue cursor-pointer">
+                    <span className="pl-1 cursor-pointer text-blue">
                       {employeeId}
                     </span>
                   </Link>

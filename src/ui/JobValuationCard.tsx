@@ -18,7 +18,7 @@ export const JobValuationCard: React.FC<JobValuationCardProps> = ({
 
   return (
     <WhiteCard onClick={onClick} className="flex-col w-full cursor-pointer">
-      <div className="flex flex-col justify-between text-left text-primary-800 w-full space-y-3 font-medium leading-4">
+      <div className="flex flex-col justify-between space-y-3 w-full font-medium leading-4 text-left text-primary-800">
         <div className="flex justify-between">
           <h3>Date:</h3>
           <InfoText>{formatDateString(date)}</InfoText>

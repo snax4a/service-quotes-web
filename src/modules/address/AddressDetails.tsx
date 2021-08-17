@@ -51,14 +51,14 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
       >
         <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
           <div
-            className="grid font-inter grid-flow-col w-full"
+            className="grid grid-flow-col w-full font-inter"
             style={{
               gridTemplateColumns: `350px auto 50px`,
               gridGap: 40,
             }}
           >
             <div
-              className="flex items-center justify-center rounded-xl bg-primary-325 border-1 border-shadow-200"
+              className="flex justify-center items-center rounded-xl bg-primary-325 border-1 border-shadow-200"
               style={{ height: 265 }}
             >
               <Image
@@ -71,46 +71,46 @@ export const AddressDetails: React.FC<AddressDetailsProps> = ({}) => {
 
             <div className="grid grid-flow-row h-full">
               <div className="self-center">
-                <p className="text-primary-400 font-medium font-inter text-sm">
+                <p className="text-sm font-medium text-primary-400 font-inter">
                   Name
                 </p>
-                <p className="text-primary-800 font-bold font-inter text-xl">
+                <p className="text-xl font-bold text-primary-800 font-inter">
                   {data.name}
                 </p>
               </div>
 
               <div className="flex flex-row gap-6 self-center">
                 <div>
-                  <p className="text-primary-400 font-medium font-inter text-sm">
+                  <p className="text-sm font-medium text-primary-400 font-inter">
                     Street
                   </p>
-                  <p className="text-primary-800 font-bold font-inter text-xl">
+                  <p className="text-xl font-bold text-primary-800 font-inter">
                     {data.address.street}
                   </p>
                 </div>
                 <div>
-                  <p className="text-primary-400 font-medium font-inter text-sm">
+                  <p className="text-sm font-medium text-primary-400 font-inter">
                     City
                   </p>
-                  <p className="text-primary-800 font-bold font-inter text-xl">
+                  <p className="text-xl font-bold text-primary-800 font-inter">
                     {data.address.city}
                   </p>
                 </div>
                 <div>
-                  <p className="text-primary-400 font-medium font-inter text-sm">
+                  <p className="text-sm font-medium text-primary-400 font-inter">
                     Zip Code
                   </p>
-                  <p className="text-primary-800 font-bold font-inter text-xl">
+                  <p className="text-xl font-bold text-primary-800 font-inter">
                     {data.address.zipCode}
                   </p>
                 </div>
               </div>
 
               <div className="self-center">
-                <p className="text-primary-400 font-medium font-inter text-sm">
+                <p className="text-sm font-medium text-primary-400 font-inter">
                   Phone Number
                 </p>
-                <p className="text-primary-800 font-bold font-inter text-xl">
+                <p className="text-xl font-bold text-primary-800 font-inter">
                   {data.address.phoneNumber}
                 </p>
               </div>
@@ -143,7 +143,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col">
-        <p className="text-black font-semibold text-lg2">
+        <p className="font-semibold text-black text-lg2">
           Assigned to services:
         </p>
         <DataTable
@@ -159,7 +159,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                 key={id}
                 onClick={() => push(`/service-requests/${id}`)}
               >
-                <TableCell className="py-1 flex space-x-3">
+                <TableCell className="flex py-1 space-x-3">
                   {account.role !== "Customer" && (
                     <div className="flex">
                       <Avatar
@@ -170,11 +170,11 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
                       />
                     </div>
                   )}
-                  <div className="space-y-1 self-center">
+                  <div className="self-center space-y-1">
                     {customer?.companyName}
                   </div>
                 </TableCell>
-                <TableCell className="py-0 text-sm text-primary-500 font-normal">
+                <TableCell className="py-0 text-sm font-normal text-primary-500">
                   <div className="text-sm2 text-primary-500">
                     {customerAddress?.address.street},{" "}
                     {customerAddress?.address.zipCode}{" "}

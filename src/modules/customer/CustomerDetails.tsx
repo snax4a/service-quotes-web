@@ -47,8 +47,8 @@ export const CustomerDetailsCard: React.FC<CustomerDetailsCardProps> = ({
             <div className="flex flex-col">
               <div className="flex flex-col lg:flex-row lg:justify-between">
                 <div className="flex flex-col">
-                  <p className="text-black font-semibold">{data.companyName}</p>
-                  <table className="font-bold text-sm text-primary-500 table-auto">
+                  <p className="font-semibold text-black">{data.companyName}</p>
+                  <table className="text-sm font-bold table-auto text-primary-500">
                     <tbody>
                       <tr>
                         <td>Vat Number: </td>
@@ -79,7 +79,7 @@ export const CustomerDetailsCard: React.FC<CustomerDetailsCardProps> = ({
         }}
       >
         <WhiteCard padding="medium" className="flex-col">
-          <p className="text-black font-semibold text-lg2">Addresses:</p>
+          <p className="font-semibold text-black text-lg2">Addresses:</p>
           <DataTable
             columns={columnNames}
             dataCount={data.customerAddresses!.length}
@@ -121,7 +121,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
   return (
     <MiddlePanel>
       <WhiteCard padding="medium" className="flex-col mb-6">
-        <p className="text-black font-semibold text-lg2">Service requests:</p>
+        <p className="font-semibold text-black text-lg2">Service requests:</p>
         <DataTable
           columns={columnNames}
           isLoading={isLoading}
@@ -134,7 +134,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
                 key={id}
                 onClick={() => push(`/service-requests/${id}`)}
               >
-                <TableCell className="py-1 text-sm text-primary-500 font-normal">
+                <TableCell className="py-1 text-sm font-normal text-primary-500">
                   <div className="text-sm2 text-primary-500">
                     {customerAddress?.address.street},{" "}
                     {customerAddress?.address.zipCode}{" "}

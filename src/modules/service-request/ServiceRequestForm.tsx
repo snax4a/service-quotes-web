@@ -109,7 +109,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
 
   return (
     <WhiteCard padding="medium">
-      <div className="p-1 mr-5 flex-grow">
+      <div className="flex-grow p-1 mr-5">
         <Formik<{
           title: string;
           description: string;
@@ -191,7 +191,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
               <div className="max-w-xl">
                 {account.role === "Manager" && (
                   <>
-                    <div className="text-sm text-primary-400 mb-1">
+                    <div className="mb-1 text-sm text-primary-400">
                       Customer
                     </div>
                     <SelectBox
@@ -214,7 +214,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
                   </>
                 )}
 
-                <div className="text-sm text-primary-400 mb-1 mt-4">
+                <div className="mt-4 mb-1 text-sm text-primary-400">
                   Address
                 </div>
                 <SelectBox
@@ -230,12 +230,12 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
               </div>
 
               <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Title</div>
+                <div className="mb-1 text-primary-400">Title</div>
                 <InputField padding="md" name="title" />
               </div>
 
               <div className="mt-4 text-sm">
-                <div className="text-primary-400 mb-1">Description</div>
+                <div className="mb-1 text-primary-400">Description</div>
                 <InputField padding="md" name="description" textarea rows={5} />
               </div>
 
@@ -273,7 +273,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
         </Formik>
       </div>
 
-      <div className="hidden md:flex md:items-center px-4">
+      <div className="hidden px-4 md:flex md:items-center">
         <Image src="/img/form.png" width={233} height={314} />
       </div>
     </WhiteCard>

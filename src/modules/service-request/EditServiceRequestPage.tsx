@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import router, { useRouter } from "next/router";
 import { NextPage } from "next";
 import { WaitForAuth } from "../auth/WaitForAuth";
@@ -15,12 +15,19 @@ interface EditServiceRequestPageProps {}
 export const EditServiceRequestPage: NextPage<EditServiceRequestPageProps> =
   () => {
     const { account } = useContext(AuthContext);
-    const { query } = useRouter();
+    const { query, replace } = useRouter();
     const { data, isLoading } = useQueryData(`servicerequests/${query.id}`, {
       enabled: !!query.id,
     });
 
+    useEffect(() => {
+      if (data && !["New", "Assigned"].includes(data.status)) {
+        replace("/dashboard");
+      }
+    }, [data, replace]);
+
     if (!account) return null;
+    if (data && !["New", "Assigned"].includes(data.status)) return null;
 
     return (
       <WaitForAuth roles={["Customer", "Manager"]}>

@@ -40,7 +40,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({}) => {
           padding={screenType === "fullscreen" ? "medium" : "big"}
         >
           {data ? (
-            <div className="grid font-inter grid-cols-2 w-full gap-x-7 text-center text-primary-350 text-lg">
+            <div className="grid grid-cols-2 gap-x-7 w-full text-lg text-center font-inter text-primary-350">
               <div
                 className={`grid gap-y-6 ${
                   account.role === "Manager" ? "grid-rows-3" : "grid-rows-2"
@@ -54,7 +54,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({}) => {
                     }}
                   >
                     Customer
-                    <div className="rounded-3xl border-2 border-primary-300 text-black font-bold text-lg2 p-4 flex content-center items-center mt-1">
+                    <div className="flex content-center items-center p-4 mt-1 font-bold text-black rounded-3xl border-2 border-primary-300 text-lg2">
                       <div className="m-auto">
                         <div className="flex flex-row content-center items-center">
                           <div className="flex content-center items-center mr-3">
@@ -81,7 +81,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({}) => {
                   }}
                 >
                   Quote Reference Number
-                  <div className="rounded-3xl border-2 border-primary-300 text-black font-bold text-lg2 p-4 flex content-center items-center mt-1">
+                  <div className="flex content-center items-center p-4 mt-1 font-bold text-black rounded-3xl border-2 border-primary-300 text-lg2">
                     <span className="w-full">
                       # {data?.quote?.referenceNumber}
                     </span>
@@ -95,7 +95,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({}) => {
                   }}
                 >
                   Payment Provider
-                  <div className="rounded-3xl border-2 border-primary-300 text-black font-bold text-lg2 p-4 flex content-center items-center mt-1">
+                  <div className="flex content-center items-center p-4 mt-1 font-bold text-black rounded-3xl border-2 border-primary-300 text-lg2">
                     <span className="w-full">
                       <PaymentProviderLogo providerName={data?.provider} />
                     </span>
@@ -106,14 +106,14 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({}) => {
               <div className="grid grid-rows-4 gap-y-4">
                 <div>
                   <p className="mb-1">Transaction ID</p>
-                  <div className="rounded-3xl border-2 border-primary-300 text-black font-bold text-lg2 p-4">
+                  <div className="p-4 font-bold text-black rounded-3xl border-2 border-primary-300 text-lg2">
                     {data?.transactionId}
                   </div>
                 </div>
 
                 <div>
                   <p className="mb-1">Amount</p>
-                  <div className="rounded-3xl border-2 border-primary-300 text-black font-bold text-lg2 p-4">
+                  <div className="p-4 font-bold text-black rounded-3xl border-2 border-primary-300 text-lg2">
                     {data?.amount} PLN
                   </div>
                 </div>
@@ -129,7 +129,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({}) => {
 
                 <div>
                   <p className="mb-1">Created</p>
-                  <div className="rounded-3xl border-2 border-primary-300 text-black font-bold text-lg2 p-4">
+                  <div className="p-4 font-bold text-black rounded-3xl border-2 border-primary-300 text-lg2">
                     {data?.created &&
                       formatDateString(data.created, "intlDate")}
                   </div>

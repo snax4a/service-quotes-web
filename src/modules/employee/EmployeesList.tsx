@@ -20,7 +20,7 @@ interface ManagerDataRowProps {
 export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
   return (
     <>
-      <TableCell className="py-5 flex space-x-3">
+      <TableCell className="flex py-5 space-x-3">
         <div className="hidden md:block">
           <Avatar
             src={employee?.image || ""}
@@ -30,13 +30,13 @@ export const ManagerDataRow: React.FC<ManagerDataRowProps> = ({ employee }) => {
           />
         </div>
       </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         {employee.firstName}
       </TableCell>
-      <TableCell className="py-5 text-sm text-blue-600 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-blue-600">
         {employee.lastName}
       </TableCell>
-      <TableCell className="py-5 text-sm text-primary-500 font-normal">
+      <TableCell className="py-5 text-sm font-normal text-primary-500">
         {employee.specializations
           ?.map((spec: Specialization) => spec.name)
           .join(", ")}
@@ -101,14 +101,14 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <BlueCard className="flex mb-5 items-center justify-center p-6 shadow-md">
-        <p className="text-4xl font-semibold mr-4">
+      <BlueCard className="flex justify-center items-center p-6 mb-5 shadow-md">
+        <p className="mr-4 text-4xl font-semibold">
           Manage employee specializations
         </p>
 
         <RoundedButton
           onClick={() => push(`/employees/specializations`)}
-          className="w-10 bg-primary-100 text-sm font-medium text-center text-black rounded-16 shadow-md"
+          className="w-10 text-sm font-medium text-center text-black shadow-md bg-primary-100 rounded-16"
         >
           Here
         </RoundedButton>
@@ -116,7 +116,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
       <WhiteCard padding="medium" className="flex-col">
         <div
-          className="grid gap-3 w-full mb-4"
+          className="grid gap-3 mb-4 w-full"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 4fr",

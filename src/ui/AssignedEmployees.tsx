@@ -16,9 +16,9 @@ export const AssignedEmployees: React.FC<AssignedEmployeesProps> = ({
         return (
           <OptionsPopover
             key={employee.id}
-            className="text-primary-500 text-sm2 text-center w-190"
+            className="text-center text-primary-500 text-sm2 w-190"
             button={
-              <div className="mr-2 cursor-pointer transform hover:scale-110">
+              <div className="mr-2 transform cursor-pointer hover:scale-110">
                 <Avatar
                   size="sm"
                   src={employee.image || ""}
@@ -35,7 +35,7 @@ export const AssignedEmployees: React.FC<AssignedEmployeesProps> = ({
               {!employee.specializations?.length && "no specializations"}
               {employee.specializations?.map((spec) => (
                 <div key={spec.id} className="flex items-center">
-                  <div className="h-1 w-1 rounded-full bg-blue mr-1" />
+                  <div className="mr-1 w-1 h-1 rounded-full bg-blue" />
                   <span className="text-xs font-normal">{spec.name}</span>
                 </div>
               ))}
