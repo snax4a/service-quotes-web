@@ -59,8 +59,8 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
               transparent
             />
           )}
-        {account.role === "Employee" && service.status === "Assigned" && (
-          <>
+        {account.role === "Employee" &&
+          ["Assigned", "InProgress"].includes(service.status) && (
             <SettingsIcon
               onClick={() => {
                 setShowExecutionDateModal(true);
@@ -70,6 +70,9 @@ export const ServiceRequestOptions: React.FC<ServiceRequestOptionsProps> = ({
               transition
               transparent
             />
+          )}
+        {account.role === "Employee" && service.status === "Assigned" && (
+          <>
             <SettingsIcon
               onClick={() => {
                 modalConfirm(
