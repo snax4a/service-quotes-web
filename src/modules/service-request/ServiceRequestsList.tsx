@@ -90,7 +90,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
   return (
     <MiddlePanel>
       {["Customer", "Manager"].includes(account.role) && (
-        <BlueCard className="overflow-hidden relative flex-col items-start py-5 px-6 mb-6 shadow-md">
+        <BlueCard className="relative flex-col items-start px-6 py-5 mb-6 overflow-hidden shadow-md">
           <h1
             className="text-3xl font-semibold md:text-5xl"
             style={{ lineHeight: "50px" }}
@@ -110,15 +110,15 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
             {account.role === "Manager" && "Create new service request"}
           </Button>
 
-          <div className="hidden absolute right-0 -bottom-2 z-0 lg:block">
+          <div className="absolute right-0 z-0 hidden -bottom-2 lg:block">
             <Image src="/img/purple-ball.png" width={747} height={141} />
           </div>
         </BlueCard>
       )}
 
-      <WhiteCard padding="medium" className="flex-col">
+      <WhiteCard padding="medium" className="flex-col mb-6">
         <div
-          className="grid gap-3 mb-4 w-full"
+          className="grid w-full gap-3 mb-4"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 1fr 2fr",

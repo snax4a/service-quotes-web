@@ -27,7 +27,7 @@ export const AssignEmployeeModal: React.FC<AssignEmployeeModalProps> = ({
   onRequestClose,
   serviceId,
 }) => {
-  const { data, isLoading } = useQueryData("employees");
+  const { data, isLoading } = useQueryData(`employees?role=Employee`);
 
   if (!data) return null;
 
@@ -35,8 +35,11 @@ export const AssignEmployeeModal: React.FC<AssignEmployeeModalProps> = ({
     const specializations = emp.specializations
       ? emp.specializations.map((s) => s.name)
       : [];
+    const specializationsString = `(${specializations.join(", ")})`;
     return {
-      label: `${emp.firstName} ${emp.lastName} (${specializations.join(", ")})`,
+      label: `${emp.firstName} ${emp.lastName} ${
+        specializations.length ? specializationsString : ``
+      }`,
       value: emp.id,
     };
   });
