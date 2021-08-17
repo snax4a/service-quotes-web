@@ -67,7 +67,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
 
   const { data, isLoading } = useQueryData(
-    `employees?specializationId=${specialization.value}&searchString=${searchString}`
+    `employees?role=Employee&specializationId=${specialization.value}&searchString=${searchString}`
   );
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
   return (
     <MiddlePanel>
-      <BlueCard className="flex justify-center items-center p-6 mb-5 shadow-md">
+      <BlueCard className="flex items-center justify-center p-6 mb-5 shadow-md">
         <p className="mr-4 text-4xl font-semibold">
           Manage employee specializations
         </p>
@@ -116,7 +116,7 @@ export const EmployeesList: React.FC<EmployeesListProps> = ({}) => {
 
       <WhiteCard padding="medium" className="flex-col">
         <div
-          className="grid gap-3 mb-4 w-full"
+          className="grid w-full gap-3 mb-4"
           style={{
             gridTemplateColumns:
               screenType === "fullscreen" ? "1fr" : "1fr 4fr",
