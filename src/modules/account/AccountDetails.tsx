@@ -63,7 +63,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = ({
           {role === "Customer" && (
             <>
               <p>
-                CompanyName:{" "}
+                Company Name:{" "}
                 <span className="pl-1 text-primary-800">{companyName}</span>
               </p>
               <p>

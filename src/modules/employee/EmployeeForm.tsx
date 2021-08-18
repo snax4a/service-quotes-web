@@ -121,12 +121,12 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
             <Form className="flex flex-col w-full focus:outline-none">
               <div className="flex flex-row gap-5 w-full focus:outline-none">
                 <div className="mt-4 text-sm">
-                  <div className="mb-1 text-primary-400">Firstname</div>
+                  <div className="mb-1 text-primary-400">First Name</div>
                   <InputField padding="lg" name="firstName" />
                 </div>
 
                 <div className="mt-4 text-sm">
-                  <div className="mb-1 text-primary-400">Lastname</div>
+                  <div className="mb-1 text-primary-400">Last Name</div>
                   <InputField padding="lg" name="lastName" />
                 </div>
               </div>

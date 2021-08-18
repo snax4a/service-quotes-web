@@ -15,7 +15,6 @@ import { AuthContext } from "../auth/AuthProvider";
 import { BlueCard } from "../../ui/card/BlueCard";
 import { Button } from "../../ui/Button";
 import Image from "next/image";
-import { SolidPlus } from "../../icons";
 
 const dateRangeOptions = [
   {
@@ -99,7 +98,7 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({}) => {
             {account.role === "Manager" && "Customer needs help?"}
           </h1>
           <p className="mt-1 mb-3 text-sm font-normal font-inter">
-            Just fill in the form and our employees will take car of it.
+            Just fill in the form and our employees will take care of it.
           </p>
           <Button
             color="white"
