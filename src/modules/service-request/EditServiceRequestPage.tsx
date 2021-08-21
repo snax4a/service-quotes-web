@@ -38,7 +38,7 @@ export const EditServiceRequestPage: NextPage<EditServiceRequestPageProps> =
             onBackClick={() => router.back()}
           />
           {isLoading && <CenterLoader />}
-          {!isLoading && data && (
+          {!isLoading && (
             <ServiceRequestForm account={account} edit data={data} />
           )}
         </DefaultDesktopLayout>

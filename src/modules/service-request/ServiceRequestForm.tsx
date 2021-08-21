@@ -13,6 +13,7 @@ import { SolidCheck, SolidPlus } from "../../icons";
 import Image from "next/image";
 import router from "next/router";
 import * as Yup from "yup";
+import { useScreenType } from "../../shared-hooks/useScreenType";
 
 const serviceRequestSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -70,6 +71,7 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
   data,
   edit,
 }) => {
+  const screenType = useScreenType();
   const [customerOptions, setCustomerOptions] = useState<SelectOption[]>([]);
   const [addressOptions, setAddressOptions] = useState<SelectOption[]>([]);
 
@@ -106,6 +108,13 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
         .catch((err) => console.error(err));
     }
   }, [account, data]);
+
+  if (!data && edit) {
+    return (
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
+        Service not found.
+      </WhiteCard>);
+  }
 
   return (
     <WhiteCard padding="medium">
