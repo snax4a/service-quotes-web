@@ -29,7 +29,9 @@ import { Button } from "../../ui/Button";
 import * as Yup from "yup";
 
 const materialSchema = Yup.object().shape({
-  description: Yup.string().required("Description is required"),
+  description: Yup.string()
+    .max(100, "Max 100 characters")
+    .required("Description is required"),
   quantity: Yup.number()
     .positive("Must be positive")
     .required("Quantity is required"),
@@ -39,7 +41,9 @@ const materialSchema = Yup.object().shape({
 });
 
 const jobValuationSchema = Yup.object().shape({
-  workType: Yup.string().required("Work type is required"),
+  workType: Yup.string()
+    .max(100, "Max 100 characters")
+    .required("Work type is required"),
   laborHours: Yup.string()
     .matches(/^(2[0-3]|[01]?[0-9]{1}):([0-5]{1}[0-9]{1})$/, "00:01 - 23:59")
     .required("Labor hours is required"),

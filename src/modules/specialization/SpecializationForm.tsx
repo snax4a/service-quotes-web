@@ -13,7 +13,9 @@ import * as Yup from "yup";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 
 const specializationSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
+  name: Yup.string()
+    .max(40, "Max 40 characters")
+    .required("Name is required"),
 });
 
 interface SpecializationFormProps {

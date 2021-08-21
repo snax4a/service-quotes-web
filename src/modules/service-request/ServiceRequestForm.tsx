@@ -16,7 +16,9 @@ import * as Yup from "yup";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 
 const serviceRequestSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
+  title: Yup.string()
+    .max(50, "Max 50 characters")
+    .required("Title is required"),
   description: Yup.string().required("Description is required"),
   customer: Yup.object()
     .shape({

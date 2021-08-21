@@ -19,7 +19,10 @@ const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const editAccountSchema = Yup.object().shape({
   role: Yup.string().required(),
-  email: Yup.string().email().required("Email is required"),
+  email: Yup.string()
+    .email()
+    .max(50, "Max 50 characters")
+    .required("Email is required"),
   password: Yup.string()
     .min(6, "Min 6 characters")
     .max(30, "Max 30 characters"),
