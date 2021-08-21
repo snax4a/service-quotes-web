@@ -16,8 +16,12 @@ import { AuthContext } from "../auth/AuthProvider";
 import { RoundedButton } from "../../ui/RoundedButton";
 
 const customerSchema = Yup.object().shape({
-  companyName: Yup.string().required("Company name is required"),
-  vatNumber: Yup.string().required("Vat number is required"),
+  companyName: Yup.string()
+    .max(50, "Max 50 characters")
+    .required("Company name is required"),
+  vatNumber: Yup.string()
+    .max(12, "Max 12 characters")
+    .required("Vat number is required"),
 });
 
 interface CustomerFormProps {
@@ -144,11 +148,22 @@ export const CustomerDetailsForm: React.FC<CustomerFormProps> = ({
 };
 
 const customerAddressSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  street: Yup.string().required("Street is required"),
-  city: Yup.string().required("City is required"),
-  zipCode: Yup.string().required("Zip code is required"),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  name: Yup.string()
+    .max(50, "Max 50 characters")
+    .required("Name is required"),
+  street: Yup.string()
+    .max(100, "Max 100 characters")
+    .required("Street is required"),
+  city: Yup.string()
+    .max(30, "Max 30 characters")
+    .required("City is required"),
+  zipCode: Yup.string()
+    .max(20, "Max 20 characters")
+    .required("Zip Code is required"),
+  phoneNumber: Yup.string()
+    .min(9, "Min 9 characters")
+    .max(11, "Max 11 characters")
+    .required("Phone number is required")
 });
 
 interface CustomerAddressFormProps {

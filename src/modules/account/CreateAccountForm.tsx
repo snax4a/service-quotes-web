@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import { Account } from "../auth/AuthProvider";
 import { Button } from "../../ui/Button";
 import { privateClient } from "../../lib/queryClient";
-import { showSuccessToast } from "../../lib/toasts";
+import { showErrorToast, showSuccessToast } from "../../lib/toasts";
 import { WhiteCard } from "../../ui/card/WhiteCard";
 import { InputField } from "../../form-fields/InputField";
 import { SolidCheck, SolidPlus } from "../../icons";
@@ -15,6 +15,9 @@ import { useScreenType } from "../../shared-hooks/useScreenType";
 import { SelectBox } from "../../ui/SelectBox";
 import { SelectOption } from "../../types";
 import { InputErrorMsg } from "../../ui/InputErrorMsg";
+
+const ALLOWED_FILE_SIZE = 3 * 1024 * 1024; // ~= 3 MB
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const roleOptions = [
   {
@@ -32,7 +35,10 @@ const roleOptions = [
 ];
 
 const createAccountSchema = Yup.object().shape({
-  email: Yup.string().email().required("Email is required"),
+  email: Yup.string()
+    .email()
+    .max(50, "Max 50 characters")
+    .required("Email is required"),
   password: Yup.string()
     .min(6, "Min 6 characters")
     .max(30, "Max 30 characters")
@@ -171,7 +177,17 @@ export const CreateAccountForm: React.FC<CreateAccountFormProps> = () => {
                       }
                     };
                     if (newFile.name !== fileName) {
-                      reader.readAsDataURL(newFile);
+                      if (!SUPPORTED_FORMATS.includes(newFile.type)) {
+                        showErrorToast(
+                          "Only .jpg, .png, .gif file formats are allowed"
+                        );
+                      } else if (newFile.size > ALLOWED_FILE_SIZE) {
+                        showErrorToast(
+                          "Image size is too big. Max allowed size is 3 MB."
+                        );
+                      } else {
+                        reader.readAsDataURL(newFile);
+                      }
                     }
                   }
                 }}

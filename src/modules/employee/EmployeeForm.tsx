@@ -16,8 +16,12 @@ import { SelectBox } from "../../ui/SelectBox";
 import { useScreenType } from "../../shared-hooks/useScreenType";
 
 const employeeSchema = Yup.object().shape({
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
+  firstName: Yup.string()
+    .max(30, "Max 30 characters")
+    .required("First name is required"),
+  lastName: Yup.string()
+    .max(30, "Max 30 characters")
+    .required("Last name is required"),
 });
 
 interface EmployeeFormProps {
