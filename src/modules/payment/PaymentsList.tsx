@@ -127,12 +127,19 @@ export const PaymentsList: React.FC<PaymentsListProps> = ({}) => {
   const { push } = useRouter();
   const screenType = useScreenType();
   const [term, setTerm] = useState("");
-  const [searchString, setSearchString] = useState("");
+  var [searchString, setSearchString] = useState("");
   const [dateRange, setDateRange] = useState(dateRangeOptions[0]);
   const [status, setStatus] = useState(statusOptions[0]);
   const setSearchTerm = ({
     currentTarget: { value },
   }: React.FormEvent<HTMLInputElement>) => setTerm(value);
+
+  // Special case for Quote Ref Number. Quote Ref Number is displayed with # prefix to the end user.
+  // If searchString starts with # it gives a sign that user wants to search by Quote Ref Number.
+  if (searchString.startsWith("#")) {
+    // We need to encode it to send it correctly to API.
+    searchString = encodeURIComponent(searchString);
+  }
 
   const { data, isLoading } = useQueryData(
     `payments?dateRange=${dateRange.value}&status=${status.value}&searchString=${searchString}`

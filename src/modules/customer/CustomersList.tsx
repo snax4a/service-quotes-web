@@ -61,7 +61,7 @@ export const CustomersList: React.FC<CustomersListProps> = ({}) => {
     "Account Image",
     "Company Name",
     "Vat Number",
-    "Account ID",
+    "Customer ID",
   ];
 
   const columnNames = managerColumnNames;
