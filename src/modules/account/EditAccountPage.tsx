@@ -9,6 +9,7 @@ import { EditAccountForm } from "./EditAccountForm";
 import { Account, AuthContext } from "../auth/AuthProvider";
 import { privateClient } from "../../lib/queryClient";
 import { CenterLoader } from "../../ui/CenterLoader";
+import { WhiteCard } from "../../ui/card/WhiteCard";
 
 interface EditAccountPageProps {}
 
@@ -17,6 +18,7 @@ export const EditAccountPage: NextPage<EditAccountPageProps> = () => {
   const { id } = router.query;
   const { account } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [accountDetails, setAccountDetails] = useState<Account>();
 
   useEffect(() => {
@@ -28,7 +30,10 @@ export const EditAccountPage: NextPage<EditAccountPageProps> = () => {
             const data: Account = await res.json();
             setAccountDetails(data);
           })
-          .catch((err) => console.error(err))
+          .catch((err) => {
+            console.error(err);
+            setError(true);
+          })
           .finally(() => setLoading(false));
       } else {
         // eslint-disable-next-line no-lonely-if
@@ -42,14 +47,19 @@ export const EditAccountPage: NextPage<EditAccountPageProps> = () => {
     }
   }, [account, id, router]);
 
-  if (!account || !accountDetails || loading) return <CenterLoader />;
+  if (loading || !account || (!accountDetails && !error)) {
+    return <CenterLoader />;
+  }
 
   return (
     <WaitForAuth>
       <HeaderController embed={{}} title="Edit account" />
       <DefaultDesktopLayout>
         <PageHeader title="Edit account" onBackClick={() => router.back()} />
-        <EditAccountForm account={accountDetails} variant={account.role} />
+        {error && <WhiteCard padding={"big"}>Account not found.</WhiteCard>}
+        {!error && accountDetails && (
+          <EditAccountForm account={accountDetails} variant={account.role} />
+        )}
       </DefaultDesktopLayout>
     </WaitForAuth>
   );
