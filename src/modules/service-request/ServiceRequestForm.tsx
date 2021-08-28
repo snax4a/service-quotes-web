@@ -19,7 +19,9 @@ const serviceRequestSchema = Yup.object().shape({
   title: Yup.string()
     .max(50, "Max 50 characters")
     .required("Title is required"),
-  description: Yup.string().required("Description is required"),
+  description: Yup.string()
+    .max(2500, "Max 2500 characters")
+    .required("Description is required"),
   customer: Yup.object()
     .shape({
       label: Yup.string(),
