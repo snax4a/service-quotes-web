@@ -15,13 +15,13 @@ import { BlueCard } from "../../ui/card/BlueCard";
 import Link from "next/link";
 
 interface EmployeeDetailsCardProps {
-  account: Account
-  data: Employee
+  account: Account;
+  data: Employee;
 }
 
 export const EmployeeDetailsCard: React.FC<EmployeeDetailsCardProps> = ({
   account,
-  data
+  data,
 }) => {
   const screenType = useScreenType();
   return (
@@ -78,11 +78,13 @@ export const EmployeeDetailsCard: React.FC<EmployeeDetailsCardProps> = ({
               </div>
 
               <div className="flex mt-3 w-full md:mt-1 text-primary-500">
-                <p className="self-center font-bold text-md">Specializations:</p>
+                <p className="self-center font-bold text-md">
+                  Specializations:
+                </p>
                 {data!.specializations ? (
                   data!.specializations.map((spec: Specialization) => (
                     <BlueCard
-                      className="justify-center py-0.5 px-2 ml-2 w-min text-sm rounded-sm"
+                      className="justify-center py-0.5 px-2 ml-2 w-min text-sm rounded-sm whitespace-nowrap"
                       key={spec.id}
                     >
                       {spec.name}
@@ -103,13 +105,13 @@ export const EmployeeDetailsCard: React.FC<EmployeeDetailsCardProps> = ({
 };
 
 interface ServiceRequestsListProps {
-  account: Account
-  employeeId: string
+  account: Account;
+  employeeId: string;
 }
 
 export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
   account,
-  employeeId
+  employeeId,
 }) => {
   const { push } = useRouter();
   const { data, isLoading } = useQueryData(
@@ -175,31 +177,32 @@ export const ServiceRequestsList: React.FC<ServiceRequestsListProps> = ({
 interface EmployeeDetailsProps {}
 
 export const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({}) => {
-    const { account } = useContext(AuthContext);
-    if (!account) return null;
+  const { account } = useContext(AuthContext);
+  const { query } = useRouter();
+  const screenType = useScreenType();
+  const id = typeof query.id === "string" ? query.id : "";
+  const { data, isLoading } = useQueryData(`employees/${id}`);
 
-    const { query } = useRouter();
-    const screenType = useScreenType();
-    const id = typeof query.id === "string" ? query.id : "";
-    const { data, isLoading } = useQueryData(`employees/${id}`);
-    
-    if (isLoading) {
-      return <CenterLoader />;
-    }
+  if (!account) return null;
 
-    if (!data) {
-      return (
-        <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"} >
-          Employee not found.
-        </WhiteCard>);
-    }
+  if (isLoading) {
+    return <CenterLoader />;
+  }
 
+  if (!data) {
     return (
-      <MiddlePanel>
-        <div className="flex flex-col pb-6">
-          <EmployeeDetailsCard account={account} data={data} />
-          <ServiceRequestsList account={account} employeeId={data.id} />
-        </div>
-      </MiddlePanel>
+      <WhiteCard padding={screenType === "fullscreen" ? "medium" : "big"}>
+        Employee not found.
+      </WhiteCard>
     );
-  };
+  }
+
+  return (
+    <MiddlePanel>
+      <div className="flex flex-col pb-6">
+        <EmployeeDetailsCard account={account} data={data} />
+        <ServiceRequestsList account={account} employeeId={data.id} />
+      </div>
+    </MiddlePanel>
+  );
+};
